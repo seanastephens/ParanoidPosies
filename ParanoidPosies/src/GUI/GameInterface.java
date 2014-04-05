@@ -27,4 +27,9 @@ public interface GameInterface {
 	 * @return the Hive!
 	 */
 	public MockHive getHive();
+
+	/**
+	 * Update -- will be called ~20x/sec
+	 */
+	public void update();
 }
