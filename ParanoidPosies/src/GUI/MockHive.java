@@ -2,12 +2,14 @@ package GUI;
 
 public class MockHive {
 
-	public MockHive() {
-
-	}
+	private int honey = -1;
 
 	public int getHoney() {
-		return -1;
+		return honey;
+	}
+
+	public void addHoney(int newHoney) {
+		honey += newHoney;
 	}
 
 }

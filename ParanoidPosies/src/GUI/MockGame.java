@@ -7,9 +7,13 @@ import java.util.List;
 import model.Thing;
 
 public class MockGame implements GameInterface {
+
+	List<Thing> listofthings = new ArrayList<Thing>();
+	private MockHive hive;
+
 	public MockGame() {
-		List<Thing> listofthings = new ArrayList<Thing>();
 		listofthings.add(new MockThing(null));
+		hive = new MockHive();
 	}
 
 	@Override
@@ -25,7 +29,12 @@ public class MockGame implements GameInterface {
 	}
 
 	public MockHive getHive() {
-		return null;
+		return hive;
+	}
+
+	@Override
+	public void update() {
+		hive.addHoney(1);
 	}
 
 }
