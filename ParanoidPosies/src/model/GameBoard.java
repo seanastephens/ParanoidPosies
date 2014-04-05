@@ -30,11 +30,10 @@ public class GameBoard implements GameInterface {
 		things = new ArrayList<Thing>();
 		things.add(hive);
 		for (int i = 0; i < STARTING_BEES; i++) {
-			things.add(new Bee(
-					new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
+			things.add(new Bee(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
 		}
-		
-		things.add(new Caterpillar(new Point(1000,1000), this));
+
+		things.add(new Caterpillar(new Point(2200, 2200), this));
 	}
 
 	public void addThing(Thing thing) {
@@ -44,8 +43,7 @@ public class GameBoard implements GameInterface {
 	public void askHiveForBees() {
 		int bees = hive.getBeesToMake();
 		for (int i = 0; i < bees; i++) {
-			things.add(new Bee(
-					new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
+			things.add(new Bee(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
 		}
 		hive.updateBeesToMake(bees * -1);
 	}
@@ -60,8 +58,7 @@ public class GameBoard implements GameInterface {
 		List<Thing> toReturn = new ArrayList<Thing>();
 		for (Thing t : things) {
 			Point coords = t.getLocation();
-			if (coords.x > xLow && coords.x <= xHigh && coords.y > yLow
-					&& coords.y <= yHigh) {
+			if (coords.x > xLow && coords.x <= xHigh && coords.y > yLow && coords.y <= yHigh) {
 				toReturn.add(t);
 			}
 		}

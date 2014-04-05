@@ -15,8 +15,7 @@ import javax.swing.JPanel;
 
 import model.Thing;
 
-public class GamePanel extends JPanel implements KeyListener,
-		MouseMotionListener, MouseListener {
+public class GamePanel extends JPanel implements KeyListener, MouseMotionListener, MouseListener {
 
 	private GameInterface game;
 	private Point view = new Point(2500, 2500);
@@ -30,8 +29,7 @@ public class GamePanel extends JPanel implements KeyListener,
 		setLayout(null);
 		JPanel resourcePanel = new ResourcePanel(g.getHive());
 		add(resourcePanel);
-		resourcePanel.setLocation(new Point(0, PPGUI.WINDOW_HEIGHT
-				- resourcePanel.getHeight()));
+		resourcePanel.setLocation(new Point(0, PPGUI.WINDOW_HEIGHT - resourcePanel.getHeight()));
 
 	}
 
@@ -51,8 +49,8 @@ public class GamePanel extends JPanel implements KeyListener,
 		}
 
 		for (BackgroundTile b : tileManager.getTiles(view)) {
-			Point p = new Point(b.getLocation().x - view.x + PPGUI.WINDOW_WIDTH
-					/ 2, b.getLocation().y - view.y + PPGUI.WINDOW_HEIGHT / 2);
+			Point p = new Point(b.getLocation().x - view.x + PPGUI.WINDOW_WIDTH / 2,
+					b.getLocation().y - view.y + PPGUI.WINDOW_HEIGHT / 2);
 			graphics.drawImage(b.getImage(), p.x, p.y, null);
 		}
 
@@ -68,24 +66,43 @@ public class GamePanel extends JPanel implements KeyListener,
 	}
 
 	private void drawThing(Graphics g, Thing t) {
-		int x = t.getLocation().x - view.x + PPGUI.WINDOW_WIDTH / 2
-				- t.getImage().getWidth(null) / 2;
+		int x = t.getLocation().x - view.x + PPGUI.WINDOW_WIDTH / 2 - t.getImage().getWidth(null)
+				/ 2;
 		;
-		int y = t.getLocation().y - view.y + PPGUI.WINDOW_HEIGHT / 2
-				- t.getImage().getHeight(null) / 2;
+		int y = t.getLocation().y - view.y + PPGUI.WINDOW_HEIGHT / 2 - t.getImage().getHeight(null)
+				/ 2;
 
 		g.drawImage(t.getImage(), x, y, null);
 	}
 
 	@Override
 	public void keyTyped(KeyEvent k) {
-		if (k.getKeyChar() == ' ') {
+		switch (k.getKeyChar()) {
+		case ' ':
 			remove(popup);
+			break;
+		case 'w':
+			direction = Direction.UP;
+			break;
+		case 'a':
+			direction = Direction.LEFT;
+			break;
+		case 's':
+			direction = Direction.DOWN;
+			break;
+		case 'd':
+			direction = Direction.RIGHT;
 		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		direction = Direction.NONE;
 	}
 
 	public int BORDER_MARGIN = 50;
 
+	// TODO angle moving
 	private enum Direction {
 		RIGHT, LEFT, UP, DOWN, NONE
 	}
@@ -100,10 +117,10 @@ public class GamePanel extends JPanel implements KeyListener,
 			direction = Direction.RIGHT;
 
 		} else if (m.getY() < BORDER_MARGIN) {
-			direction = Direction.DOWN;
+			direction = Direction.UP;
 
 		} else if (m.getY() > PPGUI.WINDOW_HEIGHT - BORDER_MARGIN) {
-			direction = Direction.UP;
+			direction = Direction.DOWN;
 		} else {
 			direction = Direction.NONE;
 		}
@@ -118,8 +135,8 @@ public class GamePanel extends JPanel implements KeyListener,
 
 		Point p = new Point(x, y);
 
-		List<Thing> atPoint = game.getThingsBetween(p.x - SELECT_MARGIN, p.y
-				- SELECT_MARGIN, p.x + SELECT_MARGIN, p.y + SELECT_MARGIN);
+		List<Thing> atPoint = game.getThingsBetween(p.x - SELECT_MARGIN, p.y - SELECT_MARGIN, p.x
+				+ SELECT_MARGIN, p.y + SELECT_MARGIN);
 		if (popup != null) {
 			remove(popup);
 		}
@@ -132,14 +149,14 @@ public class GamePanel extends JPanel implements KeyListener,
 
 	}
 
-	public static int SCROLL_SPEED = 3;
+	public static int SCROLL_SPEED = 10;
 
 	public void shiftViewPoint() {
 		switch (direction) {
-		case UP:
+		case DOWN:
 			view.y += SCROLL_SPEED;
 			break;
-		case DOWN:
+		case UP:
 			view.y -= SCROLL_SPEED;
 			break;
 		case RIGHT:
@@ -156,10 +173,6 @@ public class GamePanel extends JPanel implements KeyListener,
 	@Override
 	public void keyPressed(KeyEvent k) {
 
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
 	}
 
 	@Override
