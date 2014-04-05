@@ -22,7 +22,7 @@ import GUI.PPGUI;
 public class Posie extends Plant {
 
 	public static final int posie_max_seeds_to_drop = 5;
-	public static final int posie_lifespan = 20 * PPGUI.UPDATES_PER_SEC;
+	public static final int posie_lifespan = 45 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_time_to_seedling = 5 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_time_to_flower = 15 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_hitPoints = 10;
@@ -54,7 +54,7 @@ public class Posie extends Plant {
 	}
 	
 	public String getAction(){
-		String temp= null;
+		String temp= "";
 		switch(currentState){
 		case JustPlanted: temp += SEED_ACTION; break;
 		case Seedling: temp += SEEDLING_ACTION;break;
