@@ -16,29 +16,29 @@ public class ImageReg {
 	private ImageReg() {
 		images = new HashMap<String, Image>();
 
-		try {
-			/*
-			 * Add images here.
-			 */
-			images.put("Bee", getImage("bee.png"));
-			Image beehive = getImage("beehive.png");
-			beehive = beehive.getScaledInstance(200, 200, 0);
-			images.put("Hive", beehive);
-			images.put("GrassTile", getImage("grassTile.png"));
-			/*
-			 * DON'T TOUCH BELOW HERE!
-			 */
+		/*
+		 * Add images here.
+		 */
+		images.put("Bee", getImage("bee.png"));
+		images.put("Hive", getImage("beehive.png").getScaledInstance(200, 200, 0));
+		images.put("GrassTile", getImage("grasstile.png"));
+		/*
+		 * DON'T TOUCH BELOW HERE!
+		 */
 
-		} catch (IOException e) {
-			System.exit(1);
-			System.out.println("image error");
-		}
 	}
 
 	private static String base = "images/";
 
-	private Image getImage(String path) throws IOException {
-		return ImageIO.read(new File(base + path));
+	private Image getImage(String path) {
+		Image temp = null;
+		try {
+			temp = ImageIO.read(new File(base + path));
+		} catch (IOException e) {
+			System.out.println("Image read error: " + base + path);
+			System.exit(1);
+		}
+		return temp;
 	}
 
 	public static ImageReg getInstance() {
