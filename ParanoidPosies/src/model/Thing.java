@@ -11,7 +11,5 @@ public interface Thing {
 	public void setHP(int hp);
 	public int getHP();
 	public void die();
-	public void setLayer(int layer);
-	public int getLayer();
 	public void spawn(Point loc);
 }

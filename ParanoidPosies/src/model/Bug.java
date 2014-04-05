@@ -7,7 +7,7 @@ public abstract class Bug implements Thing{
 	private Point location;
 	private int hp;
 	private Image image;
-	private int layer = 2;
+	private final int layer = 1;
 	private Strategy strategy;
 
 	@Override
@@ -42,16 +42,6 @@ public abstract class Bug implements Thing{
 
 	@Override
 	public abstract void die();
-
-	@Override
-	public void setLayer(int layer) {
-		this.layer = layer;
-	}
-
-	@Override
-	public int getLayer() {
-		return layer;
-	}
 
 	@Override
 	public abstract void spawn(Point loc);
