@@ -22,7 +22,7 @@ import GUI.PPGUI;
 public class Posie extends Plant {
 	
 	public static final int posie_max_seeds_to_drop = 5;
-	public static final int posie_lifespan = 300 * PPGUI.UPDATES_PER_SEC;
+	public static final int posie_lifespan = 5 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_time_to_seedling = 30 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_time_to_flower = 90 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_hitPoints = 10;
