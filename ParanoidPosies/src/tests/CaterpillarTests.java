@@ -26,7 +26,7 @@ public class CaterpillarTests {
 	public void testCaterpillarAttack(){
 		try {
 			Image picture = ImageIO.read(new File("images/thisIsAPosie.jpg"));
-			Posie p = new Posie(picture, new Point(1,1));
+			Posie p = new Posie(new Point(1,1));
 			
 			Caterpillar c = new Caterpillar(new Point(2,2), gb);
 			

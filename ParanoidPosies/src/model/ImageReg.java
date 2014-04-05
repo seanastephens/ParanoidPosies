@@ -24,7 +24,12 @@ public class ImageReg {
 		images.put("GrassTile", getImage("grasstile.png"));
 		images.put("Caterpillar", getImage("caterpillar.jpg"));
 		images.put("HITLER", getImage("HITLER.gif"));
+		
+		//Filler images
 		images.put("TotallyAPosie", getImage("totallyAPosie.png"));
+		images.put("thisIsAPosie", getImage("thisIsAPosie.jpg"));
+		images.put("forRealThoughItsAPosie", getImage("forRealThoughItsAPosie.png"));
+		images.put("ISwearToGodThisOneIsAnHonestToGodLegitimatePosie", getImage("ISwearToGodThisOneIsAnHonestToGodLegitimatePosie.png"));
 		/*
 		 * DON'T TOUCH BELOW HERE!
 		 */

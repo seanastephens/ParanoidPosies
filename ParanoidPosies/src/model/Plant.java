@@ -25,7 +25,7 @@ public abstract class Plant implements Thing {
 	private final int layer = 2;
 	private final int starting_nectar = 0;
 	
-	public Plant(Image image, Point initialLocation){
+	public Plant(Point initialLocation){
 		this.image = image;
 		seedsDropped = 0;
 		setLocation(initialLocation);
