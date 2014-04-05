@@ -9,6 +9,42 @@ public class Hive implements Thing{
 	private int hp;
 	private Image image;
 	private final int layer = 3;
+	private int nector;
+	private int honey;
+	
+	public Hive(){
+		nector = 0;
+		honey = 0;
+	}
+	
+	public int getNector(){
+		return nector;
+	}
+	
+	public void setNector(int nector){
+		this.nector = nector;
+	}
+	
+	public int getHoney(){
+		return honey;
+	}
+	
+	public void setHoney(int honey){
+		this.honey = honey;
+	}
+	
+	public void updateNector(int value){
+		nector += value;
+	}
+	
+	public void updateHoney(int value){
+		honey += value;
+	}
+	
+	public void convertNectorToHoney(){
+		updateNector(-1);
+		updateHoney(1);
+	}
 	
 	@Override
 	public void setLocation(Point loc) {
