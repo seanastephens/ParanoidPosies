@@ -13,7 +13,7 @@ import model.*;
 
 import org.junit.Test;
 
-import GUI.ParanoidPosieGUI;
+import GUI.PPGUI;
 
 public class PosieTest {
 	
@@ -48,7 +48,7 @@ public class PosieTest {
 		try {
 			Image picture = ImageIO.read(new File("images/thisIsAPosie.jpg"));
 			Posie p = new Posie(picture, new Point(1,1));
-			for(int i = 0; i < Posie.posie_time_to_flower + ParanoidPosieGUI.UPDATES_PER_SEC * 3; i ++){
+			for(int i = 0; i < Posie.posie_time_to_flower + PPGUI.UPDATES_PER_SEC * 3; i ++){
 				p.update();
 			}
 			assertEquals(4, p.currentNectar);
@@ -62,7 +62,7 @@ public class PosieTest {
 		try {
 			Image picture = ImageIO.read(new File("images/thisIsAPosie.jpg"));
 			Posie p = new Posie(picture, new Point(1,1));
-			for(int i = 0; i < Posie.posie_time_to_flower + ParanoidPosieGUI.UPDATES_PER_SEC * 3; i ++){
+			for(int i = 0; i < Posie.posie_time_to_flower + PPGUI.UPDATES_PER_SEC * 3; i ++){
 				p.update();
 			}
 			assertEquals(4, p.currentNectar);
@@ -70,7 +70,7 @@ public class PosieTest {
 			p.takeNectar(2);
 			assertEquals(2, p.currentNectar);
 			
-			for(int k = 0; k < ParanoidPosieGUI.UPDATES_PER_SEC * 3; k++){
+			for(int k = 0; k < PPGUI.UPDATES_PER_SEC * 3; k++){
 				p.update();
 			}
 			assertEquals(5, p.currentNectar);
@@ -86,12 +86,12 @@ public class PosieTest {
 			Posie p = new Posie(picture, new Point(1,1));
 			int nectarToAdd = Posie.posie_max_nectar - 1;
 			
-			for(int i = 0; i < Posie.posie_time_to_flower + ParanoidPosieGUI.UPDATES_PER_SEC * nectarToAdd; i ++){
+			for(int i = 0; i < Posie.posie_time_to_flower + PPGUI.UPDATES_PER_SEC * nectarToAdd; i ++){
 				p.update();
 			}
 			assertEquals(p.currentNectar, Posie.posie_max_nectar);
 			
-			for(int i = 0; i < Posie.posie_time_to_flower + ParanoidPosieGUI.UPDATES_PER_SEC * nectarToAdd; i ++){
+			for(int i = 0; i < Posie.posie_time_to_flower + PPGUI.UPDATES_PER_SEC * nectarToAdd; i ++){
 				p.update();
 			}
 			assertEquals(p.currentNectar, Posie.posie_max_nectar);
@@ -99,7 +99,7 @@ public class PosieTest {
 			p.takeNectar(5);
 			assertEquals(p.currentNectar, Posie.posie_max_nectar - 5);
 			
-			for(int i = 0; i < Posie.posie_time_to_flower + ParanoidPosieGUI.UPDATES_PER_SEC * nectarToAdd; i ++){
+			for(int i = 0; i < Posie.posie_time_to_flower + PPGUI.UPDATES_PER_SEC * nectarToAdd; i ++){
 				p.update();
 			}
 			assertEquals(p.currentNectar, Posie.posie_max_nectar);
@@ -120,7 +120,7 @@ public class PosieTest {
 			p.updateHP(-(Posie.posie_hitPoints - 3));
 			assertEquals(3, p.getHP());
 			
-			for(int i = 0; i < Posie.posie_time_to_flower + ParanoidPosieGUI.UPDATES_PER_SEC * Posie.posie_max_nectar; i ++){
+			for(int i = 0; i < Posie.posie_time_to_flower + PPGUI.UPDATES_PER_SEC * Posie.posie_max_nectar; i ++){
 				p.update();
 			}
 			assertEquals(p.currentNectar, Posie.posie_max_nectar);
@@ -130,7 +130,7 @@ public class PosieTest {
 			System.out.println("Posie p dropped " + p.seedsDropped + " seeds.");
 			
 			assertEquals(0, p.currentNectar);
-			for(int i = 0; i < Posie.posie_time_to_flower + ParanoidPosieGUI.UPDATES_PER_SEC * Posie.posie_max_nectar; i ++){
+			for(int i = 0; i < Posie.posie_time_to_flower + PPGUI.UPDATES_PER_SEC * Posie.posie_max_nectar; i ++){
 				p.update();
 			}
 			assertEquals(0, p.currentNectar);

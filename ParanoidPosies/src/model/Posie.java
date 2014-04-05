@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.util.Random;
 
-import GUI.ParanoidPosieGUI;
+import GUI.PPGUI;
 
 /*
  * Will automatically grow and replenish nectar as it is updated. Use
@@ -19,9 +19,9 @@ import GUI.ParanoidPosieGUI;
 public class Posie extends Plant {
 	
 	public static final int posie_max_seeds_to_drop = 5;
-	public static final int posie_lifespan = 300 * ParanoidPosieGUI.UPDATES_PER_SEC;
-	public static final int posie_time_to_seedling = 30 * ParanoidPosieGUI.UPDATES_PER_SEC;
-	public static final int posie_time_to_flower = 90 * ParanoidPosieGUI.UPDATES_PER_SEC;
+	public static final int posie_lifespan = 300 * PPGUI.UPDATES_PER_SEC;
+	public static final int posie_time_to_seedling = 30 * PPGUI.UPDATES_PER_SEC;
+	public static final int posie_time_to_flower = 90 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_hitPoints = 10;
 	public static final int posie_max_nectar = 10;
 
@@ -52,7 +52,7 @@ public class Posie extends Plant {
 	//the nectar at a rate of 1 per second
 	@Override
 	public void replenishNectar() {
-		if(hasBloomed && currentState == GrowthState.Flower && timer % ParanoidPosieGUI.UPDATES_PER_SEC == 0 
+		if(hasBloomed && currentState == GrowthState.Flower && timer % PPGUI.UPDATES_PER_SEC == 0 
 					&& currentNectar < posie_max_nectar && !isDead()){
 			currentNectar++;
 		}

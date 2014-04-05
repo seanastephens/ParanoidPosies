@@ -24,13 +24,13 @@ public class GamePanel extends JPanel implements KeyListener,
 
 	public GamePanel(GameInterface g) {
 		this.game = g;
-		setSize(new Dimension(ParanoidPosieGUI.WINDOW_WIDTH,
-				ParanoidPosieGUI.WINDOW_HEIGHT));
+		setSize(new Dimension(PPGUI.WINDOW_WIDTH,
+				PPGUI.WINDOW_HEIGHT));
 
 		setLayout(null);
 		JPanel resourcePanel = new ResourcePanel(g.getHive());
 		add(resourcePanel);
-		resourcePanel.setLocation(new Point(0, ParanoidPosieGUI.WINDOW_HEIGHT
+		resourcePanel.setLocation(new Point(0, PPGUI.WINDOW_HEIGHT
 				- resourcePanel.getHeight()));
 
 	}
@@ -62,10 +62,10 @@ public class GamePanel extends JPanel implements KeyListener,
 	}
 
 	private void drawThing(Graphics g, Thing t) {
-		int x = t.getLocation().x - view.x + ParanoidPosieGUI.WINDOW_WIDTH / 2
+		int x = t.getLocation().x - view.x + PPGUI.WINDOW_WIDTH / 2
 				- t.getImage().getWidth(null) / 2;
 		;
-		int y = t.getLocation().y - view.y + ParanoidPosieGUI.WINDOW_HEIGHT / 2
+		int y = t.getLocation().y - view.y + PPGUI.WINDOW_HEIGHT / 2
 				- t.getImage().getHeight(null) / 2;
 
 		g.drawImage(t.getImage(), x, y, null);
@@ -90,13 +90,13 @@ public class GamePanel extends JPanel implements KeyListener,
 	public void mouseMoved(MouseEvent m) {
 		if (m.getX() < BORDER_MARGIN) {
 			direction = Direction.LEFT;
-		} else if (m.getX() > ParanoidPosieGUI.WINDOW_WIDTH - BORDER_MARGIN) {
+		} else if (m.getX() > PPGUI.WINDOW_WIDTH - BORDER_MARGIN) {
 			direction = Direction.RIGHT;
 
 		} else if (m.getY() < BORDER_MARGIN) {
 			direction = Direction.DOWN;
 
-		} else if (m.getY() > ParanoidPosieGUI.WINDOW_HEIGHT - BORDER_MARGIN) {
+		} else if (m.getY() > PPGUI.WINDOW_HEIGHT - BORDER_MARGIN) {
 			direction = Direction.UP;
 		} else {
 			direction = Direction.NONE;
@@ -107,8 +107,8 @@ public class GamePanel extends JPanel implements KeyListener,
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		int x = e.getPoint().x - ParanoidPosieGUI.WINDOW_WIDTH / 2 + view.x;
-		int y = e.getPoint().y - ParanoidPosieGUI.WINDOW_HEIGHT / 2 + view.y;
+		int x = e.getPoint().x - PPGUI.WINDOW_WIDTH / 2 + view.x;
+		int y = e.getPoint().y - PPGUI.WINDOW_HEIGHT / 2 + view.y;
 
 		Point p = new Point(x, y);
 

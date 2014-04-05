@@ -7,10 +7,10 @@ import javax.swing.JFrame;
 
 import model.GameBoard;
 
-public class ParanoidPosieGUI extends JFrame implements Runnable {
+public class PPGUI extends JFrame implements Runnable {
 
 	public static void main(String[] args) {
-		new ParanoidPosieGUI().setVisible(true);
+		new PPGUI().setVisible(true);
 	}
 
 	public static final int UPDATES_PER_SEC = 20;
@@ -20,7 +20,7 @@ public class ParanoidPosieGUI extends JFrame implements Runnable {
 	private GameInterface game;
 	private GamePanel gamePanel;
 
-	public ParanoidPosieGUI() {
+	public PPGUI() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		setSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -48,7 +48,6 @@ public class ParanoidPosieGUI extends JFrame implements Runnable {
 			} catch (InterruptedException e) {
 				System.out.println("Interrupted!");
 			}
-			;
 			gamePanel.shiftViewPoint();
 			game.update();
 			repaint();
