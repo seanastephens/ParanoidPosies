@@ -55,7 +55,7 @@ public class Bee extends Bug {
 	// TODO this will need code to handle when bug makes it to objective
 	@Override
 	public void update() {
-		if(this.getStrategy() != null){
+		if (this.getStrategy() != null) {
 			this.getStrategy().doNextAction();
 		}
 	}
@@ -75,17 +75,21 @@ public class Bee extends Bug {
 	public void calculateNectorToGet() {
 		if (nector < maxNector) {
 			nectorToGet = maxNector - nector;
+		} else {
+			nectorToGet = 0;
 		}
 	}
 
 	public void askFlowerForNectorOrSeeds() {
-		if (nearestPlant == null) {
-			// TODO change strategy to move back to hive
-		} else if (nearestPlant.isDead() == true) {
-			seeds = nearestPlant.takeSeeds();
-		} else if (nearestPlant.isDead() == false) {
+		if (!(getObjectiveThing() instanceof Plant)) {
+			throw new IllegalStateException("Can't get nectoar from :"
+					+ getObjectiveThing().toString());
+		}
+		if (getObjectiveThing().isDead() == true) {
+			seeds = ((Plant) getObjectiveThing()).takeSeeds();
+		} else {
 			calculateNectorToGet();
-			nearestPlant.takeNectar(nectorToGet);
+			((Plant) getObjectiveThing()).takeNectar(nectorToGet);
 		}
 	}
 
