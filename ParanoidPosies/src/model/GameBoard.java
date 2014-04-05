@@ -20,6 +20,8 @@ public class GameBoard implements GameInterface {
 	public static final int GRACE_PERIOD = ParanoidPosieGUI.UPDATES_PER_SEC * 30;
 	
 	public static final int BEE_SPAWN_X_OFFSET = 50;
+	
+	public static final int STARTING_BEES = 5;
 	private int timer;
 
 	public GameBoard(){
@@ -28,6 +30,9 @@ public class GameBoard implements GameInterface {
 		hive.setLocation(new Point(centerX, centerY));
 		things = new ArrayList<Thing>();
 		things.add(hive);
+		for(int i = 0; i < STARTING_BEES; i++){
+			things.add(new Bee(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY)));
+		}
 	}
 	
 	public void addThing(Thing thing){
