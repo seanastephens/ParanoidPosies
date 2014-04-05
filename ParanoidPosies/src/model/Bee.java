@@ -42,9 +42,9 @@ public class Bee extends Bug {
 		int maxMultipleOf100 = 2;
 		int hundred = 5;
 		while(multipleOf100 < maxMultipleOf100){
-			things = this.getGameBoard().getThingsBetween(this.getObjective().x-hundred*multipleOf100, 
-					this.getObjective().y-hundred*multipleOf100, this.getObjective().x+hundred*multipleOf100
-					, this.getObjective().y+hundred*multipleOf100);
+			things = this.getGameBoard().getThingsBetween(this.getObjective().getLocation().x-hundred*multipleOf100, 
+					this.getObjective().getLocation().y-hundred*multipleOf100, this.getObjective().getLocation().x+hundred*multipleOf100
+					, this.getObjective().getLocation().y+hundred*multipleOf100);
 			for(Thing aThing: things){
 				if(aThing instanceof Posie){
 					nearestPlant = (Posie) aThing; 
@@ -79,7 +79,7 @@ public class Bee extends Bug {
 	public void update() {
 		this.getStrategy().getNextAction(this, this.getGameBoard());
 		if (this.getLocation() != this.getObjective()) {
-			this.move(this.getObjective());
+			this.move(this.getObjective().getLocation());
 		}
 	}
 

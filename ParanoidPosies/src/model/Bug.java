@@ -11,13 +11,22 @@ public abstract class Bug implements Thing{
 	private Image image;
 	private final int layer = 1;
 	private BugStrategy currentStrategy;
-	private Point objective;
+	private Thing objective;
+	private Point aLocationToMoveTo;
 	private GameBoard gameboard;
 	private List<BugStrategy> strategies;
 	
 	public Bug(GameBoard gameboard){
 		this.gameboard = gameboard;
 		strategies = new ArrayList<BugStrategy>();
+	}
+	
+	public Point getALocationToMoveTo(){
+		return aLocationToMoveTo;
+	}
+	
+	public void setALocationToMoveTo(Point newLoc){
+		aLocationToMoveTo = newLoc;
 	}
 	
 	public boolean shouldBeCleanedUp(){
@@ -101,16 +110,21 @@ public abstract class Bug implements Thing{
 		this.hp += hp;
 	}
 	
-	public void setStrategy(BugStrategy strat, Point objectiveLocation){
+	public void setStrategy(BugStrategy strat, Thing objective){
 		currentStrategy = strat;
-		objective = objectiveLocation;
+		this.objective = objective;
 	}
 	
-	public Point getObjective(){
+	public void setStrategy(BugStrategy strat, Point newPlaceToMoveTo){
+		currentStrategy = strat;
+		aLocationToMoveTo = newPlaceToMoveTo;
+	}
+	
+	public Thing getObjective(){
 		return objective;
 	}
 	
-	public void setObjective(Point newObjective){
+	public void setObjective(Thing newObjective){
 		objective = newObjective;
 	}
 	

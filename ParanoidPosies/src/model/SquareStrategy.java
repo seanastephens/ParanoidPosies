@@ -17,23 +17,23 @@ public class SquareStrategy implements BugStrategy {
 		this.board = board;
 		Point previousPoint;
 		if (thisBug.getLocation().equals(thisBug.getObjective())) {
-			thisBug.setObjective(new Point(thisBug.getLocation().x
+			thisBug.setALocationToMoveTo(new Point(thisBug.getLocation().x
 					+ SQUARE_CONST, thisBug.getLocation().y + SQUARE_CONST));
 		} else {
 			previousPoint = thisBug.getLocation();
-			thisBug.move(thisBug.getObjective());
+			thisBug.move(thisBug.getALocationToMoveTo());
 			if (thisBug.getLocation().equals(thisBug.getObjective())) {
 				if (thisBug.getLocation().x > previousPoint.x) {
-					thisBug.setObjective(new Point(thisBug.getLocation().x,
+					thisBug.setALocationToMoveTo(new Point(thisBug.getLocation().x,
 							thisBug.getLocation().y + SQUARE_CONST));
 				} else if (thisBug.getLocation().x < previousPoint.x) {
-					thisBug.setObjective(new Point(thisBug.getLocation().x,
+					thisBug.setALocationToMoveTo(new Point(thisBug.getLocation().x,
 							thisBug.getLocation().y - SQUARE_CONST));
 				} else if (thisBug.getLocation().y > previousPoint.y) {
-					thisBug.setObjective(new Point(thisBug.getLocation().x
+					thisBug.setALocationToMoveTo(new Point(thisBug.getLocation().x
 							- SQUARE_CONST, thisBug.getLocation().y));
 				} else if (thisBug.getLocation().y < previousPoint.y) {
-					thisBug.setObjective(new Point(thisBug.getLocation().x
+					thisBug.setALocationToMoveTo(new Point(thisBug.getLocation().x
 							+ SQUARE_CONST, thisBug.getLocation().y
 							+ SQUARE_CONST));
 				}
