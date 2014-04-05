@@ -16,7 +16,7 @@ public class Bee extends Bug{
 		this.setHP(5);
 		this.setImage(image);
 		this.setLocation(location);
-		this.setStrategy(strategy);
+		this.setStrategy(strategy, new Point(this.getLocation().x+1, this.getLocation().y+1));
 		nector = 0;
 		buildBeeNamesList();
 		name = getBeeName();
@@ -44,7 +44,10 @@ public class Bee extends Bug{
 	
 	@Override
 	public void update() {
-		
+		this.getStrategy().getNextAction(this);
+		if(this.getLocation() != this.getObjective()){
+			this.move(this.getObjective());
+		}
 	}
 
 	@Override

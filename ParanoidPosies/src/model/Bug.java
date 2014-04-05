@@ -9,6 +9,7 @@ public abstract class Bug implements Thing{
 	private Image image;
 	private final int layer = 1;
 	private BugStrategy strategy;
+	private Point objective;
 
 	@Override
 	public void setLocation(Point loc) {
@@ -63,8 +64,17 @@ public abstract class Bug implements Thing{
 		this.hp += hp;
 	}
 	
-	public void setStrategy(BugStrategy strat){
+	public void setStrategy(BugStrategy strat, Point objectiveLocation){
 		strategy = strat;
+		objective = objectiveLocation;
+	}
+	
+	public Point getObjective(){
+		return objective;
+	}
+	
+	public void setObjective(Point newObjective){
+		objective = newObjective;
 	}
 	
 	public BugStrategy getStrategy(){
