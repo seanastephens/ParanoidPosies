@@ -16,7 +16,7 @@ public class Bee extends Bug {
 	public static final int BEE_HP = 5;
 	public static final int BEE_ATTACK_DAMAGE = 1;
 	public static final String BEE_IMAGE_NAME = "Bee";
-	private int seeds = 0;
+	private int seeds;
 
 	public Bee(Point location, GameBoard board) {
 		super(board);
@@ -26,6 +26,7 @@ public class Bee extends Bug {
 		this.setStrategy(new SquareStrategy(this, board),
 				new Point(this.getLocation().x + 50, this.getLocation().y));
 		nector = 0;
+		seeds = 0;
 		nectorToGet = maxNector;
 		buildBeeNamesList();
 		name = getBeeName();
