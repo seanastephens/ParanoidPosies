@@ -21,7 +21,7 @@ public class ImageReg {
 		 */
 		images.put("Bee", getImage("bee.png"));
 		images.put("Hive", getImage("beehive.png").getScaledInstance(200, 200, 0));
-		images.put("GrassTile", getImage("grasstile.png"));
+		images.put("GrassTile", getImage("bee.png"));
 		images.put("Caterpillar", getImage("caterpillar.jpg"));
 		images.put("HITLER", getImage("HITLER.gif"));
 		/*
