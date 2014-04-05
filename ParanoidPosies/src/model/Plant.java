@@ -23,13 +23,13 @@ public abstract class Plant implements Thing {
 		timer = new Timer();
 		/*
 		 * Specific plant class will schedule grow and death events with this timer
-		 * using its particular lifespan.
+		 * using its particular lifespan
 		 */
 	}
 
 	@Override
 	public void setLocation(Point loc) {
-		location = loc;
+		location = loc;   
 	}
 
 	@Override
