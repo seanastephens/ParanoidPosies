@@ -13,10 +13,17 @@ public class GatherStrategy implements BugStrategy{
 		if(!thisBug.getLocation().equals(thisBug.getObjective())){
 			thisBug.move(thisBug.getObjective().getLocation());
 		}
-		if(thisBug.getLocation().equals(thisBug.getObjective())){
+		else if(thisBug.getLocation().equals(thisBug.getObjective()) && thisBug.getObjective() instanceof Posie){
 			if(thisBug instanceof Bee){
 				((Bee) thisBug).askFlowerForNectorOrSeeds();
-				thisBug.move(gameBoard.getHive().getLocation());
+				thisBug.setObjective(gameBoard.getHive());
+				//TODO tell bee to deposit nectar and seeds at hive
+			}
+		}
+		else if(thisBug.getLocation().equals(thisBug.getObjective()) && thisBug.getObjective() instanceof Hive){
+			if(thisBug instanceof Bee){
+				((Bee) thisBug).
+				thisBug.setObjective(gameBoard.getHive());
 				//TODO tell bee to deposit nectar and seeds at hive
 			}
 		}

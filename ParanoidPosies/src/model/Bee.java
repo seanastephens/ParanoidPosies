@@ -34,12 +34,10 @@ public class Bee extends Bug {
 	}
 
 	//TODO make sure to handle an instance of when nearestPlant is still null if this method is called
-	//Note: set maxMultiple low so the bee won't teleport nectar to itself potentially
-	//This method is called by askFlowerForNectarOrSeeds() which is called by the GatherStrat
 	public void getClosestPosie(){
 		List<Thing> things;
 		int multipleOf100 = 1;
-		int maxMultipleOf100 = 2;
+		int maxMultipleOf100 = 20;
 		int hundred = 5;
 		while(multipleOf100 < maxMultipleOf100){
 			things = this.getGameBoard().getThingsBetween(this.getObjective().getLocation().x-hundred*multipleOf100, 
@@ -75,12 +73,16 @@ public class Bee extends Bug {
 	}
 
 	// TODO this will need code to handle when bug makes it to objective
+	// TODO need code to handle depending on if objective is null or just chasing point
 	@Override
 	public void update() {
 		this.getStrategy().getNextAction(this, this.getGameBoard());
-		if (this.getLocation() != this.getObjective()) {
-			this.move(this.getObjective().getLocation());
-		}
+//		if(this.getObjective() == null){
+//			this.move(getALocationToMoveTo());
+//		}
+//		if (this.getLocation() != this.getObjective()) {
+//			this.move(this.getObjective().getLocation());
+//		}
 	}
 
 	@Override
@@ -102,7 +104,6 @@ public class Bee extends Bug {
 	}
 	
 	public void askFlowerForNectorOrSeeds(){
-		getClosestPosie();
 		if(nearestPlant == null){
 			//TODO change strategy to move back to hive
 		}
@@ -113,6 +114,12 @@ public class Bee extends Bug {
 			calculateNectorToGet();
 			nearestPlant.takeNectar(nectorToGet);
 		}
+	}
+	
+	public void unloadNectorAndSeedsToHive(){
+		
+		unloadNector();
+		setSeeds(0);
 	}
 
 	public int getSeeds(){
