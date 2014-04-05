@@ -37,6 +37,9 @@ public class GameBoard implements GameInterface {
 		things.add(new Caterpillar(new Point(2200, 2200), this));
 		things.add(new Posie(new Point(centerX, centerY + 200)));
 
+		((Bee) things.get(1)).setStrategy(new GatherStrategy(((Bug) things.get(1)), this),
+				things.get(7));
+
 	}
 
 	public void addThing(Thing thing) {

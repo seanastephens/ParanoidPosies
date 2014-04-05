@@ -93,7 +93,6 @@ public class GamePanel extends JPanel {
 	private void drawThing(Graphics g, Thing t) {
 		int x = t.getLocation().x - view.x + PPGUI.WINDOW_WIDTH / 2 - t.getImage().getWidth(null)
 				/ 2;
-		;
 		int y = t.getLocation().y - view.y + PPGUI.WINDOW_HEIGHT / 2 - t.getImage().getHeight(null)
 				/ 2;
 
@@ -206,9 +205,12 @@ public class GamePanel extends JPanel {
 		public void mouseReleased(MouseEvent e) {
 			if (userIsDrawingABox) {
 				int minX = Math.min(startPoint.x, startPoint.x + boxWidth);
+				int minY = Math.min(startPoint.y, startPoint.y + boxHeight);
+				int maxX = Math.max(startPoint.x, startPoint.x + boxWidth);
+				int maxY = Math.max(startPoint.y, startPoint.y + boxHeight);
 
-				// selected = game.getThingsBetween(startPoint, yLow, xHigh,
-				// yHigh)
+				selected = game.getThingsBetween(minX, minY, maxX, maxY);
+				System.out.println(selected);
 			}
 			userIsDrawingABox = false;
 		}
