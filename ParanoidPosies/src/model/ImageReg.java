@@ -25,6 +25,8 @@ public class ImageReg {
 			beehive = beehive.getScaledInstance(200, 200, 0);
 			images.put("Hive", beehive);
 			images.put("GrassTile", getImage("grasstile.png"));
+			images.put("Caterpillar", getImage("caterpillar.jpg"));
+			images.put("HITLER", getImage("HITLER.gif"));
 			/*
 			 * DON'T TOUCH BELOW HERE!
 			 */
