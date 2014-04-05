@@ -43,7 +43,7 @@ public abstract class Bug implements Thing {
 		return objectiveThing;
 	}
 
-	public void setObjective(Thing newObjective) {
+	public void setObjectiveThing(Thing newObjective) {
 		objectiveThing = newObjective;
 	}
 
@@ -127,8 +127,8 @@ public abstract class Bug implements Thing {
 	// move the Thing
 	// from one place to another.
 	public void move(Point endLocation) {
-		int moveConstant = 5;
-		if (this.getLocation() != endLocation) {
+		int moveConstant = 1;
+		if (!this.getLocation().equals(endLocation)) {
 			if (this.getLocation().x < endLocation.x) {
 				this.setLocation(new Point(this.getLocation().x + moveConstant, this.getLocation().y));
 			}
