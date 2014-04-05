@@ -39,7 +39,7 @@ public abstract class Bug implements Thing {
 		this.objectiveThing = null;
 	}
 
-	public Thing getObjectiveThing() {
+	public Thing getObjectiveThing(){
 		return objectiveThing;
 	}
 
