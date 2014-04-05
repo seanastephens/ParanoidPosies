@@ -39,7 +39,7 @@ public abstract class Bug implements Thing {
 		this.objectiveThing = null;
 	}
 
-	public Thing getObjective() {
+	public Thing getObjectiveThing() {
 		return objectiveThing;
 	}
 
@@ -150,10 +150,10 @@ public abstract class Bug implements Thing {
 		int hundred = 5;
 		while (multipleOf100 < maxMultipleOf100) {
 			things = this.getGameBoard().getThingsBetween(
-					this.getObjective().getLocation().x - hundred * multipleOf100,
-					this.getObjective().getLocation().y - hundred * multipleOf100,
-					this.getObjective().getLocation().x + hundred * multipleOf100,
-					this.getObjective().getLocation().y + hundred * multipleOf100);
+					this.getObjectiveThing().getLocation().x - hundred * multipleOf100,
+					this.getObjectiveThing().getLocation().y - hundred * multipleOf100,
+					this.getObjectiveThing().getLocation().x + hundred * multipleOf100,
+					this.getObjectiveThing().getLocation().y + hundred * multipleOf100);
 			for (Thing aThing : things) {
 				if (aThing instanceof Posie) {
 					return (Posie) aThing;
