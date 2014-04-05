@@ -16,4 +16,5 @@ public interface Thing {
 	public int getLayer();
 	public void update();
 	public String getName();
+	public String getType();
 }

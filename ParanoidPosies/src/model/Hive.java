@@ -27,6 +27,10 @@ public class Hive implements Thing {
 		setImage(ImageReg.getInstance().getImageFromStr("Hive"));
 	}
 	
+	public String getType(){
+		return this.getClass().getSimpleName();
+	}
+	
 	public String getName(){
 		return HIVE_NAME;
 	}

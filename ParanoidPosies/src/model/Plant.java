@@ -31,6 +31,10 @@ public abstract class Plant implements Thing {
 		hasBloomed = false;
 	}
 	
+	public String getType(){
+		return this.getClass().getSimpleName();
+	}
+	
 	@Override
 	public abstract void updateHP(int hp);
 
