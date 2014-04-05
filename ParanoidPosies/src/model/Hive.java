@@ -2,10 +2,6 @@ package model;
 
 import java.awt.Image;
 import java.awt.Point;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 public class Hive implements Thing {
 
@@ -27,11 +23,7 @@ public class Hive implements Thing {
 		timer = 0;
 		beeProduction = true;
 		beesToMake = 0;
-		try {
-			image = ImageIO.read(new File("images/thisIsAPosie.jpg"));
-		} catch (IOException e) {
-			System.out.println("image problems");
-		}
+		setImage(ImageReg.getInstance().getImageFromStr("Hive"));
 	}
 
 	@Override

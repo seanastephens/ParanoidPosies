@@ -1,13 +1,9 @@
 package model;
 
 import java.awt.Point;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 public class Bee extends Bug {
 
@@ -20,11 +16,7 @@ public class Bee extends Bug {
 	public Bee(Point location, GameBoard board) {
 		super(board);
 		this.setHP(5);
-		try {
-			this.setImage(ImageIO.read(new File("images/bee.png")));
-		} catch (IOException e) {
-			System.out.println("image error");
-		}
+		setImage(ImageReg.getInstance().getImageFromStr("Bee"));
 		this.setLocation(location);
 		this.setStrategy(new SquareStrategy(), new Point(
 				this.getLocation().x + 1, this.getLocation().y + 1));
@@ -76,11 +68,11 @@ public class Bee extends Bug {
 
 	// Use this method to have the bee add nector to the amount it is holding.
 	public void addNectorToBee(int value) {
-		if(nector < maxNector){
+		if (nector < maxNector) {
 			nectorToGet = maxNector - nector;
 		}
 	}
-	
+
 	// Use this method to have the bee "drop" its nector. Resets the amount of
 	// nector being held.
 	public void unloadNector() {
