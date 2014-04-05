@@ -11,17 +11,20 @@ public class Bee extends Bug {
 	private List<String> beeNames;
 	private String name;
 	private int nectorToGet;
-	private final int maxNector = 10;
+	private static final int maxNector = 10;
+	public static final int BEE_HP = 5;
+	public static final int BEE_ATTACK_DAMAGE = 1;
+	public static final String BEE_IMAGE_NAME = "Bee";
 
 	public Bee(Point location, GameBoard board) {
 		super(board);
-		this.setHP(5);
-		setImage(ImageReg.getInstance().getImageFromStr("Bee"));
+		this.setHP(BEE_HP);
+		setImage(ImageReg.getInstance().getImageFromStr(BEE_IMAGE_NAME));
 		this.setLocation(location);
 		this.setStrategy(new SquareStrategy(), new Point(
 				this.getLocation().x + 1, this.getLocation().y + 1));
 		nector = 0;
-		nectorToGet = 10;
+		nectorToGet = maxNector;
 		buildBeeNamesList();
 		name = getBeeName();
 	}
@@ -57,8 +60,8 @@ public class Bee extends Bug {
 
 	@Override
 	public void attack(Thing thingBeingAttacked) {
-		thingBeingAttacked.updateHP(-1);
-		this.updateHP(-5);
+		thingBeingAttacked.updateHP(-1 * BEE_ATTACK_DAMAGE);
+		this.updateHP(-1 * BEE_HP);
 	}
 
 	// Query to get amount of nector the bee is holding.

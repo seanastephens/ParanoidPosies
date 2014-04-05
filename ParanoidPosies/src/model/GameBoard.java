@@ -33,6 +33,8 @@ public class GameBoard implements GameInterface {
 			things.add(new Bee(
 					new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
 		}
+		
+		things.add(new Caterpillar(new Point(1000,1000), this));
 	}
 
 	public void addThing(Thing thing) {

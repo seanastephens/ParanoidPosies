@@ -16,6 +16,7 @@ public class ImageReg {
 	private ImageReg() {
 		images = new HashMap<String, Image>();
 
+<<<<<<< HEAD
 		/*
 		 * Add images here.
 		 */
@@ -25,6 +26,25 @@ public class ImageReg {
 		/*
 		 * DON'T TOUCH BELOW HERE!
 		 */
+=======
+		try {
+			/*
+			 * Add images here.
+			 */
+			images.put("Bee", getImage("bee.png"));
+			Image beehive = getImage("beehive.png");
+			beehive = beehive.getScaledInstance(200, 200, 0);
+			images.put("Hive", beehive);
+
+			images.put("Caterpillar", getImage("caterpillar.jpg"));
+			images.put("HITLER", getImage("HITLER.gif"));
+
+			images.put("GrassTile", getImage("grassTile.png"));
+
+			/*
+			 * DON'T TOUCH BELOW HERE!
+			 */
+>>>>>>> branch 'master' of git@github.com:seanastephens/ParanoidPosies.git
 
 	}
 
