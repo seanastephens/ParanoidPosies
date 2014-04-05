@@ -64,7 +64,6 @@ public class GameBoard implements GameInterface {
 		List<Thing> toReturn = new ArrayList<Thing>();
 		for (Thing t : things) {
 			Point coords = t.getLocation();
-			System.out.println(coords);
 			if (coords.x > xLow && coords.x <= xHigh && coords.y > yLow && coords.y <= yHigh) {
 				toReturn.add(t);
 			}
