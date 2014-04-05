@@ -2,8 +2,12 @@ package model;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.io.File;
+import java.io.IOException;
 
-public class Hive implements Thing{
+import javax.imageio.ImageIO;
+
+public class Hive implements Thing {
 
 	private Point location;
 	private int hp;
@@ -16,90 +20,95 @@ public class Hive implements Thing{
 	private final int honeyCostToBuildABee = 10;
 	private boolean beeProduction;
 	private int beesToMake;
-	
-	public Hive(){
+
+	public Hive() {
 		nector = 0;
 		honey = 0;
 		timer = 0;
 		beeProduction = true;
 		beesToMake = 0;
+		try {
+			image = ImageIO.read(new File("images/thisIsAPosie.jpg"));
+		} catch (IOException e) {
+			System.out.println("image problems");
+		}
 	}
-	
+
 	@Override
 	public void update() {
-		if(beeProduction == true){
+		if (beeProduction == true) {
 			updateTimer(1);
-			if(timer == timeToBuildABee){
+			if (timer == timeToBuildABee) {
 				setTimer(0);
-				if(honey >= honeyCostToBuildABee){
+				if (honey >= honeyCostToBuildABee) {
 					honey -= honeyCostToBuildABee;
 					beesToMake++;
 				}
 			}
 		}
 	}
-	
-	public int getBeesToMake(){
+
+	public int getBeesToMake() {
 		return beesToMake;
 	}
-	
-	public void setBeesToMake(int value){
+
+	public void setBeesToMake(int value) {
 		beesToMake = value;
 	}
-	
-	public void updateBeesToMake(int value){
+
+	public void updateBeesToMake(int value) {
 		beesToMake += value;
 	}
-	
-	public int getTimer(){
+
+	public int getTimer() {
 		return timer;
 	}
-	
-	public void setTimer(int newTime){
+
+	public void setTimer(int newTime) {
 		timer = newTime;
 	}
-	
-	public void updateTimer(int value){
+
+	public void updateTimer(int value) {
 		timer += value;
 	}
-	
-	public boolean getStateOfBeeProduction(){
+
+	public boolean getStateOfBeeProduction() {
 		return beeProduction;
 	}
-	
-	public void setStateOfBeeProduction(boolean value){
+
+	public void setStateOfBeeProduction(boolean value) {
 		beeProduction = value;
 	}
-	
-	public int getNector(){
+
+	public int getNector() {
 		return nector;
 	}
-	
-	public void setNector(int nector){
+
+	public void setNector(int nector) {
 		this.nector = nector;
 	}
-	
-	public int getHoney(){
+
+	public int getHoney() {
 		return honey;
 	}
-	
-	public void setHoney(int honey){
+
+	public void setHoney(int honey) {
 		this.honey = honey;
 	}
-	
-	public void updateNector(int value){
+
+	public void updateNector(int value) {
 		nector += value;
 	}
-	
-	public void updateHoney(int value){
+
+	public void updateHoney(int value) {
 		honey += value;
 	}
-	
-	public void convertNectorToHoney(){
+
+	public void convertNectorToHoney() {
 		updateNector(-1);
 		updateHoney(1);
 	}
-	
+
 	@Override
 	public void setLocation(Point loc) {
 		location = loc;
@@ -137,21 +146,16 @@ public class Hive implements Thing{
 
 	@Override
 	public boolean isDead() {
-		if(hp <= 0){
+		if (hp <= 0) {
 			return true;
-		}
-		else{
+		} else {
 			return false;
 		}
 	}
-
-	
 
 	@Override
 	public int getLayer() {
 		return layer;
 	}
 
-
-	
 }

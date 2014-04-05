@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -36,15 +37,38 @@ public class GamePanel extends JPanel implements KeyListener,
 
 	public void paintComponent(Graphics graphics) {
 		List<Thing> things = game.getAllThingsOnBoard();
+		List<Thing> three = new ArrayList<Thing>();
+		List<Thing> two = new ArrayList<Thing>();
+		List<Thing> one = new ArrayList<Thing>();
 		for (Thing t : things) {
-			int x = t.getLocation().x - view.x + ParanoidPosieGUI.WINDOW_WIDTH
-					/ 2 - t.getImage().getWidth(null) / 2;
-			;
-			int y = t.getLocation().y - view.y + ParanoidPosieGUI.WINDOW_HEIGHT
-					/ 2 - t.getImage().getHeight(null) / 2;
-
-			graphics.drawImage(t.getImage(), x, y, null);
+			if (t.getLayer() == 1) {
+				one.add(t);
+			} else if (t.getLayer() == 2) {
+				two.add(t);
+			} else if (t.getLayer() == 3) {
+				three.add(t);
+			}
 		}
+
+		for (Thing t : three) {
+			drawThing(graphics, t);
+		}
+		for (Thing t : two) {
+			drawThing(graphics, t);
+		}
+		for (Thing t : one) {
+			drawThing(graphics, t);
+		}
+	}
+
+	private void drawThing(Graphics g, Thing t) {
+		int x = t.getLocation().x - view.x + ParanoidPosieGUI.WINDOW_WIDTH / 2
+				- t.getImage().getWidth(null) / 2;
+		;
+		int y = t.getLocation().y - view.y + ParanoidPosieGUI.WINDOW_HEIGHT / 2
+				- t.getImage().getHeight(null) / 2;
+
+		g.drawImage(t.getImage(), x, y, null);
 	}
 
 	@Override
