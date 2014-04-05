@@ -6,6 +6,7 @@ import java.awt.Point;
 public class Hive implements Thing {
 
 	private Point location;
+	private final int HIVE_HP = 50;
 	private int hp;
 	private Image image;
 	private final int layer = 3;
@@ -25,6 +26,7 @@ public class Hive implements Thing {
 		timer = 0;
 		beeProduction = true;
 		beesToMake = 0;
+		this.setHP(HIVE_HP);
 		setImage(ImageReg.getInstance().getImageFromStr("Hive"));
 	}
 	

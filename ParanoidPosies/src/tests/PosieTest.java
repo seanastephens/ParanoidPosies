@@ -156,5 +156,31 @@ public class PosieTest {
 			System.out.println("Failed loading posie.");
 		}
 	}
+	
+	@Test public void testPosieShouldBeCleanedUp(){
+		try {
+			Image picture = ImageIO.read(new File("images/thisIsAPosie.jpg"));
+			Posie p = new Posie(picture, new Point(1,1));
+			
+			assertFalse(p.shouldBeCleanedUp);
+			
+			for(int i = 0; i < Posie.posie_lifespan; i++){
+				p.update();
+			}
+			
+			assertTrue(p.isDead());
+			
+			if(p.getSeeds() > 0){
+				assertFalse(p.shouldBeCleanedUp);
+				System.out.println("Taking " + p.takeSeeds() + " seeds from Posie p.");
+				assertTrue(p.shouldBeCleanedUp());
+			}
+			assertTrue(p.shouldBeCleanedUp());
+			
+		} catch (IOException e) {
+			System.out.println("Failed loading posie.");
+		}
+	}
+	
 
 }
