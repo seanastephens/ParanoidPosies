@@ -11,10 +11,12 @@ public class Bee extends Bug {
 	private List<String> beeNames;
 	private String name;
 	private int nectorToGet;
+	private Plant nearestPlant;
 	private static final int maxNector = 10;
 	public static final int BEE_HP = 5;
 	public static final int BEE_ATTACK_DAMAGE = 1;
 	public static final String BEE_IMAGE_NAME = "Bee";
+	private int seeds = 0;
 
 	public Bee(Point location, GameBoard board) {
 		super(board);
@@ -28,25 +30,25 @@ public class Bee extends Bug {
 		buildBeeNamesList();
 		name = getBeeName();
 		this.getListOfBugStrategies().add(new SquareStrategy());
-		this.getListOfBugStrategies().add(new GatherStrategy(gameboard.g));
+		this.getListOfBugStrategies().add(new GatherStrategy(nearestPlant));
 	}
 
-	public Plant getClosestPosie(){
-		Posie posie;
+	//TODO make sure to handle an instance of when nearestPlant is still null if this method is called
+	public void getClosestPosie(){
 		List<Thing> things;
-		int multipleOf5 = 1;
-		int five = 5;
-		while(posie == null){
-			things = this.getGameBoard().getThingsBetween(this.getLocation().x-five*multipleOf5, 
-					this.getLocation().y-five*multipleOf5, this.getLocation().x+five*multipleOf5
-					, this.getLocation().y+five*multipleOf5);
+		int multipleOf100 = 1;
+		int maxMultipleOf100 = 20;
+		int hundred = 5;
+		while(multipleOf100 < maxMultipleOf100){
+			things = this.getGameBoard().getThingsBetween(this.getObjective().x-hundred*multipleOf100, 
+					this.getObjective().y-hundred*multipleOf100, this.getObjective().x+hundred*multipleOf100
+					, this.getObjective().y+hundred*multipleOf100);
 			for(Thing aThing: things){
-				if(aThing instanceOf Posie){
-					posie = aThing;
-					return posie;
+				if(aThing instanceof Posie){
+					nearestPlant = (Posie) aThing; 
 				}
 			}
-			multipleOf5++;
+			multipleOf100++;
 		}
 	}
 	
@@ -91,14 +93,24 @@ public class Bee extends Bug {
 	}
 
 	// Use this method to ask the bee how much nectar it's holding.
-	public void calculateNectorToGet(int value) {
+	public void calculateNectorToGet() {
 		if (nector < maxNector) {
 			nectorToGet = maxNector - nector;
 		}
 	}
 	
 	public void askFlowerForNector(){
-		this.getStrategy().
+		getClosestPosie();
+		if(nearestPlant == null){
+			//TODO change strategy to move back to hive
+		}
+		else if(nearestPlant.isDead() == true){
+			seeds = nearestPlant.takeSeeds();
+		}
+		else if(nearestPlant.isDead() == false){
+			calculateNectorToGet();
+			nearestPlant.takeNectar(nectorToGet);
+		}
 	}
 
 	// Use this method to have the bee "drop" its nectar. Resets the amount of
