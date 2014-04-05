@@ -36,15 +36,12 @@ public class Caterpillar extends Bug {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	public String getName(){
+	public String getName() {
 		return name;
 	}
-	
-
 
 	// Caterpillar names go here
-	private void setUpNameList(){
+	private void setUpNameList() {
 		CaterpillarNameList.add("Wormy");
 		CaterpillarNameList.add("Hungry");
 		CaterpillarNameList.add("Bulldozer");
@@ -75,17 +72,17 @@ public class Caterpillar extends Bug {
 
 		this.getStrategy().getNextAction(this, this.getGameBoard());
 		if (this.getLocation() != this.getObjective()) {
-			this.move(this.getObjective());
+			this.move(this.getObjective().getLocation());
 		}
 
 	}
 
 	@Override
 	public void attack(Thing thingBeingAttacked) {
-		if(IS_LITERALLY_HITLER){
+		if (IS_LITERALLY_HITLER) {
 			thingBeingAttacked.updateHP(-1 * ULTRA_HYPER_GIGA_MECHA_HITLER_ATTACK_DAMAGE);
-		}
-		else thingBeingAttacked.updateHP(-1 * CATERPILLAR_ATTACK_DAMAGE);
+		} else
+			thingBeingAttacked.updateHP(-1 * CATERPILLAR_ATTACK_DAMAGE);
 
 	}
 
