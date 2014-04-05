@@ -51,8 +51,9 @@ public class GamePanel extends JPanel implements KeyListener,
 		}
 
 		for (BackgroundTile b : tileManager.getTiles(view)) {
-			graphics.drawImage(b.getImage(), b.getLocation().x,
-					b.getLocation().y, null);
+			Point p = new Point(b.getLocation().x - view.x + PPGUI.WINDOW_WIDTH
+					/ 2, b.getLocation().y - view.y + PPGUI.WINDOW_HEIGHT / 2);
+			graphics.drawImage(b.getImage(), p.x, p.y, null);
 		}
 
 		for (Thing t : three) {

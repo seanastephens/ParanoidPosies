@@ -19,20 +19,26 @@ public class TileManager {
 		height = tileImage.getHeight(null);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param viewCenter
+	 * @return
+	 */
 	public List<BackgroundTile> getTiles(Point viewCenter) {
 		List<BackgroundTile> tiles = new ArrayList<BackgroundTile>();
 
-		int startx = viewCenter.x;
-		int starty = viewCenter.y;
-		while (startx > viewCenter.x - PPGUI.WINDOW_WIDTH / 2) {
-			startx -= width;
+		int startx = 0;
+		int starty = 0;
+		while (startx < viewCenter.x - PPGUI.WINDOW_WIDTH / 2 - width) {
+			startx += width;
 		}
-		while (starty > viewCenter.y - PPGUI.WINDOW_HEIGHT / 2) {
-			starty -= height;
+		while (starty < viewCenter.y - PPGUI.WINDOW_HEIGHT / 2 - height) {
+			starty += height;
 		}
 
-		for (int i = startx; i < PPGUI.WINDOW_WIDTH + startx; i += width) {
-			for (int j = starty; j < PPGUI.WINDOW_HEIGHT + starty; j += height) {
+		for (int i = startx; i <= PPGUI.WINDOW_WIDTH + startx + width; i += width) {
+			for (int j = starty; j <= PPGUI.WINDOW_HEIGHT + starty + height; j += height) {
 				tiles.add(new BackgroundTile(tileImage, new Point(i, j)));
 			}
 		}
