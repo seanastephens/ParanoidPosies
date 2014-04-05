@@ -19,6 +19,7 @@ public class Hive implements Thing {
 	private int beesToMake;
 	public static final String HIVE_NAME = "Hive";
 	public static final String HIVE_ACTION = "Buzzing away.";
+	private int seeds;
 
 	public Hive() {
 		nector = 0;
@@ -28,6 +29,18 @@ public class Hive implements Thing {
 		beesToMake = 0;
 		this.setHP(HIVE_HP);
 		setImage(ImageReg.getInstance().getImageFromStr("Hive"));
+	}
+	
+	public int getSeeds(){
+		return seeds;
+	}
+	
+	public void setSeeds(int newSeedCount){
+		seeds = newSeedCount;
+	}
+	
+	public void updateSeeds(int value){
+		seeds += value;
 	}
 	
 	public boolean shouldBeCleanedUp(){
