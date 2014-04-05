@@ -27,12 +27,18 @@ public class Posie extends Plant {
 	public static final int posie_time_to_flower = 90 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_hitPoints = 10;
 	public static final int posie_max_nectar = 10;
+	
+	public static final Image SEED_IMAGE = ImageReg.getInstance().getImageFromStr("thisIsAPosie");
+	public static final Image SEEDLING_IMAGE = ImageReg.getInstance().getImageFromStr("TotallyAPosie");
+	public static final Image FLOWER_IMAGE = ImageReg.getInstance().getImageFromStr("forRealThoughItsAPosie");
+	public static final Image DEAD_FLOWER_IMAGE = ImageReg.getInstance().getImageFromStr("ISwearToGodThisOneIsAnHonestToGodLegitimatePosie");
 
 	private List<String> nameList;
 	private String name;
 
 	public Posie(Point initialLocation) {
-		super(image, initialLocation);
+		super(initialLocation);
+		setImage(SEED_IMAGE);
 		maxSeedsToDrop = posie_max_seeds_to_drop;
 		lifespan = posie_lifespan;
 		setHP(posie_hitPoints);
@@ -62,13 +68,16 @@ public class Posie extends Plant {
 
 		if (timer >= posie_time_to_seedling && timer < posie_time_to_flower) {
 			currentState = GrowthState.Seedling;
+			setImage(SEEDLING_IMAGE);
 		} else if (timer >= posie_time_to_flower && timer < posie_lifespan) {
 			currentState = GrowthState.Flower;
+			setImage(FLOWER_IMAGE);
 			hasBloomed = true;
 		}
 
 		else if (timer >= posie_lifespan) {
 			currentState = GrowthState.DeadFlower;
+			setImage(DEAD_FLOWER_IMAGE);
 			currentNectar = 0;
 			hitPoints = 0;
 			Random rand = new Random();
