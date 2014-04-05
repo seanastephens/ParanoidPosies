@@ -24,6 +24,7 @@ public class ImageReg {
 		images.put("GrassTile", getImage("grasstile.png"));
 		images.put("Caterpillar", getImage("caterpillar.jpg"));
 		images.put("HITLER", getImage("HITLER.gif"));
+		images.put("TotallyAPosie", getImage("totallyAPosie.png"));
 		/*
 		 * DON'T TOUCH BELOW HERE!
 		 */

@@ -33,7 +33,9 @@ public class GameBoard implements GameInterface {
 			things.add(new Bee(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
 		}
 
+		//These Things are just here for testing
 		things.add(new Caterpillar(new Point(2200, 2200), this));
+		things.add(new Posie(ImageReg.getInstance().getImageFromStr("TotallyAPosie"), new Point(centerX, centerY + 200)));
 	}
 
 	public void addThing(Thing thing) {
