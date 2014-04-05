@@ -110,5 +110,34 @@ public class PosieTest {
 			System.out.println("Failed loading posie.");
 		}
 	}
+	
+	@Test
+	public void testPosieGettingAttacked(){
+		try {
+			Image picture = ImageIO.read(new File("images/thisIsAPosie.jpg"));
+			Posie p = new Posie(picture, new Point(1,1));
+			
+			p.updateHP(-(Posie.posie_hitPoints - 3));
+			assertEquals(3, p.getHP());
+			
+			for(int i = 0; i < Posie.posie_time_to_flower + ParanoidPosieGUI.UPDATES_PER_SEC * Posie.posie_max_nectar; i ++){
+				p.update();
+			}
+			assertEquals(p.currentNectar, Posie.posie_max_nectar);
+			
+			p.updateHP(-3);
+			assertTrue(p.isDead());
+			System.out.println("Posie p dropped " + p.seedsDropped + " seeds.");
+			
+			assertEquals(0, p.currentNectar);
+			for(int i = 0; i < Posie.posie_time_to_flower + ParanoidPosieGUI.UPDATES_PER_SEC * Posie.posie_max_nectar; i ++){
+				p.update();
+			}
+			assertEquals(0, p.currentNectar);
+			
+		} catch (IOException e) {
+			System.out.println("Failed loading posie.");
+		}
+	}
 
 }

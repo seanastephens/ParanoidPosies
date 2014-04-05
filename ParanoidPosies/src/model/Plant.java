@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.util.Random;
 import java.util.Timer;
 
 public abstract class Plant implements Thing {
@@ -14,12 +15,15 @@ public abstract class Plant implements Thing {
 	private Image image;
 	public int timer;
 	public GrowthState currentState;
+	public int seedsDropped;
+	public int maxSeedsToDrop;
 	
 	private final int layer = 2;
 	private final int starting_nectar = 0;
 	
 	public Plant(Image image, Point initialLocation){
 		this.image = image;
+		seedsDropped = 0;
 		setLocation(initialLocation);
 		currentNectar = starting_nectar;
 		currentState = GrowthState.JustPlanted;
@@ -28,9 +32,7 @@ public abstract class Plant implements Thing {
 	}
 	
 	@Override
-	public void updateHP(int hp){
-		hitPoints += hp;
-	}
+	public abstract void updateHP(int hp);
 
 	@Override
 	public void setLocation(Point loc) {
@@ -65,6 +67,7 @@ public abstract class Plant implements Thing {
 	@Override
 	public  boolean isDead(){
 		if(hitPoints <= 0){
+			currentNectar = 0;
 			return true;
 		}
 		else return false;
