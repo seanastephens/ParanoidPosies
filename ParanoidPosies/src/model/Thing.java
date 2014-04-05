@@ -12,4 +12,5 @@ public interface Thing {
 	public int getHP();
 	public void die();
 	public void spawn(Point loc);
+	public int getLayer();
 }
