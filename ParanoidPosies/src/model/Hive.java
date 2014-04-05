@@ -60,6 +60,7 @@ public class Hive implements Thing {
 
 	@Override
 	public void update() {
+		convertNectorToHoney();
 		if (beeProduction == true) {
 			updateTimer(1);
 			if (timer == timeToBuildABee) {
