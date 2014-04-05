@@ -2,6 +2,10 @@ package GUI;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import model.Thing;
 
@@ -11,6 +15,11 @@ public class MockThing implements Thing {
 
 	public MockThing(Point loc) {
 		location = loc;
+		try {
+			picture = ImageIO.read(new File("images/bee.png"));
+		} catch (IOException e) {
+			System.out.println("Failed loading bee.");
+		}
 	}
 
 	@Override
@@ -47,12 +56,7 @@ public class MockThing implements Thing {
 		return 0;
 	}
 
-	@Override
-	public void die() {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	public void setLayer(int layer) {
 		// TODO Auto-generated method stub
 
@@ -79,6 +83,12 @@ public class MockThing implements Thing {
 	public void update() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public boolean isDead() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
