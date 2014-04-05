@@ -14,10 +14,11 @@ public class Bee extends Bug {
 	private int nector;
 	private List<String> beeNames;
 	private String name;
+	private int nectorToGet;
 	private final int maxNector = 10;
-	private int extraNector;
 
-	public Bee(Point location) {
+	public Bee(Point location, GameBoard board) {
+		super(board);
 		this.setHP(5);
 		try {
 			this.setImage(ImageIO.read(new File("images/bee.png")));
@@ -28,9 +29,9 @@ public class Bee extends Bug {
 		this.setStrategy(new SquareStrategy(), new Point(
 				this.getLocation().x + 1, this.getLocation().y + 1));
 		nector = 0;
+		nectorToGet = 10;
 		buildBeeNamesList();
 		name = getBeeName();
-		extraNector = 0;
 	}
 
 	private void buildBeeNamesList() {
@@ -56,7 +57,7 @@ public class Bee extends Bug {
 	// TODO this will need code to handle when bug makes it to objective
 	@Override
 	public void update() {
-		this.getStrategy().getNextAction(this);
+		this.getStrategy().getNextAction(this, this.getGameBoard());
 		if (this.getLocation() != this.getObjective()) {
 			this.move(this.getObjective());
 		}
@@ -75,31 +76,11 @@ public class Bee extends Bug {
 
 	// Use this method to have the bee add nector to the amount it is holding.
 	public void addNectorToBee(int value) {
-		if(nector + value >= maxNector){
-			extraNector = nector + value - maxNector;
-			nector = maxNector;
-		}
-		else{
-			nector += value;
+		if(nector < maxNector){
+			nectorToGet = maxNector - nector;
 		}
 	}
 	
-	public boolean canAddNectorToBee(){
-		if(nector >= maxNector){
-			return false;
-		}
-		else{
-			return true;
-		}
-	}
-	
-	public int getExtraNector(){
-		return extraNector;
-	}
-
-	public void setExtraNector(int value){
-		extraNector = value;
-	}
 	// Use this method to have the bee "drop" its nector. Resets the amount of
 	// nector being held.
 	public void unloadNector() {

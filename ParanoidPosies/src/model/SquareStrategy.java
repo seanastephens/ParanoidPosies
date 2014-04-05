@@ -6,9 +6,15 @@ import java.awt.Point;
 public class SquareStrategy implements BugStrategy {
 
 	public static int SQUARE_CONST = 50;
-
+	private GameBoard board;
+	
+	public GameBoard getBoard(){
+		return board;
+	}
+	
 	@Override
-	public void getNextAction(Bug thisBug) {
+	public void getNextAction(Bug thisBug, GameBoard board) {
+		this.board = board;
 		Point previousPoint;
 		if (thisBug.getLocation().equals(thisBug.getObjective())) {
 			thisBug.setObjective(new Point(thisBug.getLocation().x
