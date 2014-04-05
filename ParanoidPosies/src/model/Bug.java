@@ -46,6 +46,14 @@ public abstract class Bug implements Thing{
 	@Override
 	public abstract void spawn(Point loc);
 	
+	@Override
+	public abstract void update();
+	
+	@Override
+	public void updateHP(int hp){
+		this.hp += hp;
+	}
+	
 	public void setStrategy(Strategy strat){
 		strategy = strat;
 	}
