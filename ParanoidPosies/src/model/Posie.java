@@ -80,10 +80,14 @@ public class Posie extends Plant {
 			setImage(DEAD_FLOWER_IMAGE);
 			currentNectar = 0;
 			hitPoints = 0;
-			Random rand = new Random();
-			seedsDropped = rand.nextInt(posie_max_seeds_to_drop);
-			if (seedsDropped == 0) {
-				shouldBeCleanedUp = true;
+			if(seedsDropped == 0 && !shouldBeCleanedUp){
+				Random rand = new Random();
+				seedsDropped = rand.nextInt(posie_max_seeds_to_drop) + 1;
+				System.out.println("Dropping " + seedsDropped + " seeds");
+//				if (seedsDropped == 0) {
+//					System.out.println("This code should not be reached.");
+//					shouldBeCleanedUp = true;
+				//}
 			}
 		}
 	}
