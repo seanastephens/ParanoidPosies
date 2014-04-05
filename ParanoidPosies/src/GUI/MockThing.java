@@ -8,7 +8,8 @@ import model.Thing;
 public class MockThing implements Thing {
 	Point location;
 	Image picture;
-	public MockThing(Point loc){
+
+	public MockThing(Point loc) {
 		location = loc;
 	}
 
@@ -23,10 +24,8 @@ public class MockThing implements Thing {
 		return location;
 	}
 
-	@Override
 	public void setImage() {
 		// TODO Auto-generated method stub
-		
 
 	}
 
@@ -54,13 +53,11 @@ public class MockThing implements Thing {
 
 	}
 
-	@Override
 	public void setLayer(int layer) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public int getLayer() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -68,6 +65,12 @@ public class MockThing implements Thing {
 
 	@Override
 	public void spawn(Point loc) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setImage(Image image) {
 		// TODO Auto-generated method stub
 
 	}

@@ -26,5 +26,5 @@ public interface GameInterface {
 	 * 
 	 * @return the Hive!
 	 */
-	public Hive getHive();
+	public MockHive getHive();
 }
