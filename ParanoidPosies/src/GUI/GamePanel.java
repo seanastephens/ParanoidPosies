@@ -72,25 +72,10 @@ public class GamePanel extends JPanel implements KeyListener,
 	}
 
 	@Override
-	public void keyPressed(KeyEvent k) {
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public void keyTyped(KeyEvent k) {
 		if (k.getKeyChar() == ' ') {
 			remove(popup);
 		}
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 	}
 
 	public int BORDER_MARGIN = 50;
@@ -101,8 +86,6 @@ public class GamePanel extends JPanel implements KeyListener,
 
 	private Direction direction = Direction.NONE;
 
-	// TODO: Change so that still moves if hold mouse still
-	// TODO: SLOW DOWN
 	@Override
 	public void mouseMoved(MouseEvent m) {
 		if (m.getX() < BORDER_MARGIN) {
@@ -118,21 +101,6 @@ public class GamePanel extends JPanel implements KeyListener,
 		} else {
 			direction = Direction.NONE;
 		}
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 	}
 
 	public static int SELECT_MARGIN = 25;
@@ -158,11 +126,6 @@ public class GamePanel extends JPanel implements KeyListener,
 
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-	}
-
 	public static int SCROLL_SPEED = 3;
 
 	public void shiftViewPoint() {
@@ -182,5 +145,34 @@ public class GamePanel extends JPanel implements KeyListener,
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent k) {
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
 	}
 }

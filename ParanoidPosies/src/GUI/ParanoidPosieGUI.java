@@ -6,7 +6,6 @@ import java.awt.Point;
 import javax.swing.JFrame;
 
 import model.GameBoard;
-import model.Hive;
 
 public class ParanoidPosieGUI extends JFrame implements Runnable {
 
@@ -18,7 +17,6 @@ public class ParanoidPosieGUI extends JFrame implements Runnable {
 	public static final int WINDOW_WIDTH = 900;
 	public static final int WINDOW_HEIGHT = 720;
 
-	private Hive hive;
 	private GameInterface game;
 	private GamePanel gamePanel;
 
@@ -28,7 +26,6 @@ public class ParanoidPosieGUI extends JFrame implements Runnable {
 		setSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
 		game = new GameBoard();
-		hive = game.getHive();
 
 		setLayout(null);
 
