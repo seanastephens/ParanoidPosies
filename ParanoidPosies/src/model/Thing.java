@@ -18,4 +18,5 @@ public interface Thing {
 	public String getName();
 	public String getType();
 	public String getAction();
+	public boolean shouldBeCleanedUp();
 }

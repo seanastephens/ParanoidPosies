@@ -20,6 +20,10 @@ public abstract class Bug implements Thing{
 		strategies = new ArrayList<BugStrategy>();
 	}
 	
+	public boolean shouldBeCleanedUp(){
+		return isDead();
+	}
+	
 	public List<BugStrategy> getListOfBugStrategies(){
 		return strategies;
 	}

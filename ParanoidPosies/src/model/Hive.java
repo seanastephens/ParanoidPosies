@@ -28,6 +28,10 @@ public class Hive implements Thing {
 		setImage(ImageReg.getInstance().getImageFromStr("Hive"));
 	}
 	
+	public boolean shouldBeCleanedUp(){
+		return isDead();
+	}
+	
 	public String getAction(){
 		return HIVE_ACTION;
 	}
