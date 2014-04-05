@@ -41,7 +41,7 @@ public class SquareStrategy implements BugStrategy {
 						.getLocation().y));
 			} else if (bug.getLocation().y < previousPoint.y) {
 				bug.setObjectivePoint(new Point(bug.getLocation().x + SQUARE_CONST, bug
-						.getLocation().y + SQUARE_CONST));
+						.getLocation().y));
 			}
 		}
 
