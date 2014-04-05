@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -8,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -28,6 +30,12 @@ public class GamePanel extends JPanel {
 	private PopupPanel popup;
 	private TileManager tileManager = new TileManager();
 
+	private boolean userIsDrawingABox = false;
+	private Point startPoint;
+	private int boxWidth;
+	private int boxHeight;
+	private List<Thing> selected = new LinkedList<Thing>();
+
 	public GamePanel(GameInterface g) {
 		this.game = g;
 		setSize(new Dimension(PPGUI.WINDOW_WIDTH, PPGUI.WINDOW_HEIGHT));
@@ -38,8 +46,11 @@ public class GamePanel extends JPanel {
 		resourcePanel.setLocation(new Point(0, PPGUI.WINDOW_HEIGHT - resourcePanel.getHeight()));
 
 		addMouseMotionListener(new ScrollMouseListener());
-		addKeyListener(new ScrollKeyListener());
 		addMouseListener(new ClickListener());
+		addMouseListener(new DragBoxListener());
+		addMouseMotionListener(new DragBoxListener());
+
+		addKeyListener(new ScrollKeyListener());
 	}
 
 	// TODO refactor layers
@@ -73,6 +84,10 @@ public class GamePanel extends JPanel {
 		for (Thing t : one) {
 			drawThing(graphics, t);
 		}
+
+		if (userIsDrawingABox) {
+			drawSelectionBox(graphics);
+		}
 	}
 
 	private void drawThing(Graphics g, Thing t) {
@@ -83,6 +98,11 @@ public class GamePanel extends JPanel {
 				/ 2;
 
 		g.drawImage(t.getImage(), x, y, null);
+	}
+
+	private void drawSelectionBox(Graphics graphics) {
+		graphics.setColor(Color.RED);
+		graphics.drawRect(startPoint.x, startPoint.y, boxWidth, boxHeight);
 	}
 
 	private Direction direction = Direction.NONE;
@@ -166,6 +186,31 @@ public class GamePanel extends JPanel {
 				popup.setLocation(e.getPoint());
 				add(popup);
 			}
+		}
+	}
+
+	private class DragBoxListener extends MouseAdapter {
+
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			System.out.println("Drag");
+			if (!userIsDrawingABox) {
+				userIsDrawingABox = true;
+				startPoint = e.getPoint();
+			}
+			boxWidth = e.getPoint().x - startPoint.x;
+			boxHeight = e.getPoint().y - startPoint.y;
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			if (userIsDrawingABox) {
+				int minX = Math.min(startPoint.x, startPoint.x + boxWidth);
+
+				// selected = game.getThingsBetween(startPoint, yLow, xHigh,
+				// yHigh)
+			}
+			userIsDrawingABox = false;
 		}
 	}
 }
