@@ -10,50 +10,100 @@ import model.Thing;
 
 public class PopupPanel extends JPanel {
 
-	private int WIDTH = 150;
-	private int HEIGHT = 150;
-	private int LABEL_HEIGHT = LABEL_WIDTH;
+	private int WIDTH = 160; // default
+	private int HEIGHT = 150; // default
+	private int LINE_HEIGHT = 20; // depends on font.
+
+	private int MAX_CHARS_PER_LINE = 20; // should be about 1/8 of WIDTH, but
+											// depends on FONT
 
 	private Thing thing;
-
-	private JLabel type;
-	private JLabel name;
-	private JLabel hp;
-	private JLabel action;
+	private JLabel name = new JLabel();
+	private JLabel hp = new JLabel();
+	private JLabel action = new JLabel();
+	private int actionLineCount = 0; // DEFAULT, should be overriden with
+										// formatters.
+	private int nameLineCount = 0;
+	private int hpLineCount = 1;
+	private int maxNumCharsPerLine = 0;
 
 	public PopupPanel(Thing thing) {
 		this.thing = thing;
 
-		setSize(WIDTH, HEIGHT);
-
 		setLayout(null);
-		name = new JLabel(thing.getName());
-		type = new JLabel(thing.getType());
-		hp = new JLabel(thing.getHP() + "");
-		action = new JLabel(thing.getAction());
+
+		dynamicResize();
 
 		add(name);
-		add(type);
 		add(hp);
 		add(action);
 
-		name.setLocation(0, 0);
-		name.setSize(WIDTH, LABEL_WIDTH);
-		type.setLocation(0, LABEL_WIDTH);
-		type.setSize(WIDTH, LABEL_WIDTH);
-		hp.setLocation(0, 70);
-		hp.setSize(WIDTH, LABEL_WIDTH);
-		action.setLocation(0, 105);
-		action.setSize(WIDTH, LABEL_WIDTH);
 	}
 
 	public void paintComponent(Graphics g) {
+
+		dynamicResize();
+
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, WIDTH, 150);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 		g.setColor(Color.BLACK);
-		name.setText("<html>Name:<br>" + thing.getName() + "</html>");
-		type.setText("<html>Type:<br>" + thing.getType() + "</html>");
-		hp.setText("<html>Health:<br>" + thing.getHP() + "</html>");
-		action.setText("<html>action:<br>" + thing.getAction() + "</html>");
+
+		name.setText("<html>" + getModNameStr() + "</html>");
+		hp.setText("<html>Health: " + thing.getHP() + "</html>");
+		action.setText("<html>" + getModActionStr() + "</html>");
+	}
+
+	private String getModActionStr() {
+		String[] words = thing.getAction().split(" ");
+		String ret = words[0];
+		int numChars = ret.length();
+		actionLineCount = 1;
+		for (int i = 1; i < words.length; i++) {
+			if (numChars + words[i].length() < MAX_CHARS_PER_LINE) {
+				ret += " " + words[i];
+				numChars += words[i].length();
+				maxNumCharsPerLine = Math.max(numChars, maxNumCharsPerLine);
+			} else {
+				ret += "<br>" + words[i];
+				actionLineCount++;
+				numChars = words[i].length();
+			}
+		}
+
+		return ret;
+	}
+
+	private String getModNameStr() {
+		String[] words = (thing.getName() + ", a " + thing.getType()).split(" ");
+		String ret = words[0];
+		int numChars = ret.length();
+		nameLineCount = 1;
+		for (int i = 1; i < words.length; i++) {
+			if (numChars + words[i].length() < MAX_CHARS_PER_LINE) {
+				ret += " " + words[i];
+				numChars += words[i].length();
+				maxNumCharsPerLine = Math.max(numChars, maxNumCharsPerLine);
+			} else {
+				ret += "<br>" + words[i];
+				nameLineCount++;
+				numChars = words[i].length();
+			}
+		}
+
+		return ret;
+	}
+
+	private void dynamicResize() {
+		int dynamicWidth = WIDTH;
+
+		name.setSize(dynamicWidth, nameLineCount * LINE_HEIGHT);
+		hp.setSize(dynamicWidth, hpLineCount * LINE_HEIGHT);
+		action.setSize(dynamicWidth, actionLineCount * LINE_HEIGHT);
+
+		name.setLocation(0, 0);
+		hp.setLocation(0, nameLineCount * LINE_HEIGHT);
+		action.setLocation(0, (hpLineCount + nameLineCount) * LINE_HEIGHT);
+
+		setSize(dynamicWidth, (actionLineCount + hpLineCount + nameLineCount) * LINE_HEIGHT);
 	}
 }
