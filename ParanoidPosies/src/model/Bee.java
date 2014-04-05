@@ -14,6 +14,8 @@ public class Bee extends Bug {
 	private int nector;
 	private List<String> beeNames;
 	private String name;
+	private final int maxNector = 10;
+	private int extraNector;
 
 	public Bee(Point location) {
 		this.setHP(5);
@@ -28,6 +30,7 @@ public class Bee extends Bug {
 		nector = 0;
 		buildBeeNamesList();
 		name = getBeeName();
+		extraNector = 0;
 	}
 
 	private void buildBeeNamesList() {
@@ -72,9 +75,31 @@ public class Bee extends Bug {
 
 	// Use this method to have the bee add nector to the amount it is holding.
 	public void addNectorToBee(int value) {
-		nector += value;
+		if(nector + value >= maxNector){
+			extraNector = nector + value - maxNector;
+			nector = maxNector;
+		}
+		else{
+			nector += value;
+		}
+	}
+	
+	public boolean canAddNectorToBee(){
+		if(nector >= maxNector){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+	
+	public int getExtraNector(){
+		return extraNector;
 	}
 
+	public void setExtraNector(int value){
+		extraNector = value;
+	}
 	// Use this method to have the bee "drop" its nector. Resets the amount of
 	// nector being held.
 	public void unloadNector() {
