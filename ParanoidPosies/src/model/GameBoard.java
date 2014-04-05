@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import GUI.GameInterface;
-import GUI.MockHive;
+
 import GUI.ParanoidPosieGUI;
 
 public class GameBoard implements GameInterface {
@@ -19,6 +19,7 @@ public class GameBoard implements GameInterface {
 	public static final int INCREASE_ENEMIES_BY = 2;
 	public static final int GRACE_PERIOD = ParanoidPosieGUI.UPDATES_PER_SEC * 30;
 	
+	public static final int BEE_SPAWN_X_OFFSET = 50;
 	private int timer;
 
 	public GameBoard(){
@@ -34,13 +35,16 @@ public class GameBoard implements GameInterface {
 	}
 	
 	public void askHiveForBees(){
-		
+		int bees = hive.getBeesToMake();
+		for(int i = 0; i < bees; i++){
+			things.add(new Bee(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY)));
+		}
+		hive.updateBeesToMake(bees * -1);
 	}
 	
 	@Override
 	public List<Thing> getAllThingsOnBoard() {
-		// TODO Auto-generated method stub
-		return null;
+		return things;
 	}
 
 	@Override
@@ -57,14 +61,16 @@ public class GameBoard implements GameInterface {
 	}
 
 	@Override
-	public MockHive getHive() {
-		// TODO Auto-generated method stub
-		return null;
+	public Hive getHive() {
+		return hive;
 	}
 
+	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		//TODO Handle enemy spawning
+		timer++;
+		askHiveForBees();
 
 	}
 
