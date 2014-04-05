@@ -48,6 +48,13 @@ public class Bee extends Bug {
 		return name;
 	}
 
+	@Override
+	public String getAction(){
+		String result = super.getAction();
+		result += "\nNectar: " + nector + "\nSeeds: " + seeds;
+		return result;
+	}
+	
 	public void setName(String newName) {
 		name = newName;
 	}
