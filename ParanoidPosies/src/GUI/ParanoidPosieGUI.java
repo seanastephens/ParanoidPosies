@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -28,10 +29,12 @@ public class ParanoidPosieGUI extends JFrame implements Runnable {
 		hive = game.getHive();
 
 		setLayout(null);
-		JPanel resourcePanel = new ResourcePanel(hive);
-		add(resourcePanel);
-		resourcePanel.setLocation(new Point(0, WINDOW_HEIGHT
-				- resourcePanel.getHeight()));
+
+		JPanel drawingPanel = new GamePanel(game);
+		add(drawingPanel);
+		drawingPanel.setLocation(new Point(0, 0));
+
+		addKeyListener((KeyListener) drawingPanel);
 
 		Thread animator = new Thread(this);
 		animator.start();
@@ -44,7 +47,6 @@ public class ParanoidPosieGUI extends JFrame implements Runnable {
 			} catch (InterruptedException e) {
 				System.out.println("Interrupted!");
 			}
-			System.out.println("GO");
 			game.update();
 			repaint();
 		}

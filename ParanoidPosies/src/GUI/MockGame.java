@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +13,15 @@ public class MockGame implements GameInterface {
 	private MockHive hive;
 
 	public MockGame() {
-		listofthings.add(new MockThing(null));
+		listofthings.add(new MockThing(new Point(45, 45)));
+		listofthings.add(new MockThing(new Point(55, 55)));
 		hive = new MockHive();
 	}
 
 	@Override
 	public List<Thing> getAllThingsOnBoard() {
 		// TODO Auto-generated method stub
-		return null;
+		return listofthings;
 	}
 
 	@Override
@@ -36,5 +38,4 @@ public class MockGame implements GameInterface {
 	public void update() {
 		hive.addHoney(1);
 	}
-
 }
