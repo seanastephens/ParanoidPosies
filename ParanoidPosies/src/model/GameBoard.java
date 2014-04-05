@@ -22,6 +22,8 @@ public class GameBoard implements GameInterface {
 
 	public static final int STARTING_BEES = 5;
 	private int timer;
+	
+	public Posie oldPosie;
 
 	public GameBoard() {
 		timer = 0;
@@ -36,6 +38,11 @@ public class GameBoard implements GameInterface {
 		//These Things are just here for testing
 		things.add(new Caterpillar(new Point(2200, 2200), this));
 		things.add(new Posie(ImageReg.getInstance().getImageFromStr("TotallyAPosie"), new Point(centerX, centerY + 200)));
+		oldPosie = new Posie(ImageReg.getInstance().getImageFromStr("TotallyAPosie"), new Point(centerX, centerY + 200));
+		for(int i = 0; i < PPGUI.UPDATES_PER_SEC * (Posie.posie_lifespan - 30); i++){
+			oldPosie.update();
+		}
+		
 	}
 
 	public void addThing(Thing thing) {
@@ -84,6 +91,10 @@ public class GameBoard implements GameInterface {
 			}
 		}
 		
+		//The following is only for testing, should be removed eventually
+		if(oldPosie.getSeeds() > 0){
+			oldPosie.takeSeeds();
+		}
 
 	}
 
