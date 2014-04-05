@@ -1,40 +1,33 @@
 package model;
 
-public class GatherStrategy implements BugStrategy{
+public class GatherStrategy implements BugStrategy {
 
-	private Plant flower;
-	
-	public GatherStrategy(Plant someFlower){
-		flower = someFlower;
+	private Bug bug;
+	private GameBoard board;
+
+	public GatherStrategy(Bug bug, GameBoard board) {
+		this.bug = bug;
+		this.board = board;
 	}
-	
+
 	@Override
-	public void getNextAction(Bug thisBug, GameBoard gameBoard) {
-		if(!thisBug.getLocation().equals(thisBug.getObjective())){
-			thisBug.move(thisBug.getObjective().getLocation());
-		}
-		else if(thisBug.getLocation().equals(thisBug.getObjective()) && thisBug.getObjective() instanceof Posie){
-			if(thisBug instanceof Bee){
-				((Bee) thisBug).askFlowerForNectorOrSeeds();
-				thisBug.setObjective(gameBoard.getHive());
-				//TODO tell bee to deposit nectar and seeds at hive
+	public void doNextAction() {
+		if (!bug.getLocation().equals(bug.getObjective())) {
+			bug.move(bug.getObjective().getLocation());
+		} else if (bug.getLocation().equals(bug.getObjective())
+				&& bug.getObjective() instanceof Posie) {
+			if (bug instanceof Bee) {
+				((Bee) bug).askFlowerForNectorOrSeeds();
+				bug.setObjective(board.getHive());
+				// TODO tell bee to deposit nectar and seeds at hive
+			}
+		} else if (bug.getLocation().equals(bug.getObjective())
+				&& bug.getObjective() instanceof Hive) {
+			if (bug instanceof Bee) {
+				// ((Bee) bug).
+				// bug.setObjective(gameBoard.getHive());
+				// TODO tell bee to deposit nectar and seeds at hive
 			}
 		}
-		else if(thisBug.getLocation().equals(thisBug.getObjective()) && thisBug.getObjective() instanceof Hive){
-			if(thisBug instanceof Bee){
-				((Bee) thisBug).
-				thisBug.setObjective(gameBoard.getHive());
-				//TODO tell bee to deposit nectar and seeds at hive
-			}
-		}
 	}
-	
-	public Plant getFlower(){
-		return flower;
-	}
-	
-	public void setFlower(Plant newFlower){
-		flower = newFlower;
-	}
-
 }

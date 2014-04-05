@@ -30,8 +30,8 @@ public class Caterpillar extends Bug {
 		this.setUpNameList();
 		name = getCaterpillarName();
 
-		this.setStrategy(new SquareStrategy(),
-				new Point(this.getLocation().x + 1, this.getLocation().y + 1));
+		this.setStrategy(new SquareStrategy(this, gameboard), new Point(this.getLocation().x + 1,
+				this.getLocation().y + 1));
 
 		// TODO Auto-generated constructor stub
 	}
@@ -69,11 +69,7 @@ public class Caterpillar extends Bug {
 	@Override
 	public void update() {
 		timer++;
-
-		this.getStrategy().getNextAction(this, this.getGameBoard());
-		if (this.getLocation() != this.getObjective()) {
-			this.move(this.getObjective().getLocation());
-		}
+		this.getStrategy().doNextAction();
 
 	}
 

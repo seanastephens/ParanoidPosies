@@ -7,38 +7,43 @@ public class SquareStrategy implements BugStrategy {
 
 	public static int SQUARE_CONST = 50;
 	private GameBoard board;
-	
-	public GameBoard getBoard(){
-		return board;
-	}
-	
-	@Override
-	public void getNextAction(Bug thisBug, GameBoard board) {
+	private Bug bug;
+
+	public SquareStrategy(Bug bug, GameBoard board) {
+		this.bug = bug;
 		this.board = board;
-		Point previousPoint;
-		if (thisBug.getLocation().equals(thisBug.getObjective())) {
-			thisBug.setALocationToMoveTo(new Point(thisBug.getLocation().x
-					+ SQUARE_CONST, thisBug.getLocation().y + SQUARE_CONST));
-		} else {
-			previousPoint = thisBug.getLocation();
-			thisBug.move(thisBug.getALocationToMoveTo());
-			if (thisBug.getLocation().equals(thisBug.getObjective())) {
-				if (thisBug.getLocation().x > previousPoint.x) {
-					thisBug.setALocationToMoveTo(new Point(thisBug.getLocation().x,
-							thisBug.getLocation().y + SQUARE_CONST));
-				} else if (thisBug.getLocation().x < previousPoint.x) {
-					thisBug.setALocationToMoveTo(new Point(thisBug.getLocation().x,
-							thisBug.getLocation().y - SQUARE_CONST));
-				} else if (thisBug.getLocation().y > previousPoint.y) {
-					thisBug.setALocationToMoveTo(new Point(thisBug.getLocation().x
-							- SQUARE_CONST, thisBug.getLocation().y));
-				} else if (thisBug.getLocation().y < previousPoint.y) {
-					thisBug.setALocationToMoveTo(new Point(thisBug.getLocation().x
-							+ SQUARE_CONST, thisBug.getLocation().y
-							+ SQUARE_CONST));
-				}
-			}
+
+		if (bug.getLocation().equals(bug.getObjectivePoint())) {
+			bug.setObjectivePoint(new Point(bug.getLocation().x + SQUARE_CONST, bug.getLocation().y
+					+ SQUARE_CONST));
 		}
 	}
 
+	public GameBoard getBoard() {
+		return board;
+	}
+
+	@Override
+	public void doNextAction() {
+
+		Point previousPoint = bug.getLocation();
+		bug.move(bug.getObjectivePoint());
+
+		if (bug.getLocation().equals(bug.getObjectivePoint())) {
+			if (bug.getLocation().x > previousPoint.x) {
+				bug.setObjectivePoint(new Point(bug.getLocation().x, bug.getLocation().y
+						+ SQUARE_CONST));
+			} else if (bug.getLocation().x < previousPoint.x) {
+				bug.setObjectivePoint(new Point(bug.getLocation().x, bug.getLocation().y
+						- SQUARE_CONST));
+			} else if (bug.getLocation().y > previousPoint.y) {
+				bug.setObjectivePoint(new Point(bug.getLocation().x - SQUARE_CONST, bug
+						.getLocation().y));
+			} else if (bug.getLocation().y < previousPoint.y) {
+				bug.setObjectivePoint(new Point(bug.getLocation().x + SQUARE_CONST, bug
+						.getLocation().y + SQUARE_CONST));
+			}
+		}
+
+	}
 }

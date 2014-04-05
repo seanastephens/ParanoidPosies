@@ -6,5 +6,5 @@ package model;
 //default strategy could be to move randomly(crazy/bored bug), or stay idle(could add to idle list)
 
 public interface BugStrategy {
-	public void getNextAction(Bug thisBug, GameBoard gameBoard);
+	public void doNextAction();
 }
