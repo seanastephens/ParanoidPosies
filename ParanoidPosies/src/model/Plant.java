@@ -18,6 +18,8 @@ public abstract class Plant implements Thing {
 	public int seedsDropped;
 	public int maxSeedsToDrop;
 	
+	public final String PLANT_ACTION = "Growing happily.";
+	
 	private final int layer = 2;
 	private final int starting_nectar = 0;
 	
@@ -29,6 +31,10 @@ public abstract class Plant implements Thing {
 		currentState = GrowthState.JustPlanted;
 		timer = 0;//Start life at 0, will be incremented by one each time update is called
 		hasBloomed = false;
+	}
+	
+	public String getAction(){
+		return PLANT_ACTION;
 	}
 	
 	public String getType(){

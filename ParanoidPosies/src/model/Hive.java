@@ -17,6 +17,7 @@ public class Hive implements Thing {
 	private boolean beeProduction;
 	private int beesToMake;
 	public static final String HIVE_NAME = "Hive";
+	public static final String HIVE_ACTION = "Buzzing away.";
 
 	public Hive() {
 		nector = 0;
@@ -25,6 +26,10 @@ public class Hive implements Thing {
 		beeProduction = true;
 		beesToMake = 0;
 		setImage(ImageReg.getInstance().getImageFromStr("Hive"));
+	}
+	
+	public String getAction(){
+		return HIVE_ACTION;
 	}
 	
 	public String getType(){

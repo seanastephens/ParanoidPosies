@@ -17,4 +17,5 @@ public interface Thing {
 	public void update();
 	public String getName();
 	public String getType();
+	public String getAction();
 }

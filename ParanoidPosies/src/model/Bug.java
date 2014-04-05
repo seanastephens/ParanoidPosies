@@ -16,6 +16,10 @@ public abstract class Bug implements Thing{
 		this.gameboard = gameboard;
 	}
 	
+	public String getAction(){
+		return strategy.getClass().getSimpleName();
+	}
+	
 	public String getType(){
 		return this.getClass().getSimpleName();
 	}
