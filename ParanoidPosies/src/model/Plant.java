@@ -36,9 +36,7 @@ public abstract class Plant implements Thing {
 		shouldBeCleanedUp = false;
 	}
 	
-	public String getAction(){
-		return PLANT_ACTION;
-	}
+	public abstract String getAction();
 	
 	public String getType(){
 		return this.getClass().getSimpleName();
@@ -121,6 +119,7 @@ public abstract class Plant implements Thing {
 	}
 	
 	public int takeSeeds(){
+		System.out.println("Seeds were just taken.");
 		int temp = seedsDropped;
 		seedsDropped = 0;
 		shouldBeCleanedUp = true;
