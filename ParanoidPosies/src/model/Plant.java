@@ -72,9 +72,6 @@ public abstract class Plant implements Thing {
 	public void update(){
 		timer++;
 	}
-
-	@Override
-	public abstract void spawn(Point loc);
 	
 	public abstract void grow();
 	
