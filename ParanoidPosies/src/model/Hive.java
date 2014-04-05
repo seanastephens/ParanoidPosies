@@ -51,11 +51,7 @@ public class Hive implements Thing{
 		
 	}
 
-	@Override
-	public void spawn(Point loc) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public int getLayer() {
