@@ -204,13 +204,16 @@ public class GamePanel extends JPanel {
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			if (userIsDrawingABox) {
-				int minX = Math.min(startPoint.x, startPoint.x + boxWidth);
-				int minY = Math.min(startPoint.y, startPoint.y + boxHeight);
-				int maxX = Math.max(startPoint.x, startPoint.x + boxWidth);
-				int maxY = Math.max(startPoint.y, startPoint.y + boxHeight);
+				int minX = Math.min(startPoint.x, startPoint.x + boxWidth) + view.x
+						- PPGUI.WINDOW_WIDTH / 2;
+				int minY = Math.min(startPoint.y, startPoint.y + boxHeight) + view.y
+						- PPGUI.WINDOW_HEIGHT / 2;
+				int maxX = Math.max(startPoint.x, startPoint.x + boxWidth) + view.x
+						- PPGUI.WINDOW_WIDTH / 2;
+				int maxY = Math.max(startPoint.y, startPoint.y + boxHeight) + view.y
+						- PPGUI.WINDOW_HEIGHT / 2;
 
 				selected = game.getThingsBetween(minX, minY, maxX, maxY);
-				System.out.println(selected);
 			}
 			userIsDrawingABox = false;
 		}
