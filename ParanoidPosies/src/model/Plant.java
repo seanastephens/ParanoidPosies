@@ -75,6 +75,14 @@ public abstract class Plant implements Thing {
 	
 	public abstract void grow();
 	
+	public void takeNectar(int reduceBy){
+		if(currentNectar >= reduceBy){
+			currentNectar -= reduceBy;
+		}
+		else currentNectar = 0;
+	}
+	
+	public abstract void replenishNectar();
 	
 
 }
