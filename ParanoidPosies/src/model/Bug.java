@@ -127,18 +127,19 @@ public abstract class Bug implements Thing {
 	// move the Thing
 	// from one place to another.
 	public void move(Point endLocation) {
+		int moveConstant = 5;
 		if (this.getLocation() != endLocation) {
 			if (this.getLocation().x < endLocation.x) {
-				this.setLocation(new Point(this.getLocation().x + 1, this.getLocation().y));
+				this.setLocation(new Point(this.getLocation().x + moveConstant, this.getLocation().y));
 			}
 			if (this.getLocation().x > endLocation.x) {
-				this.setLocation(new Point(this.getLocation().x - 1, this.getLocation().y));
+				this.setLocation(new Point(this.getLocation().x - moveConstant, this.getLocation().y));
 			}
 			if (this.getLocation().y < endLocation.y) {
-				this.setLocation(new Point(this.getLocation().x, this.getLocation().y + 1));
+				this.setLocation(new Point(this.getLocation().x, this.getLocation().y + moveConstant));
 			}
 			if (this.getLocation().y > endLocation.y) {
-				this.setLocation(new Point(this.getLocation().x, this.getLocation().y - 1));
+				this.setLocation(new Point(this.getLocation().x, this.getLocation().y - moveConstant));
 			}
 		}
 	}
