@@ -34,12 +34,17 @@ public class Posie extends Plant {
 
 	@Override
 	public void grow() {
+		
 		if(timer >= posie_time_to_seedling && timer < posie_time_to_flower){
 			currentState = GrowthState.Seedling;
 		}
-		else if(timer >= posie_time_to_flower){
+		else if(timer >= posie_time_to_flower && timer < posie_lifespan){
 			currentState = GrowthState.Flower;
 			hasBloomed = true;
+		}
+		
+		else if(timer >= posie_lifespan){
+			hitPoints = 0;
 		}
 	}
 

@@ -139,5 +139,22 @@ public class PosieTest {
 			System.out.println("Failed loading posie.");
 		}
 	}
+	
+	@Test
+	public void testPosieDeathFromTime(){
+		try {
+			Image picture = ImageIO.read(new File("images/thisIsAPosie.jpg"));
+			Posie p = new Posie(picture, new Point(1,1));
+			
+			for(int i = 0; i < Posie.posie_lifespan; i++){
+				p.update();
+			}
+			
+			assertTrue(p.isDead());
+			
+		} catch (IOException e) {
+			System.out.println("Failed loading posie.");
+		}
+	}
 
 }
