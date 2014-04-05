@@ -48,6 +48,7 @@ public class ParanoidPosieGUI extends JFrame implements Runnable {
 			} catch (InterruptedException e) {
 				System.out.println("Interrupted!");
 			}
+			;
 			gamePanel.shiftViewPoint();
 			game.update();
 			repaint();
