@@ -64,13 +64,19 @@ public class MockThing implements Thing {
 	}
 
 	@Override
-	public void spawn(Point loc) {
+	public void setImage(Image image) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setImage(Image image) {
+	public void updateHP(int hp) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update() {
 		// TODO Auto-generated method stub
 
 	}
