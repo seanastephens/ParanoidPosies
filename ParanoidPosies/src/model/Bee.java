@@ -52,11 +52,11 @@ public class Bee extends Bug {
 	}
 
 	// TODO this will need code to handle when bug makes it to objective
-	// TODO need code to handle depending on if objective is null or just
-	// chasing point
 	@Override
 	public void update() {
-		this.getStrategy().doNextAction();
+		if(this.getStrategy() != null){
+			this.getStrategy().doNextAction();
+		}
 	}
 
 	@Override
@@ -89,7 +89,8 @@ public class Bee extends Bug {
 	}
 
 	public void unloadNectorAndSeedsToHive() {
-
+		this.getGameBoard().getHive().updateNector(nector);
+		this.getGameBoard().getHive().updateSeeds(seeds);
 		unloadNector();
 		setSeeds(0);
 	}
