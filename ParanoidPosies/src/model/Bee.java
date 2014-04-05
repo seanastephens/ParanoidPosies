@@ -42,6 +42,7 @@ public class Bee extends Bug{
 		name = newName;
 	}
 	
+	//TODO this will need code to handle when bug makes it to objective
 	@Override
 	public void update() {
 		this.getStrategy().getNextAction(this);
