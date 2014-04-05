@@ -12,7 +12,7 @@ public abstract class Plant implements Thing {
 	private int currentNectar;
 	private boolean hasBloomed;
 	private Image image;
-	private Timer timer;
+	private int timer;
 	
 	private final int layer = 2;
 	private final int starting_nectar = 0;
@@ -20,11 +20,12 @@ public abstract class Plant implements Thing {
 	public Plant(Image image){
 		
 		currentNectar = starting_nectar;
-		timer = new Timer();
-		/*
-		 * Specific plant class will schedule grow and death events with this timer
-		 * using its particular lifespan
-		 */
+		timer = 0;//Start life at 0, will be incremented by one each time update is called
+	}
+	
+	@Override
+	public void updateHP(int hp){
+		hitPoints += hp;
 	}
 
 	@Override
@@ -66,9 +67,16 @@ public abstract class Plant implements Thing {
 	public int getLayer() {
 		return layer;
 	}
+	
+	@Override
+	public void update(){
+		timer++;
+	}
 
 	@Override
 	public abstract void spawn(Point loc);
+	
+	public abstract void grow();
 	
 	
 

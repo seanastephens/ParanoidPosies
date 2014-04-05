@@ -13,7 +13,6 @@ public interface Thing {
 	public void updateHP(int hp);
 	public int getHP();
 	public void die();
-	public void spawn(Point loc);
 	public int getLayer();
 	public void update();
 }
