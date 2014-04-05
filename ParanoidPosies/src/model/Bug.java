@@ -73,7 +73,22 @@ public abstract class Bug implements Thing{
 	
 	//Since things don't teleport, this is where the animations take place to move the Thing
 	//from one place to another.
-	public abstract void move(Point endLocation);
+	public void move(Point endLocation) {
+		if(this.getLocation() != endLocation){
+			if(this.getLocation().x < endLocation.x){
+				this.setLocation(new Point(this.getLocation().x+1, this.getLocation().y));
+			}
+			if(this.getLocation().x > endLocation.x){
+				this.setLocation(new Point(this.getLocation().x-1, this.getLocation().y));
+			}
+			if(this.getLocation().y < endLocation.y){
+				this.setLocation(new Point(this.getLocation().x, this.getLocation().y+1));
+			}
+			if(this.getLocation().y > endLocation.y){
+				this.setLocation(new Point(this.getLocation().x, this.getLocation().y-1));
+			}
+		}
+	}
 	
 	//Takes the object of the thing being attacked so updates can be made to both objects.
 	public abstract void attack(Thing thingBeingAttacked);
