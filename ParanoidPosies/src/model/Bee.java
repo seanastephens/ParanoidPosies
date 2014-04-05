@@ -34,10 +34,12 @@ public class Bee extends Bug {
 	}
 
 	//TODO make sure to handle an instance of when nearestPlant is still null if this method is called
+	//Note: set maxMultiple low so the bee won't teleport nectar to itself potentially
+	//This method is called by askFlowerForNectarOrSeeds() which is called by the GatherStrat
 	public void getClosestPosie(){
 		List<Thing> things;
 		int multipleOf100 = 1;
-		int maxMultipleOf100 = 20;
+		int maxMultipleOf100 = 2;
 		int hundred = 5;
 		while(multipleOf100 < maxMultipleOf100){
 			things = this.getGameBoard().getThingsBetween(this.getObjective().x-hundred*multipleOf100, 
@@ -99,7 +101,7 @@ public class Bee extends Bug {
 		}
 	}
 	
-	public void askFlowerForNector(){
+	public void askFlowerForNectorOrSeeds(){
 		getClosestPosie();
 		if(nearestPlant == null){
 			//TODO change strategy to move back to hive
@@ -113,6 +115,18 @@ public class Bee extends Bug {
 		}
 	}
 
+	public int getSeeds(){
+		return seeds;
+	}
+	
+	public void setSeeds(int newSeeds){
+		seeds = newSeeds;
+	}
+	
+	public void updateSeeds(int value){
+		seeds += value;
+	}
+	
 	// Use this method to have the bee "drop" its nectar. Resets the amount of
 	// nector being held.
 	public void unloadNector() {
