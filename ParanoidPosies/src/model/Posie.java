@@ -31,7 +31,7 @@ public class Posie extends Plant {
 	private List<String> nameList;
 	private String name;
 
-	public Posie(Image image, Point initialLocation) {
+	public Posie(Point initialLocation) {
 		super(image, initialLocation);
 		maxSeedsToDrop = posie_max_seeds_to_drop;
 		lifespan = posie_lifespan;
@@ -69,6 +69,7 @@ public class Posie extends Plant {
 
 		else if (timer >= posie_lifespan) {
 			currentState = GrowthState.DeadFlower;
+			currentNectar = 0;
 			hitPoints = 0;
 			Random rand = new Random();
 			seedsDropped = rand.nextInt(posie_max_seeds_to_drop);
