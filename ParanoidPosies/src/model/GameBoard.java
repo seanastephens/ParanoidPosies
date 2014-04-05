@@ -79,7 +79,11 @@ public class GameBoard implements GameInterface {
 		askHiveForBees();
 		for (Thing t : things) {
 			t.update();
+			if(t.shouldBeCleanedUp()){
+				things.remove(t);
+			}
 		}
+		
 
 	}
 
