@@ -10,7 +10,20 @@ public abstract class Bug implements Thing{
 	private final int layer = 1;
 	private BugStrategy strategy;
 	private Point objective;
+	private GameBoard gameboard;
 
+	public Bug(GameBoard gameboard){
+		this.gameboard = gameboard;
+	}
+	
+	public GameBoard getGameBoard(){
+		return gameboard;
+	}
+	
+	public void setGameBoard(GameBoard board){
+		gameboard = board;
+	}
+	
 	@Override
 	public void setLocation(Point loc) {
 		location = loc;
