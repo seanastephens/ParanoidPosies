@@ -56,6 +56,8 @@ public abstract class Bug implements Thing {
 	}
 
 	public String getAction() {
+		String result = "";
+		result += "HP: " + this.getHP() + "\nLocation: " + this.getLocation().toString();
 		return currentStrategy.getClass().getSimpleName();
 	}
 
