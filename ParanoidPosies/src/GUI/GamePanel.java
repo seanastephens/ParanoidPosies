@@ -17,10 +17,8 @@ import model.Thing;
 public class GamePanel extends JPanel implements KeyListener,
 		MouseMotionListener, MouseListener {
 
-	public static int TILE_WIDTH = 50;
-
 	private GameInterface game;
-	private Point view = new Point(50, 50);
+	private Point view = new Point(2500, 2500);
 	private PopupPanel popup;
 
 	public GamePanel(GameInterface g) {
@@ -39,10 +37,11 @@ public class GamePanel extends JPanel implements KeyListener,
 	public void paintComponent(Graphics graphics) {
 		List<Thing> things = game.getAllThingsOnBoard();
 		for (Thing t : things) {
-			int x = (t.getLocation().x - view.x) * TILE_WIDTH
-					+ ParanoidPosieGUI.WINDOW_WIDTH / 2;
-			int y = (t.getLocation().y - view.y) * TILE_WIDTH
-					+ ParanoidPosieGUI.WINDOW_HEIGHT / 2;
+			int x = t.getLocation().x - view.x + ParanoidPosieGUI.WINDOW_WIDTH
+					/ 2 - t.getImage().getWidth(null) / 2;
+			;
+			int y = t.getLocation().y - view.y + ParanoidPosieGUI.WINDOW_HEIGHT
+					/ 2 - t.getImage().getHeight(null) / 2;
 
 			graphics.drawImage(t.getImage(), x, y, null);
 		}
@@ -112,25 +111,27 @@ public class GamePanel extends JPanel implements KeyListener,
 		// TODO Auto-generated method stub
 	}
 
+	public static int SELECT_MARGIN = 25;
+
 	@Override
 	public void mousePressed(MouseEvent e) {
-		int x = (e.getPoint().x - ParanoidPosieGUI.WINDOW_WIDTH / 2 + view.x
-				* TILE_WIDTH)
-				/ TILE_WIDTH;
-		int y = (e.getPoint().y - ParanoidPosieGUI.WINDOW_HEIGHT / 2 + view.y
-				* TILE_WIDTH)
-				/ TILE_WIDTH;
+		int x = e.getPoint().x - ParanoidPosieGUI.WINDOW_WIDTH / 2 + view.x;
+		int y = e.getPoint().y - ParanoidPosieGUI.WINDOW_HEIGHT / 2 + view.y;
 
-		Point adjustedPoint = new Point(x, y);
+		Point p = new Point(x, y);
 
-		// List<Thing> atPoint = game.getThingsAtPoint(adjustedPoint);
+		List<Thing> atPoint = game.getThingsBetween(p.x - SELECT_MARGIN, p.y
+				- SELECT_MARGIN, p.x + SELECT_MARGIN, p.y + SELECT_MARGIN);
 		if (popup != null) {
 			remove(popup);
 		}
-		/*
-		 * if (atPoint.size() > 0) { popup = new PopupPanel(atPoint.get(0));
-		 * popup.setLocation(e.getPoint()); add(popup); }
-		 */
+
+		if (atPoint.size() > 0) {
+			popup = new PopupPanel(atPoint.get(0));
+			popup.setLocation(e.getPoint());
+			add(popup);
+		}
+
 	}
 
 	@Override
@@ -138,19 +139,21 @@ public class GamePanel extends JPanel implements KeyListener,
 		// TODO Auto-generated method stub
 	}
 
+	public static int SCROLL_SPEED = 3;
+
 	public void shiftViewPoint() {
 		switch (direction) {
 		case UP:
-			view.y--;
+			view.y += SCROLL_SPEED;
 			break;
 		case DOWN:
-			view.y++;
+			view.y -= SCROLL_SPEED;
 			break;
 		case RIGHT:
-			view.x++;
+			view.x += SCROLL_SPEED;
 			break;
 		case LEFT:
-			view.x--;
+			view.x -= SCROLL_SPEED;
 			break;
 		default:
 			break;

@@ -2,6 +2,7 @@ package GUI;
 
 import java.util.List;
 
+import model.Hive;
 import model.Thing;
 
 public interface GameInterface {
@@ -25,7 +26,7 @@ public interface GameInterface {
 	 * 
 	 * @return the Hive!
 	 */
-	public MockHive getHive();
+	public Hive getHive();
 
 	/**
 	 * Update -- will be called ~20x/sec

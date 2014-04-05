@@ -4,21 +4,19 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Bee;
+import model.Hive;
 import model.Thing;
 
 public class MockGame implements GameInterface {
 
 	List<Thing> listofthings = new ArrayList<Thing>();
-	private MockHive hive;
+	private Hive hive;
 
 	public MockGame() {
-		listofthings.add(new MockThing(new Point(45, 45)));
-		listofthings.add(new MockThing(new Point(47, 47)));
-		listofthings.add(new MockThing(new Point(49, 49)));
-		listofthings.add(new MockThing(new Point(51, 51)));
-		listofthings.add(new MockThing(new Point(53, 53)));
-		listofthings.add(new MockThing(new Point(55, 55)));
-		hive = new MockHive();
+		listofthings.add(new Bee(new Point(2400, 2400)));
+		listofthings.add(new Bee(new Point(2600, 2600)));
+		hive = new Hive();
 	}
 
 	@Override
@@ -30,19 +28,24 @@ public class MockGame implements GameInterface {
 	public List<Thing> getThingsBetween(int xlow, int ylow, int xhigh, int yhigh) {
 		List<Thing> ret = new ArrayList<Thing>();
 		for (Thing t : listofthings) {
-			// if (t.getLocation().equals(coords)) {
-			// ret.add(t);
-			// }
+			int x = t.getLocation().x;
+			int y = t.getLocation().y;
+			if (x < xhigh && x > xlow && y < yhigh && y > ylow) {
+				ret.add(t);
+			}
 		}
 		return ret;
 	}
 
-	public MockHive getHive() {
+	public Hive getHive() {
 		return hive;
 	}
 
 	@Override
 	public void update() {
-		hive.addHoney(1);
+		hive.updateNector(1);
+		for (Thing t : listofthings) {
+			t.update();
+		}
 	}
 }

@@ -5,6 +5,8 @@ import java.awt.Point;
 
 import javax.swing.JFrame;
 
+import model.Hive;
+
 public class ParanoidPosieGUI extends JFrame implements Runnable {
 
 	public static void main(String[] args) {
@@ -15,7 +17,7 @@ public class ParanoidPosieGUI extends JFrame implements Runnable {
 	public static final int WINDOW_WIDTH = 900;
 	public static final int WINDOW_HEIGHT = 720;
 
-	private MockHive hive;
+	private Hive hive;
 	private GameInterface game;
 	private GamePanel gamePanel;
 

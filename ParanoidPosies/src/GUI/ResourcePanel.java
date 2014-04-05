@@ -8,15 +8,18 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.Hive;
+
 public class ResourcePanel extends JPanel {
 
-	private MockHive hive;
+	private Hive hive;
 	private JLabel honeyLabel;
+	private JLabel nectarLabel;
 
 	private int PANEL_WIDTH = 100;
 	private int PANEL_HEIGHT = 100;
 
-	public ResourcePanel(MockHive hive) {
+	public ResourcePanel(Hive hive) {
 		this.hive = hive;
 
 		setSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
@@ -25,6 +28,8 @@ public class ResourcePanel extends JPanel {
 
 		honeyLabel = new JLabel("Honey " + hive.getHoney());
 		add(honeyLabel);
+		nectarLabel = new JLabel("Nectar " + hive.getNector());
+		add(nectarLabel);
 	}
 
 	public void paintComponent(Graphics g) {
@@ -32,6 +37,7 @@ public class ResourcePanel extends JPanel {
 		g.fillRect(0, 0, PANEL_WIDTH, PANEL_HEIGHT);
 		g.setColor(Color.BLACK);
 		honeyLabel.setText("Honey " + hive.getHoney());
+		nectarLabel.setText("Nectar " + hive.getNector());
 	}
 
 }
