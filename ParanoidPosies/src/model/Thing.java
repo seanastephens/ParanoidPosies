@@ -15,4 +15,5 @@ public interface Thing {
 	public boolean isDead();
 	public int getLayer();
 	public void update();
+	public String getName();
 }

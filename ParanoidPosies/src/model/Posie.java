@@ -2,6 +2,9 @@ package model;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import GUI.PPGUI;
@@ -24,14 +27,36 @@ public class Posie extends Plant {
 	public static final int posie_time_to_flower = 90 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_hitPoints = 10;
 	public static final int posie_max_nectar = 10;
+	
+	private List<String> nameList;
+	private String name;
 
 	public Posie(Image image, Point initialLocation) {
 		super(image, initialLocation);
 		maxSeedsToDrop = posie_max_seeds_to_drop;
 		lifespan = posie_lifespan;
 		setHP(posie_hitPoints);
+		nameList = new ArrayList<String>();
+		setUpNameList();
+		name = getPosieName();
+	}
+	
+	//Names go here
+	private void setUpNameList(){
+		nameList.add("Pansy");
+		nameList.add("Pocket full of");
+		nameList.add("Bane of caterpillars");
 	}
 
+	private String getPosieName(){
+		Collections.shuffle(nameList);
+		return nameList.get(0);
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
 	@Override
 	public void grow() {
 		
