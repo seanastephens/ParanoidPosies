@@ -41,7 +41,19 @@ public abstract class Bug implements Thing{
 	}
 
 	@Override
-	public abstract void die();
+	public int getLayer(){
+		return layer;
+	}
+	
+	@Override
+	public boolean isDead() {
+		if(hp <= 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 	
 	@Override
 	public abstract void update();

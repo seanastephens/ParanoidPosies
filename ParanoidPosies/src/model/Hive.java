@@ -46,9 +46,13 @@ public class Hive implements Thing{
 	}
 
 	@Override
-	public void die() {
-		// TODO Auto-generated method stub
-		
+	public boolean isDead() {
+		if(hp <= 0){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	

@@ -12,7 +12,7 @@ public interface Thing {
 	public void setHP(int hp);
 	public void updateHP(int hp);
 	public int getHP();
-	public void die();
+	public boolean isDead();
 	public int getLayer();
 	public void update();
 }
