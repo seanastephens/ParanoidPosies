@@ -18,6 +18,8 @@ public abstract class Plant implements Thing {
 	public int seedsDropped;
 	public int maxSeedsToDrop;
 	
+	public boolean shouldBeCleanedUp;
+	
 	public final String PLANT_ACTION = "Growing happily.";
 	
 	private final int layer = 2;
@@ -31,6 +33,7 @@ public abstract class Plant implements Thing {
 		currentState = GrowthState.JustPlanted;
 		timer = 0;//Start life at 0, will be incremented by one each time update is called
 		hasBloomed = false;
+		shouldBeCleanedUp = false;
 	}
 	
 	public String getAction(){
@@ -110,6 +113,22 @@ public abstract class Plant implements Thing {
 	//return how much nectar this plant has
 	public int getNectar(){
 		return currentNectar;
+	}
+	
+	//return how many seeds the plant has dropped
+	public int getSeeds(){
+		return seedsDropped;
+	}
+	
+	public int takeSeeds(){
+		int temp = seedsDropped;
+		seedsDropped = 0;
+		shouldBeCleanedUp = true;
+		return temp;
+	}
+	
+	public boolean shouldBeCleanedUp(){
+		return shouldBeCleanedUp;
 	}
 	
 	public abstract void replenishNectar();

@@ -69,7 +69,13 @@ public class Posie extends Plant {
 		}
 		
 		else if(timer >= posie_lifespan){
+			currentState = GrowthState.DeadFlower;
 			hitPoints = 0;
+			Random rand = new Random();
+			seedsDropped = rand.nextInt(posie_max_seeds_to_drop);
+			if(seedsDropped == 0){
+				shouldBeCleanedUp = true;
+			}
 		}
 	}
 
@@ -94,9 +100,11 @@ public class Posie extends Plant {
 	public void updateHP(int hp) {
 		hitPoints += hp;
 		if(hitPoints <= 0){
+			currentState = GrowthState.DeadFlower;
 			currentNectar = 0;
-			Random rand = new Random();
-			seedsDropped = rand.nextInt(maxSeedsToDrop);
+			//only reached if plant is killed by enemy
+			seedsDropped = 0;
+			shouldBeCleanedUp = true;
 		}
 	}
 
