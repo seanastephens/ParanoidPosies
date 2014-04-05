@@ -42,9 +42,6 @@ public abstract class Bug implements Thing{
 
 	@Override
 	public abstract void die();
-
-	@Override
-	public abstract void spawn(Point loc);
 	
 	@Override
 	public abstract void update();
