@@ -11,10 +11,64 @@ public class Hive implements Thing{
 	private final int layer = 3;
 	private int nector;
 	private int honey;
+	private int timer;
+	private final int timeToBuildABee = 10;
+	private final int honeyCostToBuildABee = 10;
+	private boolean beeProduction;
+	private int beesToMake;
 	
 	public Hive(){
 		nector = 0;
 		honey = 0;
+		timer = 0;
+		beeProduction = true;
+		beesToMake = 0;
+	}
+	
+	@Override
+	public void update() {
+		if(beeProduction == true){
+			updateTimer(1);
+			if(timer == timeToBuildABee){
+				setTimer(0);
+				if(honey >= honeyCostToBuildABee){
+					honey -= honeyCostToBuildABee;
+					beesToMake++;
+				}
+			}
+		}
+	}
+	
+	public int getBeesToMake(){
+		return beesToMake;
+	}
+	
+	public void setBeesToMake(int value){
+		beesToMake = value;
+	}
+	
+	public void updateBeesToMake(int value){
+		beesToMake += value;
+	}
+	
+	public int getTimer(){
+		return timer;
+	}
+	
+	public void setTimer(int newTime){
+		timer = newTime;
+	}
+	
+	public void updateTimer(int value){
+		timer += value;
+	}
+	
+	public boolean getStateOfBeeProduction(){
+		return beeProduction;
+	}
+	
+	public void setStateOfBeeProduction(boolean value){
+		beeProduction = value;
 	}
 	
 	public int getNector(){
@@ -98,10 +152,6 @@ public class Hive implements Thing{
 		return layer;
 	}
 
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 }
