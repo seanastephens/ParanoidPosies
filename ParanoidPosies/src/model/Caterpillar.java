@@ -36,6 +36,10 @@ public class Caterpillar extends Bug {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public String getName(){
+		return name;
+	}
+	
 	//Caterpillar names go here
 	private void setUpNameList(){
 		CaterpillarNameList.add("Wormy");
@@ -74,7 +78,10 @@ public class Caterpillar extends Bug {
 
 	@Override
 	public void attack(Thing thingBeingAttacked) {
-		// TODO Auto-generated method stub
+		if(IS_LITERALLY_HITLER){
+			thingBeingAttacked.updateHP(-1 * ULTRA_HYPER_GIGA_MECHA_HITLER_ATTACK_DAMAGE);
+		}
+		else thingBeingAttacked.updateHP(-1 * CATERPILLAR_ATTACK_DAMAGE);
 
 	}
 
