@@ -2,10 +2,15 @@ package model;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Bee extends Bug{
 	
 	private int nector;
+	private List<String> beeNames;
+	private String name;
 	
 	public Bee(Point location, Image image, BugStrategy strategy){
 		this.setHP(5);
@@ -13,6 +18,28 @@ public class Bee extends Bug{
 		this.setLocation(location);
 		this.setStrategy(strategy);
 		nector = 0;
+		buildBeeNamesList();
+		name = getBeeName();
+	}
+	
+	private void buildBeeNamesList(){
+		beeNames = new ArrayList<String>();
+		beeNames.add("BeeYourself");
+		beeNames.add("Beeatrice");
+		beeNames.add("BusyBee");
+	}
+	
+	private String getBeeName(){
+		Collections.shuffle(beeNames);
+		return beeNames.get(0);
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public void setName(String newName){
+		name = newName;
 	}
 	
 	@Override
