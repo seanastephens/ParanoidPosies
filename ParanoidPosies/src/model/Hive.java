@@ -14,11 +14,10 @@ public class Hive implements Thing {
 	private int honey;
 	private int timer;
 	private final int timeToBuildABee = 10;
-	private final int honeyCostToBuildABee = 10;
+	private final int honeyCostToBuildABee = 9;
 	private boolean beeProduction;
 	private int beesToMake;
 	public static final String HIVE_NAME = "Hive";
-	public static final String HIVE_ACTION = "Buzzing away.";
 	private int seeds;
 
 	public Hive() {
@@ -30,32 +29,32 @@ public class Hive implements Thing {
 		this.setHP(HIVE_HP);
 		setImage(ImageReg.getInstance().getImageFromStr("Hive"));
 	}
-	
-	public int getSeeds(){
+
+	public int getSeeds() {
 		return seeds;
 	}
-	
-	public void setSeeds(int newSeedCount){
+
+	public void setSeeds(int newSeedCount) {
 		seeds = newSeedCount;
 	}
-	
-	public void updateSeeds(int value){
+
+	public void updateSeeds(int value) {
 		seeds += value;
 	}
-	
-	public boolean shouldBeCleanedUp(){
+
+	public boolean shouldBeCleanedUp() {
 		return isDead();
 	}
-	
-	public String getAction(){
-		return HIVE_ACTION;
+
+	public String getAction() {
+		return "Has " + getNector() + " nectar and " + getSeeds() + " seeds";
 	}
-	
-	public String getType(){
+
+	public String getType() {
 		return this.getClass().getSimpleName();
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		return HIVE_NAME;
 	}
 

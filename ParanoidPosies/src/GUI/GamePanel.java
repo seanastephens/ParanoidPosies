@@ -197,7 +197,6 @@ public class GamePanel extends JPanel {
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
-			System.out.println("Drag");
 			if (!userIsDrawingABox) {
 				userIsDrawingABox = true;
 				startPoint = e.getPoint();

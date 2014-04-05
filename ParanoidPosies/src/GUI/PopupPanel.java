@@ -14,7 +14,7 @@ public class PopupPanel extends JPanel {
 	private int HEIGHT = 150; // default
 	private int LINE_HEIGHT = 20; // depends on font.
 
-	private int MAX_CHARS_PER_LINE = 20; // should be about 1/8 of WIDTH, but
+	private int MAX_CHARS_PER_LINE = 15; // should be about 1/8 of WIDTH, but
 											// depends on FONT
 
 	private Thing thing;
