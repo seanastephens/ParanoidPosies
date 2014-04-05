@@ -1,6 +1,5 @@
 package GUI;
 
-import java.awt.Point;
 import java.util.List;
 
 import model.Thing;
@@ -19,7 +18,7 @@ public interface GameInterface {
 	 *            - a Point2D specifying the Tile to get Things from.
 	 * @return List of Things there.
 	 */
-	public List<Thing> getThingsAtPoint(Point coords);
+	public List<Thing> getThingsBetween(int xLow, int yLow, int xHigh, int yHigh);
 
 	/**
 	 * Returns a reference to the game hive.

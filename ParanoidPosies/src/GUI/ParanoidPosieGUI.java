@@ -17,6 +17,7 @@ public class ParanoidPosieGUI extends JFrame implements Runnable {
 
 	private MockHive hive;
 	private GameInterface game;
+	private GamePanel gamePanel;
 
 	public ParanoidPosieGUI() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -28,13 +29,13 @@ public class ParanoidPosieGUI extends JFrame implements Runnable {
 
 		setLayout(null);
 
-		GamePanel drawingPanel = new GamePanel(game);
-		add(drawingPanel);
-		drawingPanel.setLocation(new Point(0, 0));
+		gamePanel = new GamePanel(game);
+		add(gamePanel);
+		gamePanel.setLocation(new Point(0, 0));
 
-		addKeyListener(drawingPanel);
-		addMouseMotionListener(drawingPanel);
-		addMouseListener(drawingPanel);
+		addKeyListener(gamePanel);
+		addMouseMotionListener(gamePanel);
+		addMouseListener(gamePanel);
 
 		Thread animator = new Thread(this);
 		animator.start();
@@ -47,6 +48,7 @@ public class ParanoidPosieGUI extends JFrame implements Runnable {
 			} catch (InterruptedException e) {
 				System.out.println("Interrupted!");
 			}
+			gamePanel.shiftViewPoint();
 			game.update();
 			repaint();
 		}

@@ -27,13 +27,12 @@ public class MockGame implements GameInterface {
 		return listofthings;
 	}
 
-	@Override
-	public List<Thing> getThingsAtPoint(Point coords) {
+	public List<Thing> getThingsBetween(int xlow, int ylow, int xhigh, int yhigh) {
 		List<Thing> ret = new ArrayList<Thing>();
 		for (Thing t : listofthings) {
-			if (t.getLocation().equals(coords)) {
-				ret.add(t);
-			}
+			// if (t.getLocation().equals(coords)) {
+			// ret.add(t);
+			// }
 		}
 		return ret;
 	}
