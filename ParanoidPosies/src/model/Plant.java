@@ -36,9 +36,7 @@ public abstract class Plant implements Thing {
 		shouldBeCleanedUp = false;
 	}
 	
-	public String getAction(){
-		return PLANT_ACTION;
-	}
+	public abstract String getAction();
 	
 	public String getType(){
 		return this.getClass().getSimpleName();
