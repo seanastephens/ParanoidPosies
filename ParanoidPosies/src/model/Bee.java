@@ -27,8 +27,29 @@ public class Bee extends Bug {
 		nectorToGet = maxNector;
 		buildBeeNamesList();
 		name = getBeeName();
+		this.getListOfBugStrategies().add(new SquareStrategy());
+		this.getListOfBugStrategies().add(new GatherStrategy(gameboard.g));
 	}
 
+	public Plant getClosestPosie(){
+		Posie posie;
+		List<Thing> things;
+		int multipleOf5 = 1;
+		int five = 5;
+		while(posie == null){
+			things = this.getGameBoard().getThingsBetween(this.getLocation().x-five*multipleOf5, 
+					this.getLocation().y-five*multipleOf5, this.getLocation().x+five*multipleOf5
+					, this.getLocation().y+five*multipleOf5);
+			for(Thing aThing: things){
+				if(aThing instanceOf Posie){
+					posie = aThing;
+					return posie;
+				}
+			}
+			multipleOf5++;
+		}
+	}
+	
 	private void buildBeeNamesList() {
 		beeNames = new ArrayList<String>();
 		beeNames.add("BeeYourself");
@@ -69,14 +90,18 @@ public class Bee extends Bug {
 		return nector;
 	}
 
-	// Use this method to have the bee add nector to the amount it is holding.
-	public void addNectorToBee(int value) {
+	// Use this method to ask the bee how much nectar it's holding.
+	public void calculateNectorToGet(int value) {
 		if (nector < maxNector) {
 			nectorToGet = maxNector - nector;
 		}
 	}
+	
+	public void askFlowerForNector(){
+		this.getStrategy().
+	}
 
-	// Use this method to have the bee "drop" its nector. Resets the amount of
+	// Use this method to have the bee "drop" its nectar. Resets the amount of
 	// nector being held.
 	public void unloadNector() {
 		nector = 0;

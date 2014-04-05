@@ -2,22 +2,34 @@ package model;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Bug implements Thing{
 	private Point location;
 	private int hp;
 	private Image image;
 	private final int layer = 1;
-	private BugStrategy strategy;
+	private BugStrategy currentStrategy;
 	private Point objective;
 	private GameBoard gameboard;
-
+	private List<BugStrategy> strategies;
+	
 	public Bug(GameBoard gameboard){
 		this.gameboard = gameboard;
+		strategies = new ArrayList<BugStrategy>();
+	}
+	
+	public List<BugStrategy> getListOfBugStrategies(){
+		return strategies;
+	}
+	
+	public void setListOfBugStrategies(List<BugStrategy> list){
+		strategies = list;
 	}
 	
 	public String getAction(){
-		return strategy.getClass().getSimpleName();
+		return currentStrategy.getClass().getSimpleName();
 	}
 	
 	public String getType(){
@@ -86,7 +98,7 @@ public abstract class Bug implements Thing{
 	}
 	
 	public void setStrategy(BugStrategy strat, Point objectiveLocation){
-		strategy = strat;
+		currentStrategy = strat;
 		objective = objectiveLocation;
 	}
 	
@@ -99,7 +111,7 @@ public abstract class Bug implements Thing{
 	}
 	
 	public BugStrategy getStrategy(){
-		return strategy;
+		return currentStrategy;
 	}
 	
 	//Since things don't teleport, this is where the animations take place to move the Thing
