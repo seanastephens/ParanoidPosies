@@ -33,10 +33,6 @@ public class PPGUI extends JFrame implements Runnable {
 		add(gamePanel);
 		gamePanel.setLocation(new Point(0, 0));
 
-		addKeyListener(gamePanel);
-		addMouseMotionListener(gamePanel);
-		addMouseListener(gamePanel);
-
 		Thread animator = new Thread(this);
 		animator.start();
 	}

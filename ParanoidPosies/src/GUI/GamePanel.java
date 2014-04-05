@@ -3,11 +3,10 @@ package GUI;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,14 @@ import javax.swing.JPanel;
 
 import model.Thing;
 
-public class GamePanel extends JPanel implements KeyListener, MouseMotionListener, MouseListener {
+public class GamePanel extends JPanel {
+
+	/** Distance from border that triggers scrolling. */
+	public int BORDER_MARGIN = 50;
+	/** Max distance from a mob a click can be to access it. */
+	public static int SELECT_MARGIN = 25;
+	/** Pixels per tic */
+	public static int SCROLL_SPEED = 10;
 
 	private GameInterface game;
 	private Point view = new Point(2500, 2500);
@@ -31,8 +37,12 @@ public class GamePanel extends JPanel implements KeyListener, MouseMotionListene
 		add(resourcePanel);
 		resourcePanel.setLocation(new Point(0, PPGUI.WINDOW_HEIGHT - resourcePanel.getHeight()));
 
+		addMouseMotionListener(new ScrollMouseListener());
+		addKeyListener(new ScrollKeyListener());
+		addMouseListener(new ClickListener());
 	}
 
+	// TODO refactor layers
 	public void paintComponent(Graphics graphics) {
 		List<Thing> things = game.getAllThingsOnBoard();
 		List<Thing> three = new ArrayList<Thing>();
@@ -75,81 +85,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseMotionListene
 		g.drawImage(t.getImage(), x, y, null);
 	}
 
-	@Override
-	public void keyTyped(KeyEvent k) {
-		switch (k.getKeyChar()) {
-		case ' ':
-			remove(popup);
-			break;
-		case 'w':
-			direction = Direction.UP;
-			break;
-		case 'a':
-			direction = Direction.LEFT;
-			break;
-		case 's':
-			direction = Direction.DOWN;
-			break;
-		case 'd':
-			direction = Direction.RIGHT;
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		direction = Direction.NONE;
-	}
-
-	public int BORDER_MARGIN = 50;
-
-	// TODO angle moving
-	private enum Direction {
-		RIGHT, LEFT, UP, DOWN, NONE
-	}
-
 	private Direction direction = Direction.NONE;
-
-	@Override
-	public void mouseMoved(MouseEvent m) {
-		if (m.getX() < BORDER_MARGIN) {
-			direction = Direction.LEFT;
-		} else if (m.getX() > PPGUI.WINDOW_WIDTH - BORDER_MARGIN) {
-			direction = Direction.RIGHT;
-
-		} else if (m.getY() < BORDER_MARGIN) {
-			direction = Direction.UP;
-
-		} else if (m.getY() > PPGUI.WINDOW_HEIGHT - BORDER_MARGIN) {
-			direction = Direction.DOWN;
-		} else {
-			direction = Direction.NONE;
-		}
-	}
-
-	public static int SELECT_MARGIN = 25;
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		int x = e.getPoint().x - PPGUI.WINDOW_WIDTH / 2 + view.x;
-		int y = e.getPoint().y - PPGUI.WINDOW_HEIGHT / 2 + view.y;
-
-		Point p = new Point(x, y);
-
-		List<Thing> atPoint = game.getThingsBetween(p.x - SELECT_MARGIN, p.y - SELECT_MARGIN, p.x
-				+ SELECT_MARGIN, p.y + SELECT_MARGIN);
-		if (popup != null) {
-			remove(popup);
-		}
-
-		if (atPoint.size() > 0) {
-			popup = new PopupPanel(atPoint.get(0));
-			popup.setLocation(e.getPoint());
-			add(popup);
-		}
-
-	}
-
-	public static int SCROLL_SPEED = 10;
 
 	public void shiftViewPoint() {
 		switch (direction) {
@@ -170,28 +106,66 @@ public class GamePanel extends JPanel implements KeyListener, MouseMotionListene
 		}
 	}
 
-	@Override
-	public void keyPressed(KeyEvent k) {
-
+	private class ScrollMouseListener extends MouseAdapter {
+		@Override
+		public void mouseMoved(MouseEvent m) {
+			if (m.getX() < BORDER_MARGIN) {
+				direction = Direction.LEFT;
+			} else if (m.getX() > PPGUI.WINDOW_WIDTH - BORDER_MARGIN) {
+				direction = Direction.RIGHT;
+			} else if (m.getY() < BORDER_MARGIN) {
+				direction = Direction.UP;
+			} else if (m.getY() > PPGUI.WINDOW_HEIGHT - BORDER_MARGIN) {
+				direction = Direction.DOWN;
+			} else {
+				direction = Direction.NONE;
+			}
+		}
 	}
 
-	@Override
-	public void mouseDragged(MouseEvent arg0) {
+	private class ScrollKeyListener extends KeyAdapter {
+		@Override
+		public void keyTyped(KeyEvent k) {
+			switch (k.getKeyChar()) {
+			case ' ':
+				remove(popup);
+				break;
+			case 'w':
+				direction = Direction.UP;
+				break;
+			case 'a':
+				direction = Direction.LEFT;
+				break;
+			case 's':
+				direction = Direction.DOWN;
+				break;
+			case 'd':
+				direction = Direction.RIGHT;
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			direction = Direction.NONE;
+		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
+	private class ClickListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			int x = e.getPoint().x - PPGUI.WINDOW_WIDTH / 2 + view.x;
+			int y = e.getPoint().y - PPGUI.WINDOW_HEIGHT / 2 + view.y;
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
+			List<Thing> atPoint = game.getThingsBetween(x - SELECT_MARGIN, y - SELECT_MARGIN, x
+					+ SELECT_MARGIN, y + SELECT_MARGIN);
+			if (popup != null) {
+				remove(popup);
+			}
+			if (atPoint.size() > 0) {
+				popup = new PopupPanel(atPoint.get(0));
+				popup.setLocation(e.getPoint());
+				add(popup);
+			}
+		}
 	}
 }
