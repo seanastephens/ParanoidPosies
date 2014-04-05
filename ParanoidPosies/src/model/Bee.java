@@ -10,9 +10,8 @@ public class Bee extends Bug {
 	private int nector;
 	private List<String> beeNames;
 	private String name;
-	private int nectorToGet;
-	private Plant nearestPlant;
-	private static final int maxNector = 10;
+	private int nectarToGet;
+	private static final int maxNectar = 10;
 	public static final int BEE_HP = 5;
 	public static final int BEE_ATTACK_DAMAGE = 1;
 	public static final String BEE_IMAGE_NAME = "Bee";
@@ -27,7 +26,7 @@ public class Bee extends Bug {
 				new Point(this.getLocation().x + 50, this.getLocation().y));
 		nector = 0;
 		seeds = 0;
-		nectorToGet = maxNector;
+		nectarToGet = maxNectar;
 		buildBeeNamesList();
 		name = getBeeName();
 	}
@@ -74,20 +73,20 @@ public class Bee extends Bug {
 	}
 
 	// Query to get amount of nector the bee is holding.
-	public int getNectorBeingHeld() {
+	public int getNectarBeingHeld() {
 		return nector;
 	}
 
 	// Use this method to ask the bee how much nectar it's holding.
-	public void calculateNectorToGet() {
-		if (nector < maxNector) {
-			nectorToGet = maxNector - nector;
+	public void calculateNectarToGet() {
+		if (nector < maxNectar) {
+			nectarToGet = maxNectar - nector;
 		} else {
-			nectorToGet = 0;
+			nectarToGet = 0;
 		}
 	}
 
-	public void askFlowerForNectorOrSeeds() {
+	public void askFlowerForNectarOrSeeds() {
 		if (!(getObjectiveThing() instanceof Plant)) {
 			throw new IllegalStateException("Can't get nectoar from :"
 					+ getObjectiveThing().toString());
@@ -95,15 +94,15 @@ public class Bee extends Bug {
 		if (getObjectiveThing().isDead() == true) {
 			seeds = ((Plant) getObjectiveThing()).takeSeeds();
 		} else {
-			calculateNectorToGet();
-			((Plant) getObjectiveThing()).takeNectar(nectorToGet);
+			calculateNectarToGet();
+			((Plant) getObjectiveThing()).takeNectar(nectarToGet);
 		}
 	}
 
-	public void unloadNectorAndSeedsToHive() {
+	public void unloadNectarAndSeedsToHive() {
 		this.getGameBoard().getHive().updateNector(nector);
 		this.getGameBoard().getHive().updateSeeds(seeds);
-		unloadNector();
+		unloadNectar();
 		setSeeds(0);
 	}
 
@@ -121,7 +120,7 @@ public class Bee extends Bug {
 
 	// Use this method to have the bee "drop" its nectar. Resets the amount of
 	// nector being held.
-	public void unloadNector() {
+	public void unloadNectar() {
 		nector = 0;
 	}
 
