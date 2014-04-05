@@ -3,6 +3,7 @@ package model;
 import java.awt.Image;
 import java.awt.Point;
 
+//Everything is a thing!
 public interface Thing {
 	public void setLocation(Point loc);
 	public Point getLocation();
