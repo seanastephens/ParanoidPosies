@@ -145,7 +145,7 @@ public abstract class Bug implements Thing {
 	}
 
 	//TODO handle null
-	public Plant getClosestPosie() {
+	public Thing getClosestPosie() {
 		List<Thing> things;
 		int multipleOf100 = 1;
 		int maxMultipleOf100 = 20;
@@ -163,8 +163,7 @@ public abstract class Bug implements Thing {
 			}
 			multipleOf100++;
 		}
-		// end of the game.
-		return null;
+		return gameboard.getHive();
 	}
 
 	// Takes the object of the thing being attacked so updates can be made to

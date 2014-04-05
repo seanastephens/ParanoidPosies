@@ -101,7 +101,12 @@ public class GamePanel extends JPanel {
 
 	private void drawSelectionBox(Graphics graphics) {
 		graphics.setColor(Color.RED);
-		graphics.drawRect(startPoint.x, startPoint.y, boxWidth, boxHeight);
+
+		int minX = Math.min(startPoint.x, startPoint.x + boxWidth);
+		int minY = Math.min(startPoint.y, startPoint.y + boxHeight);
+
+		graphics.drawRect(minX, minY, Math.abs(boxWidth), Math.abs(boxHeight));
+		graphics.drawRect(minX - 1, minY - 1, Math.abs(boxWidth) + 2, Math.abs(boxHeight) + 2);
 	}
 
 	private Direction direction = Direction.NONE;
