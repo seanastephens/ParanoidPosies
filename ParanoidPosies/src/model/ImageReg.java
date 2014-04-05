@@ -20,9 +20,11 @@ public class ImageReg {
 			/*
 			 * Add images here.
 			 */
-			images.put("Bee", ImageIO.read(new File("images/bee.png")));
-			images.put("Hive",
-					ImageIO.read(new File("images/thisIsAPosie.jpg")));
+			images.put("Bee", getImage("bee.png"));
+			Image beehive = getImage("beehive.png");
+			beehive = beehive.getScaledInstance(200, 200, 0);
+			images.put("Hive", beehive);
+			images.put("GrassTile", getImage("grasstile.png"));
 			/*
 			 * DON'T TOUCH BELOW HERE!
 			 */
@@ -30,6 +32,12 @@ public class ImageReg {
 		} catch (IOException e) {
 			System.out.println("image error");
 		}
+	}
+
+	private static String base = "images/";
+
+	private Image getImage(String path) throws IOException {
+		return ImageIO.read(new File(base + path));
 	}
 
 	public static ImageReg getInstance() {

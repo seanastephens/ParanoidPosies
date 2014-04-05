@@ -21,11 +21,11 @@ public class GamePanel extends JPanel implements KeyListener,
 	private GameInterface game;
 	private Point view = new Point(2500, 2500);
 	private PopupPanel popup;
+	private TileManager tileManager = new TileManager();
 
 	public GamePanel(GameInterface g) {
 		this.game = g;
-		setSize(new Dimension(PPGUI.WINDOW_WIDTH,
-				PPGUI.WINDOW_HEIGHT));
+		setSize(new Dimension(PPGUI.WINDOW_WIDTH, PPGUI.WINDOW_HEIGHT));
 
 		setLayout(null);
 		JPanel resourcePanel = new ResourcePanel(g.getHive());
@@ -48,6 +48,11 @@ public class GamePanel extends JPanel implements KeyListener,
 			} else if (t.getLayer() == 3) {
 				three.add(t);
 			}
+		}
+
+		for (BackgroundTile b : tileManager.getTiles(view)) {
+			graphics.drawImage(b.getImage(), b.getLocation().x,
+					b.getLocation().y, null);
 		}
 
 		for (Thing t : three) {
