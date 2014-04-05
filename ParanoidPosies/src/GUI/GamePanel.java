@@ -5,21 +5,26 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.List;
 
 import javax.swing.JPanel;
 
 import model.Thing;
 
-public class GamePanel extends JPanel implements KeyListener {
+public class GamePanel extends JPanel implements KeyListener,
+		MouseMotionListener, MouseListener {
 
-	public static int TILE_WIDTH = 30;
+	public static int TILE_WIDTH = 50;
 
-	private GameInterface g;
-	private Point viewCenter = new Point(50, 50);
+	private GameInterface game;
+	private Point view = new Point(50, 50);
+	private PopupPanel popup;
 
 	public GamePanel(GameInterface g) {
-		this.g = g;
+		this.game = g;
 		setSize(new Dimension(ParanoidPosieGUI.WINDOW_WIDTH,
 				ParanoidPosieGUI.WINDOW_HEIGHT));
 
@@ -28,14 +33,15 @@ public class GamePanel extends JPanel implements KeyListener {
 		add(resourcePanel);
 		resourcePanel.setLocation(new Point(0, ParanoidPosieGUI.WINDOW_HEIGHT
 				- resourcePanel.getHeight()));
+
 	}
 
 	public void paintComponent(Graphics graphics) {
-		List<Thing> things = g.getAllThingsOnBoard();
+		List<Thing> things = game.getAllThingsOnBoard();
 		for (Thing t : things) {
-			int x = (t.getLocation().x - viewCenter.x) * TILE_WIDTH
+			int x = (t.getLocation().x - view.x) * TILE_WIDTH
 					+ ParanoidPosieGUI.WINDOW_WIDTH / 2;
-			int y = (t.getLocation().y - viewCenter.y) * TILE_WIDTH
+			int y = (t.getLocation().y - view.y) * TILE_WIDTH
 					+ ParanoidPosieGUI.WINDOW_HEIGHT / 2;
 
 			graphics.drawImage(t.getImage(), x, y, null);
@@ -50,27 +56,79 @@ public class GamePanel extends JPanel implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void keyTyped(KeyEvent k) {
-		System.out.println(k.getKeyChar());
-		switch (k.getKeyChar()) {
-		case 'w':
-			viewCenter.y++;
-			break;
-		case 'a':
-			viewCenter.x++;
-			break;
-		case 's':
-			viewCenter.y--;
-			break;
-		case 'd':
-			viewCenter.x--;
-			break;
-		default:
+		if (k.getKeyChar() == ' ') {
+			remove(popup);
 		}
 	}
 
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+	}
+
+	public int BORDER_MARGIN = 0;
+
+	// TODO: Change so that still moves if hold mouse still
+	// TODO: SLOW DOWN
+	@Override
+	public void mouseMoved(MouseEvent m) {
+		if (m.getX() < BORDER_MARGIN) {
+			view.x++;
+		}
+		if (m.getX() > ParanoidPosieGUI.WINDOW_WIDTH - BORDER_MARGIN) {
+			view.x--;
+		}
+		if (m.getY() < BORDER_MARGIN) {
+			view.y++;
+		}
+		if (m.getY() > ParanoidPosieGUI.WINDOW_HEIGHT - BORDER_MARGIN) {
+			view.y--;
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		int x = (e.getPoint().x - ParanoidPosieGUI.WINDOW_WIDTH / 2 + view.x
+				* TILE_WIDTH)
+				/ TILE_WIDTH;
+		int y = (e.getPoint().y - ParanoidPosieGUI.WINDOW_HEIGHT / 2 + view.y
+				* TILE_WIDTH)
+				/ TILE_WIDTH;
+
+		Point adjustedPoint = new Point(x, y);
+
+		List<Thing> atPoint = game.getThingsAtPoint(adjustedPoint);
+		if (popup != null) {
+			remove(popup);
+		}
+		if (atPoint.size() > 0) {
+			popup = new PopupPanel(atPoint.get(0));
+			popup.setLocation(e.getPoint());
+			add(popup);
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
 }

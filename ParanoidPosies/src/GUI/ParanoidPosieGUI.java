@@ -2,10 +2,8 @@ package GUI;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class ParanoidPosieGUI extends JFrame implements Runnable {
 
@@ -30,11 +28,13 @@ public class ParanoidPosieGUI extends JFrame implements Runnable {
 
 		setLayout(null);
 
-		JPanel drawingPanel = new GamePanel(game);
+		GamePanel drawingPanel = new GamePanel(game);
 		add(drawingPanel);
 		drawingPanel.setLocation(new Point(0, 0));
 
-		addKeyListener((KeyListener) drawingPanel);
+		addKeyListener(drawingPanel);
+		addMouseMotionListener(drawingPanel);
+		addMouseListener(drawingPanel);
 
 		Thread animator = new Thread(this);
 		animator.start();
