@@ -14,7 +14,7 @@ public class Hive implements Thing {
 	private int honey;
 	private int timer;
 	private final int timeToBuildABee = 10;
-	private final int honeyCostToBuildABee = 9;
+	private final int honeyCostToBuildABee = 10;
 	private boolean beeProduction;
 	private int beesToMake;
 	public static final String HIVE_NAME = "Hive";
@@ -130,8 +130,10 @@ public class Hive implements Thing {
 	}
 
 	public void convertNectorToHoney() {
-		updateNector(-1);
-		updateHoney(1);
+		if (getNector() > 0) {
+			updateNector(-1);
+			updateHoney(1);
+		}
 	}
 
 	@Override
