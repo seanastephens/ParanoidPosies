@@ -55,7 +55,7 @@ public class SegmentedCaterpillarHead extends Caterpillar {
 	}
 	@Override
 	public void updateHP(int hp) {
-		System.out.println("updated!");
+		System.out.println("updated!"+getHP());
 		this.setHP(this.getHP()+hp);
 		if (next!=null){
 			next.propogateHP(hp);
