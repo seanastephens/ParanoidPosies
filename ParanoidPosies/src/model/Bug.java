@@ -187,7 +187,9 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 					this.getLocation().y + hundred * multipleOf100);
 			for (Thing aThing : things) {
 				if (aThing instanceof Posie && this instanceof Bee) {
-					return (Posie) aThing;
+					if(((Posie) aThing).hasBloomed){
+						return (Posie) aThing;
+					}
 				}
 				if (aThing instanceof Posie && this instanceof Caterpillar) {
 					if (!aThing.isDead()) {
@@ -219,12 +221,12 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 		}
 		Collections.shuffle(posies);
 		Posie aPosie = (Posie) posies.get(0);
-		if (this instanceof Bee) {
+		if (this instanceof Bee && aPosie.hasBloomed) {
 			return posies.get(0);
 		}
 		if (this instanceof Caterpillar) {
 			for(Thing posie: posies){
-				if (!posies.get(0).isDead()) {
+				if (!posie.isDead()) {
 					return posies.get(0);
 				}
 			}
