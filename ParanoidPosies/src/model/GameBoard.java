@@ -55,6 +55,7 @@ public class GameBoard implements GameInterface {
 	private static final int HITLER_PROB = 1;
 	private static final int SCORE_PER_KILL = 10;
 	private static final int SCORE_PER_PLANT = 2;
+	private static final int PERCENT_KUBA_CATERBUGS = 0;
 
 	private int totalScore = 0;
 
@@ -107,12 +108,12 @@ public class GameBoard implements GameInterface {
 				break;
 			}
 			Caterpillar c;
-			// Random r = new Random();
-			// if (r.nextBoolean()) {
-			c = new Caterpillar(toSpawnAt, this);
-			// } else {
-			// c = new SegmentedCaterpillarHead(toSpawnAt, this);
-			// }
+			Random r = new Random();
+			if (/* r.nextInt(100) > PERCENT_KUBA_CATERBUGS */false) {
+				c = new Caterpillar(toSpawnAt, this);
+			} else {
+				c = new SegmentedCaterpillarHead(toSpawnAt, this);
+			}
 			things.add(c);
 
 		}
@@ -218,6 +219,11 @@ public class GameBoard implements GameInterface {
 			if (spawnProb < SPAWN_PROBABILITY) {
 				Caterpillar c = new Caterpillar(toSpawnAt, this);
 				int hitlerRand = rand.nextInt(HITLER_PROB_RANGE);
+
+				if (rand.nextInt(100) <= PERCENT_KUBA_CATERBUGS) {
+					c = new SegmentedCaterpillarHead(toSpawnAt, this);
+				}
+
 				if (hitlerRand < HITLER_PROB) {
 					c.makeHitler();
 				}
