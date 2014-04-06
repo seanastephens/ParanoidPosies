@@ -68,7 +68,6 @@ public class PlantMenu extends JPanel {
 				game.hive.updateHoney(-1 * GameBoard.POSIE_COST_IN_HONEY);
 				game.hive.updateSeeds(-1 * GameBoard.POSIE_COST_IN_SEEDS);
 				game.getAllThingsOnBoard().add(new Posie(where));
-				System.out.println(game.getAllThingsOnBoard());
 				gPanel.popup = null;
 			} else {
 				Point ourCoords = gPanel.popup.getLocation();

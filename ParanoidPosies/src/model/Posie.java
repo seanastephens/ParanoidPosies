@@ -27,18 +27,20 @@ public class Posie extends Plant {
 	public static final int posie_time_to_flower = 15 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_hitPoints = 10;
 	public static final int posie_max_nectar = 15;
-	
+
 	public static final Image SEED_IMAGE = ImageReg.getInstance().getImageFromStr("thisIsAPosie");
-	public static final Image SEEDLING_IMAGE = ImageReg.getInstance().getImageFromStr("TotallyAPosie");
-	public static final Image FLOWER_IMAGE = ImageReg.getInstance().getImageFromStr("forRealThoughItsAPosie");
-	public static final Image DEAD_FLOWER_IMAGE = ImageReg.getInstance().getImageFromStr("ISwearToGodThisOneIsAnHonestToGodLegitimatePosie");
+	public static final Image SEEDLING_IMAGE = ImageReg.getInstance().getImageFromStr(
+			"TotallyAPosie");
+	public static final Image FLOWER_IMAGE = ImageReg.getInstance().getImageFromStr(
+			"forRealThoughItsAPosie");
+	public static final Image DEAD_FLOWER_IMAGE = ImageReg.getInstance().getImageFromStr(
+			"ISwearToGodThisOneIsAnHonestToGodLegitimatePosie");
 
 	public static final String SEED_ACTION = "Beginning life.";
 	public static final String SEEDLING_ACTION = "Growing up big and strong.";
 	public static final String FLOWER_ACTION = "Enjoying sunshine, brother.";
 	public static final String DEAD_FLOWER_ACTION = "Flower is kill.";
-	
-	
+
 	private List<String> nameList;
 	private String name;
 
@@ -52,16 +54,24 @@ public class Posie extends Plant {
 		setUpNameList();
 		name = getPosieName();
 	}
-	
-	public String getAction(){
-		String temp= "";
-		switch(currentState){
-		case JustPlanted: temp += SEED_ACTION; break;
-		case Seedling: temp += SEEDLING_ACTION;break;
-		case Flower: temp += FLOWER_ACTION;break;
-		case DeadFlower: temp += DEAD_FLOWER_ACTION;break;
+
+	public String getAction() {
+		String temp = "";
+		switch (currentState) {
+		case JustPlanted:
+			temp += SEED_ACTION;
+			break;
+		case Seedling:
+			temp += SEEDLING_ACTION;
+			break;
+		case Flower:
+			temp += FLOWER_ACTION;
+			break;
+		case DeadFlower:
+			temp += DEAD_FLOWER_ACTION;
+			break;
 		}
-		temp +=  " (" + seedsDropped + " seeds and " + currentNectar + " nectar).";
+		temp += " (" + seedsDropped + " seeds and " + currentNectar + " nectar).";
 		return temp;
 	}
 
@@ -98,10 +108,9 @@ public class Posie extends Plant {
 			setImage(DEAD_FLOWER_IMAGE);
 			currentNectar = 0;
 			hitPoints = 0;
-			if(seedsDropped == 0 && !shouldBeCleanedUp){
+			if (seedsDropped == 0 && !shouldBeCleanedUp) {
 				Random rand = new Random();
 				seedsDropped = rand.nextInt(posie_max_seeds_to_drop) + 1;
-				System.out.println("Dropping " + seedsDropped + " seeds");
 			}
 		}
 	}
