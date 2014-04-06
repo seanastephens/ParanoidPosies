@@ -68,8 +68,10 @@ public class Bee extends Bug {
 
 	@Override
 	public void attack(Thing thingBeingAttacked) {
-		thingBeingAttacked.updateHP(-1 * BEE_ATTACK_DAMAGE);
-		this.updateHP(-1 * BEE_HP);
+		if(thingBeingAttacked != null){
+			thingBeingAttacked.updateHP(-1 * BEE_ATTACK_DAMAGE);
+			this.updateHP(-1 * BEE_HP);
+		}
 	}
 
 	// Query to get amount of nector the bee is holding.
