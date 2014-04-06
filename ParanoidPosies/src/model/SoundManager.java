@@ -25,6 +25,7 @@ public class SoundManager {
 	
 	//Sound Effects
 	private static String Chomp = baseDir + "chomp.mp3";
+	private static String Siren = baseDir + "Siren.mp3";
 	
 	private static SongPlayer mainSong;
 	
@@ -40,6 +41,10 @@ public class SoundManager {
 	private void go(){
 		Collections.shuffle(songs);
 		mainSong.playFile(new LoopListener(), songs.get(0));
+	}
+	
+	public static void playSiren(){
+		SongPlayer.playFile(Siren);
 	}
 	
 	public static void playChomp(){
