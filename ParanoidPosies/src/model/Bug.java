@@ -202,7 +202,7 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 	public Thing getClosestCaterpillar() {
 		List<Thing> things;
 		int multipleOf100 = 1;
-		int maxMultipleOf100 = 5;
+		int maxMultipleOf100 = 10;
 		int hundred = 100;
 		while (multipleOf100 < maxMultipleOf100) {
 			things = this.getGameBoard().getThingsBetween(
