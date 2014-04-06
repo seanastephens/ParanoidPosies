@@ -261,6 +261,14 @@ public class GameBoard implements GameInterface {
 				enemyList.add(c);
 			}
 		}
+		//Spawn Hitler after third wave
+		if(timer == 3 * WAVE_INTERVAL){
+			Caterpillar hitler = new Caterpillar(getNorthSpawn(), this);
+			hitler.makeHitler();SoundManager.playSiren();
+			JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
+			things.add(hitler);
+			enemyList.add(hitler);
+		}
 	}
 
 	public Point getWestSpawn() {
