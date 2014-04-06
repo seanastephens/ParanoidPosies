@@ -60,7 +60,7 @@ public class GameBoard implements GameInterface {
 
 	private static final int SCORE_PER_KILL = 10;
 	private static final int SCORE_PER_PLANT = 2;
-	private static final int PERCENT_KUBA_CATERBUGS = 100;
+	private static final int PERCENT_KUBA_CATERBUGS = 40;
 
 	private int totalScore = 0;
 
