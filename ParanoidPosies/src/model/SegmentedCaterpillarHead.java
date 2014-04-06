@@ -9,16 +9,17 @@ import java.util.Random;
 public class SegmentedCaterpillarHead extends Caterpillar {
 	public static final String CATERPILLAR_IMAGE = "SegmentedCaterpillarHead";
 	private int maxSegments=8;
+	SegmentedCaterpillarBody next;
 
 	public SegmentedCaterpillarHead(Point location, GameBoard gameboard) {
 		super(location, gameboard);
 		Random rand = new Random();
 		int segmentsNumber = rand.nextInt(maxSegments);
 		this.setImage(ImageReg.getInstance().getImageFromStr(CATERPILLAR_IMAGE));
-		next(location, gameboard, segmentsNumber);
+		next = new SegmentedCaterpillarBody(location, gameboard, segmentsNumber,this);
 	}
-	public SegmentedCaterpillarBody next(Point location, GameBoard gameboard, int number) {
-		return new SegmentedCaterpillarBody(location, gameboard, number-1, this);
+	public SegmentedCaterpillarHead(Point location, GameBoard gameboard, boolean a){
+		super(location, gameboard);
 	}
 
 }
