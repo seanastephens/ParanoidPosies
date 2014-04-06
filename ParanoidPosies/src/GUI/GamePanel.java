@@ -54,6 +54,11 @@ public class GamePanel extends JPanel {
 		add(resourcePanel);
 		resourcePanel.setLocation(new Point(0, PPGUI.WINDOW_HEIGHT - resourcePanel.getHeight()));
 
+		JPanel timerPanel = new ScorePanel(g);
+		add(timerPanel);
+		timerPanel.setLocation(PPGUI.WINDOW_WIDTH - timerPanel.getWidth(), PPGUI.WINDOW_HEIGHT
+				- timerPanel.getHeight());
+
 		addMouseMotionListener(new ScrollMouseListener());
 		addMouseListener(new ClickListener());
 		addMouseListener(new DragBoxListener());

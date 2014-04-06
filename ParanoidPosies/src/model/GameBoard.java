@@ -60,7 +60,7 @@ public class GameBoard implements GameInterface {
 		sound = new SoundManager();
 		timer = 0;
 		waveSize = INITIAL_WAVE_SIZE;
-		hive = new Hive();
+		hive = new Hive(this);
 		hive.setLocation(new Point(centerX, centerY));
 		things = new ArrayList<Thing>();
 		friendlyList = new ArrayList<Bug>();
@@ -136,6 +136,10 @@ public class GameBoard implements GameInterface {
 			}
 			hive.updateBeesToMake(bees * -1);
 		}
+	}
+
+	public void spawnAWarrior() {
+		things.add(new BeeWarrior(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
 	}
 
 	@Override
@@ -296,5 +300,13 @@ public class GameBoard implements GameInterface {
 			}
 		}
 		return number;
+	}
+
+	public int getNumberOfTics() {
+		return timer;
+	}
+
+	public int getWaveSize() {
+		return waveSize;
 	}
 }

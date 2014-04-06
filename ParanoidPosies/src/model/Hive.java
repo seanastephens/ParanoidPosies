@@ -15,14 +15,18 @@ public class Hive implements Thing {
 	private int nector;
 	private int honey;
 	private int timer;
+
 	private final int timeToBuildABee = 5 * PPGUI.UPDATES_PER_SEC;
-	private final int honeyCostToBuildABee = 7;
+	public final int honeyCostToBuildABee = 7;
+	public final int honeyCostToBuildAWarriorBee = 15;
 	private boolean beeProduction;
 	private int beesToMake;
 	public static final String HIVE_NAME = "Hive";
 	private int seeds;
+	private GameBoard game;
 
-	public Hive() {
+	public Hive(GameBoard game) {
+		this.game = game;
 		nector = 0;
 		honey = 0;
 		timer = 0;
@@ -72,6 +76,17 @@ public class Hive implements Thing {
 					beesToMake++;
 				}
 			}
+		}
+	}
+
+	public boolean canBuildWarriorBee() {
+		return honey >= honeyCostToBuildAWarriorBee;
+	}
+
+	public void buildWarriorBee() {
+		if (canBuildWarriorBee()) {
+			game.spawnAWarrior();
+			honey -= honeyCostToBuildAWarriorBee;
 		}
 	}
 
@@ -132,7 +147,7 @@ public class Hive implements Thing {
 	}
 
 	public void convertNectorToHoney() {
-		if (getNector() > 0 && timer % PPGUI.UPDATES_PER_SEC/2 == 0) {
+		if (getNector() > 0 && timer % PPGUI.UPDATES_PER_SEC / 2 == 0) {
 			updateNector(-1);
 			updateHoney(1);
 		}
