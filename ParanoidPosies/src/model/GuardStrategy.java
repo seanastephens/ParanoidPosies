@@ -15,7 +15,7 @@ public class GuardStrategy implements BugStrategy{
 	@Override
 	public void doNextAction() {
 		
-		if(bug.getObjectivePoint() == null){
+		if(bug.getObjectivePoint() == null && bug.getObjectiveThing() != null){
 			if (!bug.getLocation().equals(bug.getObjectiveThing().getLocation())) {
 				bug.move(bug.getObjectiveThing().getLocation());
 			} else if (bug.getLocation().equals(bug.getObjectiveThing().getLocation())
@@ -33,7 +33,7 @@ public class GuardStrategy implements BugStrategy{
 				bug.setObjectivePoint(rally);
 			}
 		}
-		else if(bug.getObjectiveThing() == null){
+		else if(bug.getObjectiveThing() == null && bug.getObjectivePoint() != null){
 			rally = bug.getObjectivePoint();
 			if (!bug.getLocation().equals(bug.getObjectivePoint())) {
 				bug.move(bug.getObjectivePoint());
