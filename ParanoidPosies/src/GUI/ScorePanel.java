@@ -21,7 +21,6 @@ public class ScorePanel extends JPanel {
 	private JLabel timeLabel;
 	private JLabel levelLabel;
 	private JLabel scoreLabel;
-	private JLabel cpuLabel;
 	private JButton warriorButton;
 	private GameBoard game;
 
@@ -43,7 +42,6 @@ public class ScorePanel extends JPanel {
 		timeLabel = new JLabel();
 		levelLabel = new JLabel();
 		scoreLabel = new JLabel();
-		cpuLabel = new JLabel();
 
 		warriorButton = new JButton("WARRIOR! (" + game.hive.honeyCostToBuildAWarriorBee + ")");
 		warriorButton.addActionListener(new WarriorListener());
@@ -52,7 +50,6 @@ public class ScorePanel extends JPanel {
 		add(levelLabel);
 		add(scoreLabel);
 		add(warriorButton);
-		add(cpuLabel);
 	}
 
 	public void paintComponent(Graphics g) {
@@ -61,8 +58,6 @@ public class ScorePanel extends JPanel {
 				/ (1. * PPGUI.UPDATES_PER_SEC)));
 		levelLabel.setText("Wave size: " + game.getWaveSize());
 		scoreLabel.setText("Score : " + game.getScore());
-		cpuLabel.setText("Thread usage: " + (100. - (PPGUI.diff / (10. / PPGUI.UPDATES_PER_SEC)))
-				+ "%");
 
 		if (game.hive.canBuildWarriorBee()) {
 			warriorButton.setEnabled(true);
