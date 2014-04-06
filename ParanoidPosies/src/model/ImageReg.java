@@ -24,6 +24,7 @@ public class ImageReg {
 		images.put("GrassTile", getImage("grasstile.png"));
 		images.put("Caterpillar", getImage("caterpillar.png"));
 		images.put("HITLER", getImage("HITLER.gif"));
+		images.put("BeeSelected", getImage("bee_selected.png"))
 		
 		//Filler images
 		images.put("TotallyAPosie", getImage("totallyAPosie.png"));
