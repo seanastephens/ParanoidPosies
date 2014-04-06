@@ -33,8 +33,7 @@ public class Caterpillar extends Bug {
 		
 		this.setStrategy(new FightStrategy(this, gameboard), getClosestPosie()); 
 
-//		this.setStrategy(new SquareStrategy(this, gameboard), new Point(this.getLocation().x + 50,
-//				this.getLocation().y));
+
 
 		
 	}
@@ -82,6 +81,7 @@ public class Caterpillar extends Bug {
 			thingBeingAttacked.updateHP(-1 * ULTRA_HYPER_GIGA_MECHA_HITLER_ATTACK_DAMAGE);
 		} else
 			thingBeingAttacked.updateHP(-1 * CATERPILLAR_ATTACK_DAMAGE);
+		SoundManager.playChomp();
 
 	}
 

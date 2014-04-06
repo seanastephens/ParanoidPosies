@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import songplayer.SongPlayer;
 import GUI.GameInterface;
 import GUI.PPGUI;
 
@@ -43,8 +44,14 @@ public class GameBoard implements GameInterface {
 	private int waveSize;
 	private static final int INITIAL_WAVE_SIZE = 5;
 	public static final int WAVE_INTERVAL = 120 * PPGUI.UPDATES_PER_SEC;
+	
+	
+	
+	public SoundManager sound;
+
 
 	public GameBoard() {
+		sound = new SoundManager();
 		timer = 0;
 		waveSize = INITIAL_WAVE_SIZE;
 		hive = new Hive();
