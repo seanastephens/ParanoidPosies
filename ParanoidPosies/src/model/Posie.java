@@ -113,6 +113,9 @@ public class Posie extends Plant {
 		nameList.add("Pansy");
 		nameList.add("Pocket full of");
 		nameList.add("Bane of caterpillars");
+		nameList.add("Rosie");
+		nameList.add("Cozy");
+		nameList.add("Cage++");
 	}
 
 	private String getPosieName() {

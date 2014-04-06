@@ -21,7 +21,7 @@ public class PPGUI extends JFrame implements Runnable {
 	public static int WINDOW_WIDTH = 900;
 	public static int WINDOW_HEIGHT = 720;
 
-	public static boolean FULL_SCREEN = false;
+	public static boolean FULL_SCREEN = true;
 
 	private GameBoard game;
 	private GamePanel gamePanel;

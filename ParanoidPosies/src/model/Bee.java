@@ -107,6 +107,12 @@ public class Bee extends Bug {
 		beeNames.add("BeeYourself");
 		beeNames.add("Beeatrice");
 		beeNames.add("BusyBee");
+		beeNames.add("Beelieve");
+		beeNames.add("Beethoven");
+		beeNames.add("Babee");
+		beeNames.add("A_C");
+		beeNames.add("Beeast");
+		beeNames.add("To Bee or Not to");
 	}
 
 	private String getBeeName() {

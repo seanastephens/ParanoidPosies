@@ -27,6 +27,8 @@ public class SoundManager {
 	private static String Chomp = baseDir + "chomp.mp3";
 	private static String Siren = baseDir + "Siren.mp3";
 	
+	private int index = 0;
+	
 	private static SongPlayer mainSong;
 	
 	public SoundManager(){
@@ -38,9 +40,10 @@ public class SoundManager {
 		go();
 	}
 	
+	static int i = 0;
 	private void go(){
-		Collections.shuffle(songs);
-		mainSong.playFile(new LoopListener(), songs.get(0));
+		
+		mainSong.playFile(new LoopListener(), songs.get(i++));
 	}
 	
 	public static void playSiren(){
