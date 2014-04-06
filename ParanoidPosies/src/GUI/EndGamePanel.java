@@ -26,12 +26,12 @@ public class EndGamePanel extends JPanel{
 		setLayout(null);
 		setSize(300,300);
 		setLocation(400,250);
-		String loseString = "You lost! Feel free to enjoy the music :D";
+		String loseString = "<html>You lost! Feel free to enjoy the music :D</html>";
 		JLabel loseLabel = new JLabel(loseString);
 		loseLabel.setSize(250, 30);
 		loseLabel.setLocation(25, 220);
 		add(loseLabel);
-		JButton loseButton = new JButton("End the game already!");
+		JButton loseButton = new JButton("<html>End the game already!</html>");
 		loseButton.setSize(200, 30);
 		loseButton.setLocation(50, 250);
 		loseButton.setBackground(new Color(0xcc5500));

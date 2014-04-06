@@ -23,6 +23,8 @@ import model.Hive;
 import model.ImageReg;
 import model.Plant;
 import model.Posie;
+import model.SegmentedCaterpillarBody;
+import model.SegmentedCaterpillarHead;
 import model.Thing;
 
 public class GamePanel extends JPanel {
@@ -235,6 +237,11 @@ public class GamePanel extends JPanel {
 			int CAT_MARGIN_H = ImageReg.getInstance().getImageFromStr("Caterpillar")
 					.getHeight(null) / 2;
 			int CAT_MARGIN = Math.max(CAT_MARGIN_H, CAT_MARGIN_W);
+			int KUBA_MARGIN_W = ImageReg.getInstance().getImageFromStr("SegmentedCaterpillarHead0")
+					.getWidth(null) / 2;
+			int KUBA_MARGIN_H = ImageReg.getInstance().getImageFromStr("SegmentedCaterpillarHead0")
+					.getHeight(null) / 2;
+			int KUBA_MARGIN = Math.max(CAT_MARGIN_H, CAT_MARGIN_W);
 
 			List<Thing> atPoint = new ArrayList<Thing>();
 
@@ -259,7 +266,13 @@ public class GamePanel extends JPanel {
 				return atPoint;
 			}
 			for (Thing t : allAtPoint) {
-				if (t instanceof Caterpillar) {
+				if (t instanceof SegmentedCaterpillarHead
+						&& !(t instanceof SegmentedCaterpillarBody)) {
+					if (t.getLocation().distance(clickedPoint) < KUBA_MARGIN) {
+						atPoint.add(t);
+					}
+				}
+				if (t instanceof Caterpillar && !(t instanceof SegmentedCaterpillarBody)) {
 					if (t.getLocation().distance(clickedPoint) < CAT_MARGIN) {
 						atPoint.add(t);
 					}
