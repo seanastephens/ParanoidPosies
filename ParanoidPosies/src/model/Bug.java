@@ -14,7 +14,6 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 	private BugStrategy currentStrategy;
 	private Thing objectiveThing;
 	private Point objectivePoint;
-	
 
 	public Bug(GameBoard gameboard) {
 		this.gameboard = gameboard;
@@ -40,7 +39,7 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 		this.objectiveThing = null;
 	}
 
-	public Thing getObjectiveThing(){
+	public Thing getObjectiveThing() {
 		return objectiveThing;
 	}
 
@@ -133,71 +132,78 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 		int moveConstant = 1;
 		if (!this.getLocation().equals(endLocation)) {
 			if (this.getLocation().x < endLocation.x) {
-				this.setLocation(new Point(this.getLocation().x + moveConstant, this.getLocation().y));
+				this.setLocation(new Point(this.getLocation().x + moveConstant,
+						this.getLocation().y));
 			}
 			if (this.getLocation().x > endLocation.x) {
-				this.setLocation(new Point(this.getLocation().x - moveConstant, this.getLocation().y));
+				this.setLocation(new Point(this.getLocation().x - moveConstant,
+						this.getLocation().y));
 			}
 			if (this.getLocation().y < endLocation.y) {
-				this.setLocation(new Point(this.getLocation().x, this.getLocation().y + moveConstant));
+				this.setLocation(new Point(this.getLocation().x, this.getLocation().y
+						+ moveConstant));
 			}
 			if (this.getLocation().y > endLocation.y) {
-				this.setLocation(new Point(this.getLocation().x, this.getLocation().y - moveConstant));
+				this.setLocation(new Point(this.getLocation().x, this.getLocation().y
+						- moveConstant));
 			}
 		}
 	}
-	
-	
 
-	//TODO handle null
+	// TODO handle null
 	public Thing getClosestPosie() {
 		List<Thing> things;
 		int multipleOf100 = 1;
 		int maxMultipleOf100 = 20;
 		int hundred = 100;
 		while (multipleOf100 < maxMultipleOf100) {
-			things = this.getGameBoard().getThingsBetween(	
-			this.getLocation().x - hundred * multipleOf100,
-			this.getLocation().y - hundred * multipleOf100,
-			this.getLocation().x + hundred * multipleOf100,
-			this.getLocation().y + hundred * multipleOf100);
+			things = this.getGameBoard().getThingsBetween(
+					this.getLocation().x - hundred * multipleOf100,
+					this.getLocation().y - hundred * multipleOf100,
+					this.getLocation().x + hundred * multipleOf100,
+					this.getLocation().y + hundred * multipleOf100);
 			for (Thing aThing : things) {
-				if (aThing instanceof Posie) {
+				if (aThing instanceof Posie && this instanceof Bee) {
 					return (Posie) aThing;
+				}
+				if (aThing instanceof Posie && this instanceof Caterpillar) {
+					if (!aThing.isDead()) {
+						return aThing;
+					}
 				}
 			}
 			multipleOf100++;
 		}
 		return gameboard.getHive();
 	}
-	
-	//TODO handle null
-		public Thing getClosestCaterpillar() {
-			List<Thing> things;
-			int multipleOf100 = 1;
-			int maxMultipleOf100 = 20;
-			int hundred = 100;
-			while (multipleOf100 < maxMultipleOf100) {
-				things = this.getGameBoard().getThingsBetween(
-						this.getLocation().x - hundred * multipleOf100,
-						this.getLocation().y - hundred * multipleOf100,
-						this.getLocation().x + hundred * multipleOf100,
-						this.getLocation().y + hundred * multipleOf100);
-				for (Thing aThing : things) {
-					if (aThing instanceof Caterpillar) {
-						return (Caterpillar) aThing;
-					}
+
+	// TODO handle null
+	public Thing getClosestCaterpillar() {
+		List<Thing> things;
+		int multipleOf100 = 1;
+		int maxMultipleOf100 = 20;
+		int hundred = 100;
+		while (multipleOf100 < maxMultipleOf100) {
+			things = this.getGameBoard().getThingsBetween(
+					this.getLocation().x - hundred * multipleOf100,
+					this.getLocation().y - hundred * multipleOf100,
+					this.getLocation().x + hundred * multipleOf100,
+					this.getLocation().y + hundred * multipleOf100);
+			for (Thing aThing : things) {
+				if (aThing instanceof Caterpillar) {
+					return (Caterpillar) aThing;
 				}
-				multipleOf100++;
 			}
-			return gameboard.getHive();
+			multipleOf100++;
 		}
+		return gameboard.getHive();
+	}
 
 	// Takes the object of the thing being attacked so updates can be made to
 	// both objects.
 	public abstract void attack(Thing thingBeingAttacked);
-	
-	public void setObjectiveToNull(){
+
+	public void setObjectiveToNull() {
 		objectivePoint = null;
 		objectiveThing = null;
 	}
