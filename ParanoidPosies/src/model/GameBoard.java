@@ -19,8 +19,8 @@ public class GameBoard implements GameInterface {
 	public static final int INCREASE_ENEMIES_BY = 2;
 	public static final int GRACE_PERIOD = 30 * PPGUI.UPDATES_PER_SEC;
 
-	public static final int BEE_SPAWN_X_OFFSET = 50;
-	public static final int BEE_SPAWN_Y_OFFSET = 50;
+	public static final int BEE_SPAWN_X_OFFSET = 100;
+	public static final int BEE_SPAWN_Y_OFFSET = 100;
 
 	public static final int STARTING_BEES = 5;
 	private int timer;
@@ -33,10 +33,10 @@ public class GameBoard implements GameInterface {
 	public static final Point WEST_SPAWN = new Point(centerX - 700, centerY);
 	public static final int SPAWN_PROBABILITY = 1;
 	
-	public static final int BEE_SPAWN_FIELD_LOW_X = centerX + BEE_SPAWN_X_OFFSET;
-	public static final int BEE_SPAWN_FIELD_HIGH_X = centerX + 3 * BEE_SPAWN_X_OFFSET;
-	public static final int BEE_SPAWN_FIELD_LOW_Y = centerY + BEE_SPAWN_Y_OFFSET;
-	public static final int BEE_SPAWN_FIELD_HIGH_Y = centerY + 3 * BEE_SPAWN_Y_OFFSET;
+//	public static final int BEE_SPAWN_FIELD_LOW_X = centerX + BEE_SPAWN_X_OFFSET;
+//	public static final int BEE_SPAWN_FIELD_HIGH_X = centerX + 3 * BEE_SPAWN_X_OFFSET;
+//	public static final int BEE_SPAWN_FIELD_LOW_Y = centerY + BEE_SPAWN_Y_OFFSET;
+//	public static final int BEE_SPAWN_FIELD_HIGH_Y = centerY + 3 * BEE_SPAWN_Y_OFFSET;
 	
 	
 
@@ -66,8 +66,8 @@ public class GameBoard implements GameInterface {
 	
 	public Point getRandomBeeSpawn(){
 		Random beeSpawn = new Random();
-		int randX = beeSpawn.nextInt(BEE_SPAWN_FIELD_HIGH_X) + BEE_SPAWN_FIELD_LOW_X;
-		int randY = beeSpawn.nextInt(BEE_SPAWN_FIELD_HIGH_Y) + BEE_SPAWN_FIELD_LOW_Y;
+		int randX = beeSpawn.nextInt(BEE_SPAWN_X_OFFSET) + centerX;
+		int randY = beeSpawn.nextInt(BEE_SPAWN_Y_OFFSET) + centerY;
 		return new Point(randX, randY);
 	}
 
