@@ -18,8 +18,14 @@ public class FightStrategy implements BugStrategy{
 				bug.getLocation().equals(bug.getObjectiveThing().getLocation())){
 			bug.attack(bug.getObjectiveThing());
 		}
-		else if(bug.getObjectiveThing() == null){
+		else if(bug.getObjectiveThing() == null && bug instanceof Bee){
 			bug.setObjectiveThing(board.getHive());
+		}
+		else if(bug.getObjectiveThing() == null && bug instanceof Caterpillar){
+			bug.setObjectiveThing(bug.getClosestPosie());
+			if(bug.getObjectiveThing() == null){
+				bug.setObjectiveThing(board.getHive());
+			}
 		}
 	}
 }
