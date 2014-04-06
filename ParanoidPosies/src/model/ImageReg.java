@@ -12,6 +12,7 @@ public class ImageReg {
 
 	public static int FLOWER_SIZE = 75;
 	public static int HIVE_GRAPHIC_SIZE = 150;
+	public static int BEE_SIZE = 40;
 
 	private static ImageReg instance = null;
 	private static Map<String, Image> images;
@@ -98,6 +99,23 @@ public class ImageReg {
 				getImage("flower_yellow.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
 		images.put("DeadFlower",
 				getImage("flower_dead.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
+
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 3; j++) {
+				String beePath = "bee" + i + "" + j + ".png";
+				String beeSPath = "beeS" + i + "" + j + ".png";
+				String warPath = "beeWarrior" + i + "" + j + ".png";
+				String warSPath = "beeWarriorS" + i + "" + j + ".png";
+				images.put("Bee" + i + "" + j,
+						getImage(beePath).getScaledInstance(BEE_SIZE, BEE_SIZE, 0));
+				images.put("BeeS" + i + "" + j,
+						getImage(beeSPath).getScaledInstance(BEE_SIZE, BEE_SIZE, 0));
+				images.put("BeeWarrior" + i + "" + j,
+						getImage(warPath).getScaledInstance(BEE_SIZE, BEE_SIZE, 0));
+				images.put("BeeWarriorS" + i + "" + j,
+						getImage(warSPath).getScaledInstance(BEE_SIZE, BEE_SIZE, 0));
+			}
+		}
 
 		// Filler images
 		images.put("TotallyAPosie", getImage("totallyAPosie.png"));
