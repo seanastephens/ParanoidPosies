@@ -29,7 +29,7 @@ public class GuardStrategy implements BugStrategy{
 				}
 			}
 			else if(bug.getLocation().equals(bug.getObjectiveThing().getLocation())
-					&& bug.getObjectiveThing() == null){
+					&& bug.getObjectiveThing().isDead()){
 				bug.setObjectivePoint(rally);
 			}
 		}
