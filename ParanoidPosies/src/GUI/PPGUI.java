@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,9 +35,8 @@ public class PPGUI extends JFrame implements Runnable {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 		setResizable(true);
-		setUndecorated(true);
-		WINDOW_WIDTH = (int) screenSize.getWidth();
-		WINDOW_HEIGHT = (int) screenSize.getHeight();
+		// WINDOW_WIDTH = (int) screenSize.getWidth();
+		// WINDOW_HEIGHT = (int) screenSize.getHeight();
 		System.out.println(WINDOW_HEIGHT);
 		System.out.println(WINDOW_WIDTH);
 		setSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -76,7 +77,7 @@ public class PPGUI extends JFrame implements Runnable {
 		}
 	}
 
-	private class ExitListener extends KeyAdapter {
+	private class ExitListener extends KeyAdapter implements WindowStateListener {
 
 		private String TITLE = "Exit?";
 		private String MESSAGE = "Quit Paranoid Posies?";
@@ -93,6 +94,12 @@ public class PPGUI extends JFrame implements Runnable {
 				}
 				PAUSED = false;
 			}
+		}
+
+		@Override
+		public void windowStateChanged(WindowEvent arg0) {
+			// TODO Auto-generated method stub
+
 		}
 	}
 }
