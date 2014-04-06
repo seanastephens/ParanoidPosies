@@ -5,8 +5,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -23,6 +21,8 @@ public class PPGUI extends JFrame implements Runnable {
 	public static int WINDOW_WIDTH = 900;
 	public static int WINDOW_HEIGHT = 720;
 
+	public static boolean FULL_SCREEN = false;
+
 	private GameInterface game;
 	private GamePanel gamePanel;
 	private Thread animator;
@@ -32,13 +32,16 @@ public class PPGUI extends JFrame implements Runnable {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		addKeyListener(new ExitListener());
 
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		if (FULL_SCREEN) {
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			setResizable(true);
+			WINDOW_WIDTH = (int) screenSize.getWidth();
+			WINDOW_HEIGHT = (int) screenSize.getHeight();
+			setUndecorated(true);
+		} else {
+			setResizable(false);
+		}
 
-		setResizable(true);
-		// WINDOW_WIDTH = (int) screenSize.getWidth();
-		// WINDOW_HEIGHT = (int) screenSize.getHeight();
-		System.out.println(WINDOW_HEIGHT);
-		System.out.println(WINDOW_WIDTH);
 		setSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
 		game = new GameBoard();
@@ -77,7 +80,7 @@ public class PPGUI extends JFrame implements Runnable {
 		}
 	}
 
-	private class ExitListener extends KeyAdapter implements WindowStateListener {
+	private class ExitListener extends KeyAdapter {
 
 		private String TITLE = "Exit?";
 		private String MESSAGE = "Quit Paranoid Posies?";
@@ -94,12 +97,6 @@ public class PPGUI extends JFrame implements Runnable {
 				}
 				PAUSED = false;
 			}
-		}
-
-		@Override
-		public void windowStateChanged(WindowEvent arg0) {
-			// TODO Auto-generated method stub
-
 		}
 	}
 }
