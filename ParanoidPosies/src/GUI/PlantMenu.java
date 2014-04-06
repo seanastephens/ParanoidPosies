@@ -13,6 +13,9 @@ import model.GameBoard;
 import model.Posie;
 
 public class PlantMenu extends JPanel {
+	
+	private static final int POSIE_COST = 2;
+	private static final int SEED_COST = 1;
 
 	private int WIDTH = 150; // default
 	private int HEIGHT = 80; // default
@@ -48,12 +51,19 @@ public class PlantMenu extends JPanel {
 	private class YesListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			game.getAllThingsOnBoard().add(new Posie(where));
-			System.out.println(game.getAllThingsOnBoard());
-			setVisible(false);
-			setEnabled(false);
-			((GamePanel) getParent()).popup = null;
-			getParent().repaint();
+			int currentHoney = game.hive.getHoney();
+			int currentSeeds = game.hive.getSeeds();
+			if(currentHoney >= POSIE_COST && currentSeeds > 0){
+				game.hive.updateHoney(-1 * POSIE_COST);
+				game.hive.updateSeeds(-1 * SEED_COST);
+				game.getAllThingsOnBoard().add(new Posie(where));
+				System.out.println(game.getAllThingsOnBoard());
+				setVisible(false);
+				setEnabled(false);
+				((GamePanel) getParent()).popup = null;
+				getParent().repaint();
+			}
+			
 		}
 	}
 
