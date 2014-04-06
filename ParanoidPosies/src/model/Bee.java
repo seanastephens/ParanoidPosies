@@ -13,8 +13,8 @@ public class Bee extends Bug {
 	private int nectarToGet;
 	private int speed = 2;
 	private static final int maxNectar = 10;
-	public static final int BEE_HP = 5;
-	public static final int BEE_ATTACK_DAMAGE = 1;
+	public static int BEE_HP = 5;
+	public static int BEE_ATTACK_DAMAGE = 1;
 	public static final String BEE_IMAGE_NAME = "Bee";
 	private int seeds;
 
@@ -149,19 +149,19 @@ public class Bee extends Bug {
 
 	@Override
 	public void upgradeAttack(int newAttack) {
-		// TODO Auto-generated method stub
+		BEE_ATTACK_DAMAGE = newAttack;
 		
 	}
 
 	@Override
 	public void upgradeSpeed(int newSpeed) {
-		// TODO Auto-generated method stub
+		speed = newSpeed;
 		
 	}
 
 	@Override
 	public void upgradeTotalHP(int hp) {
-		// TODO Auto-generated method stub
+		BEE_HP = hp;
 		
 	}
 
