@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import GUI.PPGUI;
+
 public class Caterpillar extends Bug {
 	public static  int CATERPILLAR_HP = 5;
 	public static  int CATERPILLAR_ATTACK_DAMAGE = 1;
@@ -77,11 +79,13 @@ public class Caterpillar extends Bug {
 
 	@Override
 	public void attack(Thing thingBeingAttacked) {
-		if (IS_LITERALLY_HITLER) {
-			thingBeingAttacked.updateHP(-1 * ULTRA_HYPER_GIGA_MECHA_HITLER_ATTACK_DAMAGE);
-		} else
-			thingBeingAttacked.updateHP(-1 * CATERPILLAR_ATTACK_DAMAGE);
-		SoundManager.playChomp();
+		if(timer % PPGUI.UPDATES_PER_SEC == 0){
+			if (IS_LITERALLY_HITLER) {
+				thingBeingAttacked.updateHP(-1 * ULTRA_HYPER_GIGA_MECHA_HITLER_ATTACK_DAMAGE);
+			} else
+				thingBeingAttacked.updateHP(-1 * CATERPILLAR_ATTACK_DAMAGE);
+			SoundManager.playChomp();
+		}
 
 	}
 
