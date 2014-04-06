@@ -64,7 +64,7 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 	public String getAction() {
 		String result = "";
 		result += "HP: " + this.getHP() + "\nLocation: " + this.getLocation().toString();
-		return currentStrategy.getClass().getSimpleName();
+		return result + " " + currentStrategy.getClass().getSimpleName();
 	}
 
 	public String getType() {

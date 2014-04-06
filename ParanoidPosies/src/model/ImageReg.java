@@ -30,7 +30,7 @@ public class ImageReg {
 		images.put("BeeSelected", getImage("bee_selected.png"));
 		images.put("SegmentedCaterpillarHead", getImage("segmented_caterpillar_head.png"));
 		images.put("SegmentedCaterpillarBody", getImage("segmented_caterpillar_body.png"));
-		images.put("DeadBees", getImage("dead_bees.jpg"));
+		images.put("DeadBees", getImage("dead_bees.jpg").getScaledInstance(300, 300, 0));
 		images.put("SegmentedCaterpillarHead", getImage("segmented_caterpillar_head.png"));
 		images.put("SegmentedCaterpillarHeadLeft", getImage("segmented_caterpillar_head_left.png"));
 		images.put("SegmentedCaterpillarHeadLeftDown",
