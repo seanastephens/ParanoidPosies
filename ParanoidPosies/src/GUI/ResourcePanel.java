@@ -1,14 +1,15 @@
 package GUI;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.GameBoard;
 import model.Hive;
+import model.ImageReg;
 
 public class ResourcePanel extends JPanel {
 
@@ -24,7 +25,21 @@ public class ResourcePanel extends JPanel {
 	private int PANEL_WIDTH = 300;
 	private int PANEL_HEIGHT = 200;
 
+	private Image[] images = new Image[9];
+	int state = 0;
+
 	public ResourcePanel(GameBoard game) {
+
+		images[0] = ImageReg.getInstance().getImageFromStr("Hive0");
+		images[1] = ImageReg.getInstance().getImageFromStr("Hive1");
+		images[2] = ImageReg.getInstance().getImageFromStr("Hive2");
+		images[3] = ImageReg.getInstance().getImageFromStr("Hive3");
+		images[4] = ImageReg.getInstance().getImageFromStr("Hive4");
+		images[5] = ImageReg.getInstance().getImageFromStr("Hive5");
+		images[6] = ImageReg.getInstance().getImageFromStr("Hive6");
+		images[7] = ImageReg.getInstance().getImageFromStr("Hive6A");
+		images[8] = ImageReg.getInstance().getImageFromStr("Hive6B");
+
 		this.hive = game.getHive();
 		this.game = game;
 
@@ -52,9 +67,13 @@ public class ResourcePanel extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(0, 0, PANEL_WIDTH, PANEL_HEIGHT);
-		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, PANEL_WIDTH / 3, PANEL_HEIGHT);
+		if (hive.getHoney() < 18) {
+			g.drawImage(images[hive.getHoney() % 3], PANEL_WIDTH / 3, 0, null);
+		} else {
+			state = (state + 1) % 3;
+			g.drawImage(images[state + 6], PANEL_WIDTH / 3, 0, null);
+		}
 		setLabels();
 	}
 

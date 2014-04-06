@@ -17,7 +17,7 @@ public class ImageReg {
 		images = new HashMap<String, Image>();
 
 		/*
-		 * Add images here. 
+		 * Add images here.
 		 */
 		images.put("Bee", getImage("bee.png"));
 		images.put("Hive", getImage("beehive.png").getScaledInstance(200, 200, 0));
@@ -30,28 +30,33 @@ public class ImageReg {
 		images.put("DeadBees", getImage("dead_bees.jpg"));
 		images.put("SegmentedCaterpillarHead", getImage("segmented_caterpillar_head.png"));
 		images.put("SegmentedCaterpillarHeadLeft", getImage("segmented_caterpillar_head_left.png"));
-		images.put("SegmentedCaterpillarHeadLeftDown", getImage("segmented_caterpillar_head_leftdown.png"));
+		images.put("SegmentedCaterpillarHeadLeftDown",
+				getImage("segmented_caterpillar_head_leftdown.png"));
 		images.put("SegmentedCaterpillarHeadLeftUp", getImage("segmented_caterpillar_head_up.png"));
-		images.put("SegmentedCaterpillarHeadRight", getImage("segmented_caterpillar_head_right.png"));
-		images.put("SegmentedCaterpillarHeadRightDown", getImage("segmented_caterpillar_head_rightdown.png"));
-		images.put("SegmentedCaterpillarHeadRightUp", getImage("segmented_caterpillar_head_rightup.png"));
+		images.put("SegmentedCaterpillarHeadRight",
+				getImage("segmented_caterpillar_head_right.png"));
+		images.put("SegmentedCaterpillarHeadRightDown",
+				getImage("segmented_caterpillar_head_rightdown.png"));
+		images.put("SegmentedCaterpillarHeadRightUp",
+				getImage("segmented_caterpillar_head_rightup.png"));
 		images.put("SegmentedCaterpillarHeadUp", getImage("segmented_caterpillar_head_up.png"));
 		images.put("SegmentedCaterpillarBody", getImage("segmented_caterpillar_body.png"));
-		images.put("Hive0", getImage("beehive_empty.png"));
-		images.put("Hive1", getImage("beehive_full_1.png"));
-		images.put("Hive2", getImage("beehive_full_2.png"));
-		images.put("Hive3", getImage("beehive_full_3.png"));
-		images.put("Hive4", getImage("beehive_full_4.png"));
-		images.put("Hive5", getImage("beehive_full_5.png"));
-		images.put("Hive6", getImage("beehive_full_6.png"));
-		images.put("Hive6A", getImage("beehive_full_6c.png"));
-		images.put("Hive6B", getImage("beehive_full_6d.png"));
-		
-		//Filler images
+		images.put("Hive0", getImage("beehive_empty.png").getScaledInstance(200, 200, 0));
+		images.put("Hive1", getImage("beehive_full_1.png").getScaledInstance(200, 200, 0));
+		images.put("Hive2", getImage("beehive_full_2.png").getScaledInstance(200, 200, 0));
+		images.put("Hive3", getImage("beehive_full_3.png").getScaledInstance(200, 200, 0));
+		images.put("Hive4", getImage("beehive_full_4.png").getScaledInstance(200, 200, 0));
+		images.put("Hive5", getImage("beehive_full_5.png").getScaledInstance(200, 200, 0));
+		images.put("Hive6", getImage("beehive_full_6.png").getScaledInstance(200, 200, 0));
+		images.put("Hive6A", getImage("beehive_full_6c.png").getScaledInstance(200, 200, 0));
+		images.put("Hive6B", getImage("beehive_full_6d.png").getScaledInstance(200, 200, 0));
+
+		// Filler images
 		images.put("TotallyAPosie", getImage("totallyAPosie.png"));
 		images.put("thisIsAPosie", getImage("thisIsAPosie.jpg"));
 		images.put("forRealThoughItsAPosie", getImage("forRealThoughItsAPosie.png"));
-		images.put("ISwearToGodThisOneIsAnHonestToGodLegitimatePosie", getImage("ISwearToGodThisOneIsAnHonestToGodLegitimatePosie.png"));
+		images.put("ISwearToGodThisOneIsAnHonestToGodLegitimatePosie",
+				getImage("ISwearToGodThisOneIsAnHonestToGodLegitimatePosie.png"));
 		/*
 		 * DON'T TOUCH BELOW HERE!
 		 */
