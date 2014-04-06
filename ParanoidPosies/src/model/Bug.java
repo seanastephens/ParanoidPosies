@@ -161,14 +161,28 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 			int randX = rand.nextInt(moveConstant) + 1;
 			int randY = rand.nextInt(moveConstant) + 1;
 
-			boolean subY = rand.nextBoolean();
+			//boolean subY = rand.nextBoolean();
 			if (rand.nextBoolean()) {
 				randX = randX * -1;
 			}
 			if (rand.nextBoolean()) {
 				randY = randY * -1;
 			}
-			this.setLocation(new Point(this.getLocation().x + randX, this.getLocation().y + randY));
+			if(this instanceof Bee && endLocation.x > this.location.x && randX < this.location.x){
+				//Do nothing
+			}
+			else if(this instanceof Bee && endLocation.x < this.location.x && randX > this.location.x){
+				//Do nothing
+			}
+			else if(this instanceof Bee && endLocation.y > this.location.y && randY < this.location.y){
+				//Do nothing			
+			}
+			else if(this instanceof Bee && endLocation.y < this.location.y && randY > this.location.y){
+				//Do nothing
+			}
+			else{
+				this.setLocation(new Point(this.getLocation().x + randX, this.getLocation().y + randY));
+			}
 
 		}
 	}
