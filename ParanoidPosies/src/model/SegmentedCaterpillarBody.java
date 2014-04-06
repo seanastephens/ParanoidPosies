@@ -15,17 +15,17 @@ public class SegmentedCaterpillarBody extends SegmentedCaterpillarHead {
 			next = new SegmentedCaterpillarBody(location,gameboard,segmentsNumber-1, this);
 			gameboard.addThing(this);
 		}
-		setHP(1);
+		setHP(segmentsNumber);
 	}
 	public void update(){
 		super.update();
 		this.setImage(ImageReg.getInstance().getImageFromStr(CATERPILLAR_IMAGE));
 	}
 	public void propogateHP(int hp) {
-		System.out.println("updated body!");
-		next.setHP(hp-1);
+		System.out.println("updated body!" +getHP());
+		updateHP(hp);
 		if (next!=null){
-			next.setHP(hp-1);
+			next.propogateHP(hp);
 		}
 	}
 	
