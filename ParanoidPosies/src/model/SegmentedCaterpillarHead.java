@@ -20,9 +20,10 @@ public class SegmentedCaterpillarHead extends Caterpillar {
 
 	public SegmentedCaterpillarHead(Point location, GameBoard gameboard) {
 		super(location, gameboard);
-		maxSegments = gameboard.getNumberOfEnemiesToSpawn()/3;
+		maxSegments = 2*gameboard.getNumberOfEnemiesToSpawn();
+		System.out.println("I am alive!"+maxSegments);
 		Random rand = new Random();
-		int segmentsNumber = rand.nextInt(maxSegments);
+		int segmentsNumber = rand.nextInt(maxSegments+1);
 		this.setImage(ImageReg.getInstance().getImageFromStr(C4));
 		next = new SegmentedCaterpillarBody(location, gameboard, segmentsNumber,this);
 		setHP(segmentsNumber+1);
