@@ -25,7 +25,7 @@ public class GameBoard implements GameInterface {
 	public static final int BEE_SPAWN_X_OFFSET = 100;
 	public static final int BEE_SPAWN_Y_OFFSET = 100;
 
-	public static final int STARTING_BEES = 5;
+	public static final int STARTING_BEES = 10;
 	private int timer;
 	private List<Bug> enemyList;
 	private List<Bug> friendlyList;
@@ -42,6 +42,7 @@ public class GameBoard implements GameInterface {
 	
 	private int waveSize;
 	private static final int INITIAL_WAVE_SIZE = 5;
+	public static final int WAVE_INTERVAL = 120 * PPGUI.UPDATES_PER_SEC;
 
 	public GameBoard() {
 		timer = 0;
@@ -66,6 +67,34 @@ public class GameBoard implements GameInterface {
 		((Bee) things.get(1)).setStrategy(new GatherStrategy(((Bug) things.get(1)), this),
 				things.get(6));
 
+	}
+	
+	public void spawnWave(){
+		for (int i = 0; i < waveSize; i++) {
+			Point toSpawnAt = null;
+			Random rand = new Random();
+			int randInt = rand.nextInt(4) + 1; // Get random integer from 1-4
+			switch (randInt) {
+			case 1:
+				toSpawnAt = getNorthSpawn();
+				break;
+			case 2:
+				toSpawnAt = getEastSpawn();
+				break;
+			case 3:
+				toSpawnAt = getSouthSpawn();
+				break;
+			case 4:
+				toSpawnAt = getWestSpawn();
+				break;
+			}
+			
+			Caterpillar c = new Caterpillar(toSpawnAt, this);
+			things.add(c);
+			
+			
+		}
+		waveSize += INITIAL_WAVE_SIZE;
 	}
 	
 	
@@ -131,6 +160,10 @@ public class GameBoard implements GameInterface {
 	}
 
 	public void spawnEnemies() {
+		if(timer % WAVE_INTERVAL == 0){
+			spawnWave();
+		}
+		
 		for (int i = 0; i < getNumberOfEnemiesToSpawn(); i++) {
 			Point toSpawnAt = null;
 			Random rand = new Random();
