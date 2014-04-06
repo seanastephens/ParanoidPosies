@@ -34,10 +34,14 @@ public class Caterpillar extends Bug {
 		name = getCaterpillarName();
 		
 		this.setStrategy(new FightStrategy(this, gameboard), getClosestPosie()); 
-
-
-
-		
+	}
+	
+	public void makeHitler(){
+		name = ULTRA_HYPER_GIGA_MECHA_HITLER_NAME;
+		this.setHP(ULTRA_HYPER_GIGA_MECHA_HITLER_HP);
+		IS_LITERALLY_HITLER = true;
+		this.setImage(ImageReg.getInstance().getImageFromStr(
+				ULTRA_HYPER_GIGA_MECHA_HITLER_IMAGE_NAME));
 	}
 
 	public String getName() {

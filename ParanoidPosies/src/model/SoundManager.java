@@ -16,6 +16,7 @@ public class SoundManager {
 	//Music
 	private static String Booty = baseDir +  "BootySong.mp3";
 	private static String Bee = baseDir + "FlightOfTheBumblebee.mp3";
+	private static String Tulips = baseDir + "tiptoeThroughTheTulips.mp3";
 	
 	
 	//Sound Effects
@@ -27,6 +28,7 @@ public class SoundManager {
 		songs = new ArrayList<String>();
 		songs.add(Bee);
 		songs.add(Booty);
+		songs.add(Tulips);
 		
 		go();
 	}
