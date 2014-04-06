@@ -19,7 +19,7 @@ public class GuardStrategy implements BugStrategy{
 			if (!bug.getLocation().equals(bug.getObjectiveThing().getLocation())) {
 				bug.move(bug.getObjectiveThing().getLocation());
 			} else if (bug.getLocation().equals(bug.getObjectiveThing().getLocation())
-					&& bug.getObjectiveThing() instanceof Caterpillar) {
+					&& bug.getObjectiveThing() instanceof Caterpillar && !bug.getObjectiveThing().isDead()) {
 				if (bug instanceof Bee) {
 					bug.attack(bug.getObjectiveThing());
 				}

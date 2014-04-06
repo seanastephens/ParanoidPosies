@@ -14,14 +14,15 @@ public class FightStrategy implements BugStrategy{
 	public void doNextAction() {
 		if (!bug.getLocation().equals(bug.getObjectiveThing().getLocation())) {
 			bug.move(bug.getObjectiveThing().getLocation());
-		} else if (bug.getObjectiveThing() != null && 
+		} else if (!bug.getObjectiveThing().isDead() && 
 				bug.getLocation().equals(bug.getObjectiveThing().getLocation())){
 			bug.attack(bug.getObjectiveThing());
 		}
-		else if(bug.getObjectiveThing() == null && bug instanceof Bee){
+		else if(bug.getObjectiveThing().isDead() && bug instanceof Bee){
 			bug.setObjectiveThing(board.getHive());
 		}
-		else if(bug.getObjectiveThing() == null && bug instanceof Caterpillar){
+		else if(bug.getObjectiveThing().isDead() && bug instanceof Caterpillar){
+			bug.setObjectiveToNull();
 			bug.setObjectiveThing(bug.getClosestPosie());
 			if(bug.getObjectiveThing() == null){
 				bug.setObjectiveThing(board.getHive());
