@@ -194,6 +194,9 @@ public class GamePanel extends JPanel {
 			if (selected.size() == 0) {
 
 				if (popup != null) {
+					if (popup instanceof DenialPopup) {
+						((DenialPopup) popup).timer.stop();
+					}
 					remove(popup);
 				}
 				if (atPoint.size() > 0) {

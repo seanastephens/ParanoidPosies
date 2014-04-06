@@ -22,6 +22,7 @@ public class DenialPopup extends JPanel implements ActionListener {
 	private int Y_OFFSET = 10;
 	private int TIME_UNTIL_AUTO_REMOVE = 2000;
 	private String TITLE = "NOPE";
+	public Timer timer;
 
 	public DenialPopup(GameBoard game) {
 		setSize(WIDTH, HEIGHT);
@@ -50,7 +51,7 @@ public class DenialPopup extends JPanel implements ActionListener {
 		add(q);
 		q.setSize(WIDTH, HEIGHT / 2);
 
-		Timer timer = new Timer(TIME_UNTIL_AUTO_REMOVE, this);
+		timer = new Timer(TIME_UNTIL_AUTO_REMOVE, this);
 		timer.start();
 	}
 
