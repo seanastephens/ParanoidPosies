@@ -96,6 +96,9 @@ public class GameBoard implements GameInterface {
 	}
 
 	public void spawnWave() {
+		Random rando = new Random();
+		Point segP = new Point(centerX /*+ rando.nextInt(1000)-500*/, centerY /*+ rando.nextInt(1000)-500*/);
+		Caterpillar d = new SegmentedCaterpillarHead(segP, this);
 		for (int i = 0; i < waveSize; i++) {
 			Point toSpawnAt = null;
 			Random rand = new Random();
@@ -242,9 +245,6 @@ public class GameBoard implements GameInterface {
 				if (hitlerRand < HITLER_PROB && timer >= 2 * WAVE_INTERVAL) {
 					System.out.println("Making Hitler");
 					c.makeHitler();
-				}
-				if (rand.nextInt(100) <= PERCENT_KUBA_CATERBUGS && !c.IS_LITERALLY_HITLER) {
-					c = new SegmentedCaterpillarHead(toSpawnAt, this);
 				}
 				if (c.IS_LITERALLY_HITLER) {
 					SoundManager.playSiren();

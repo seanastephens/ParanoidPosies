@@ -129,7 +129,7 @@ public class Bee extends Bug {
 	@Override
 	public String getAction() {
 		String result = super.getAction();
-		result += "\nNectar: " + nector + "\nSeeds: " + seeds;
+		result += "Nectar=" + nector + "<br>Seeds=" + seeds;
 		return result;
 	}
 
