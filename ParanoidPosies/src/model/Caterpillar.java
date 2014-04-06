@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Random;
 
 public class Caterpillar extends Bug {
-	public static final int CATERPILLAR_HP = 5;
-	public static final int CATERPILLAR_ATTACK_DAMAGE = 1;
+	public static  int CATERPILLAR_HP = 5;
+	public static  int CATERPILLAR_ATTACK_DAMAGE = 1;
 	public int timer;
 	private List<String> CaterpillarNameList;
 	public static final String CATERPILLAR_IMAGE = "Caterpillar";
@@ -17,6 +17,7 @@ public class Caterpillar extends Bug {
 	public static final String ULTRA_HYPER_GIGA_MECHA_HITLER_NAME = "ULTRA HYPER GIGA MECHA HITLER";
 	public boolean IS_LITERALLY_HITLER;
 	public static final String ULTRA_HYPER_GIGA_MECHA_HITLER_IMAGE_NAME = "HITLER";
+	public int speed = 1;
 
 	private String name;
 
@@ -29,11 +30,13 @@ public class Caterpillar extends Bug {
 		CaterpillarNameList = new ArrayList<String>();
 		this.setUpNameList();
 		name = getCaterpillarName();
+		
+		this.setStrategy(new FightStrategy(this, gameboard), getClosestPosie()); 
 
-		this.setStrategy(new SquareStrategy(this, gameboard), new Point(this.getLocation().x + 50,
-				this.getLocation().y));
+//		this.setStrategy(new SquareStrategy(this, gameboard), new Point(this.getLocation().x + 50,
+//				this.getLocation().y));
 
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public String getName() {
@@ -84,20 +87,21 @@ public class Caterpillar extends Bug {
 
 	@Override
 	public void upgradeAttack(int newAttack) {
-		// TODO Auto-generated method stub
-		
+		if(! IS_LITERALLY_HITLER){
+			CATERPILLAR_ATTACK_DAMAGE = newAttack;
+		}
 	}
 
 	@Override
 	public void upgradeSpeed(int newSpeed) {
-		// TODO Auto-generated method stub
-		
+		speed = newSpeed;
 	}
 
 	@Override
 	public void upgradeTotalHP(int hp) {
-		// TODO Auto-generated method stub
-		
+		if(! IS_LITERALLY_HITLER){
+			CATERPILLAR_HP = hp;
+		}
 	}
 
 }
