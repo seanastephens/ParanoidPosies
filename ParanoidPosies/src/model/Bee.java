@@ -23,8 +23,8 @@ public class Bee extends Bug {
 		this.setHP(BEE_HP);
 		setImage(ImageReg.getInstance().getImageFromStr(BEE_IMAGE_NAME));
 		this.setLocation(location);
-		this.setStrategy(new SquareStrategy(this, board),
-				new Point(this.getLocation().x + 50, this.getLocation().y));
+		this.setStrategy(new GatherStrategy(this, board),
+			getClosestPosie());
 		nector = 0;
 		seeds = 0;
 		nectarToGet = maxNectar;
@@ -141,6 +141,24 @@ public class Bee extends Bug {
 	// nector being held.
 	public void unloadNectar() {
 		nector = 0;
+	}
+
+	@Override
+	public void upgradeAttack(int newAttack) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void upgradeSpeed(int newSpeed) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void upgradeTotalHP(int hp) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
