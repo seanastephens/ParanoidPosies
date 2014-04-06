@@ -269,8 +269,8 @@ public class GamePanel extends JPanel {
 				return atPoint;
 			}
 			for (Thing t : allAtPoint) {
-				if (t instanceof Hive) {
-					if (t.getLocation().distance(clickedPoint) < HIVE_MARGIN) {
+				if (t instanceof Caterpillar) {
+					if (t.getLocation().distance(clickedPoint) < CAT_MARGIN) {
 						atPoint.add(t);
 					}
 				}
@@ -279,8 +279,8 @@ public class GamePanel extends JPanel {
 				return atPoint;
 			}
 			for (Thing t : allAtPoint) {
-				if (t instanceof Caterpillar) {
-					if (t.getLocation().distance(clickedPoint) < CAT_MARGIN) {
+				if (t instanceof Hive) {
+					if (t.getLocation().distance(clickedPoint) < HIVE_MARGIN) {
 						atPoint.add(t);
 					}
 				}
