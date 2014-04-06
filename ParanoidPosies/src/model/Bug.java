@@ -156,6 +156,9 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 
 	//TODO handle null
 	public Thing getClosestPosie() {
+		if(getObjectiveThing() == null){
+			return null;
+		}
 		List<Thing> things;
 		int multipleOf100 = 1;
 		int maxMultipleOf100 = 20;

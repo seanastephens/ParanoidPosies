@@ -82,4 +82,22 @@ public class Caterpillar extends Bug {
 
 	}
 
+	@Override
+	public void upgradeAttack(int newAttack) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void upgradeSpeed(int newSpeed) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void upgradeTotalHP(int hp) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
