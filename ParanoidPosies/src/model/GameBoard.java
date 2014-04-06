@@ -160,7 +160,6 @@ public class GameBoard implements GameInterface {
 
 	@Override
 	public void update(){
-		// TODO Handle enemy spawning
 		timer++;
 		askHiveForBees();
 
