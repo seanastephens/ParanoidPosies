@@ -1,9 +1,8 @@
 package model;
 
 import java.awt.Point;
-import java.util.Random;
 
-public class SegmentStrategy implements BugStrategy{
+public class SegmentStrategy implements BugStrategy {
 
 	private Bug bug;
 	private GameBoard board;
@@ -14,15 +13,17 @@ public class SegmentStrategy implements BugStrategy{
 		this.board = board;
 		forward = false;
 	}
-	
+
 	public void move(Point endLocation) {
-		int moveConstant=1;
-		if(bug.getLocation().distance(bug.getObjectivePoint())<bug.getImage().getWidth(null)*1/2){
+		int moveConstant = 1;
+		if (bug.getLocation().distance(bug.getObjectiveThing().getLocation()) < bug.getImage()
+				.getWidth(null) * 1 / 2) {
 			forward = false;
-		} else if (bug.getLocation().distance(bug.getObjectivePoint())>bug.getImage().getWidth(null)*3/4){
+		} else if (bug.getLocation().distance(bug.getObjectiveThing().getLocation()) > bug
+				.getImage().getWidth(null) * 3 / 4) {
 			forward = true;
 		}
-		
+
 		if (forward) {
 			if (bug.getLocation().x < endLocation.x) {
 				bug.setLocation(new Point(bug.getLocation().x + moveConstant, bug.getLocation().y));
@@ -38,7 +39,7 @@ public class SegmentStrategy implements BugStrategy{
 			}
 		}
 	}
-	
+
 	@Override
 	public void doNextAction() {
 		move(bug.getObjectiveThing().getLocation());
