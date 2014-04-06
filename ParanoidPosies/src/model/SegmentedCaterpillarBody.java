@@ -22,10 +22,9 @@ public class SegmentedCaterpillarBody extends SegmentedCaterpillarHead {
 		this.setImage(ImageReg.getInstance().getImageFromStr(CATERPILLAR_IMAGE));
 	}
 	public void propogateHP(int hp) {
-		System.out.println("updated body!");
-		next.setHP(hp-1);
+		System.out.println("updated body!" +hp);
 		if (next!=null){
-			next.setHP(hp-1);
+			next.updateHP(hp-1);
 		}
 	}
 	
