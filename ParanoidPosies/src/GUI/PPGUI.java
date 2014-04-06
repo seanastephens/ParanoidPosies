@@ -1,18 +1,15 @@
 package GUI;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import model.GameBoard;
-import model.ImageReg;
 
 public class PPGUI extends JFrame implements Runnable {
 
@@ -71,8 +68,7 @@ public class PPGUI extends JFrame implements Runnable {
 			}
 			gamePanel.shiftViewPoint();
 			game.update();
-			if(game.getHive().isDead()){
-				System.out.println("Running end game if");
+			if (game.getHive().isDead()) {
 				EndGamePanel endPanel = new EndGamePanel();
 				gamePanel.add(endPanel);
 			}
