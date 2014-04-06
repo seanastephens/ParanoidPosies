@@ -24,7 +24,7 @@ public class GameBoard implements GameInterface {
 
 	public static final int BEE_SPAWN_X_OFFSET = 1;
 	public static final int BEE_SPAWN_Y_OFFSET = 100;
-	
+
 	public static final int BEE_INTERVAL = 5;
 
 	public static final int STARTING_BEES = 30;
@@ -98,8 +98,13 @@ public class GameBoard implements GameInterface {
 				toSpawnAt = getWestSpawn();
 				break;
 			}
-
-			Caterpillar c = new Caterpillar(toSpawnAt, this);
+			Caterpillar c;
+			// Random r = new Random();
+			// if (r.nextBoolean()) {
+			c = new Caterpillar(toSpawnAt, this);
+			// } else {
+			// c = new SegmentedCaterpillarHead(toSpawnAt, this);
+			// }
 			things.add(c);
 
 		}
@@ -118,7 +123,7 @@ public class GameBoard implements GameInterface {
 	}
 
 	public void askHiveForBees() {
-		if(timer % BEE_INTERVAL == 0){
+		if (timer % BEE_INTERVAL == 0) {
 			int bees = hive.getBeesToMake();
 			for (int i = 0; i < bees; i++) {
 				things.add(new Bee(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
@@ -150,7 +155,7 @@ public class GameBoard implements GameInterface {
 	}
 
 	@Override
-	public void update(){
+	public void update() {
 		timer++;
 		askHiveForBees();
 
@@ -168,7 +173,7 @@ public class GameBoard implements GameInterface {
 		if (timer % SPAWN_INTERVAL == 0) {
 			spawnEnemies();
 		}
-		
+
 	}
 
 	public void spawnEnemies() {

@@ -10,6 +10,9 @@ import javax.imageio.ImageIO;
 
 public class ImageReg {
 
+	public static int FLOWER_SIZE = 75;
+	public static int HIVE_GRAPHIC_SIZE = 150;
+
 	private static ImageReg instance = null;
 	private static Map<String, Image> images;
 
@@ -41,24 +44,60 @@ public class ImageReg {
 				getImage("segmented_caterpillar_head_rightup.png"));
 		images.put("SegmentedCaterpillarHeadUp", getImage("segmented_caterpillar_head_up.png"));
 		images.put("SegmentedCaterpillarBody", getImage("segmented_caterpillar_body.png"));
-		images.put("Hive0", getImage("beehive_empty.png").getScaledInstance(200, 200, 0));
-		images.put("Hive1", getImage("beehive_full_1.png").getScaledInstance(200, 200, 0));
-		images.put("Hive2", getImage("beehive_full_2.png").getScaledInstance(200, 200, 0));
-		images.put("Hive3", getImage("beehive_full_3.png").getScaledInstance(200, 200, 0));
-		images.put("Hive4", getImage("beehive_full_4.png").getScaledInstance(200, 200, 0));
-		images.put("Hive5", getImage("beehive_full_5.png").getScaledInstance(200, 200, 0));
-		images.put("Hive6", getImage("beehive_full_6.png").getScaledInstance(200, 200, 0));
-		images.put("Hive6A", getImage("beehive_full_6c.png").getScaledInstance(200, 200, 0));
-		images.put("Hive6B", getImage("beehive_full_6d.png").getScaledInstance(200, 200, 0));
-		images.put("JustPlanted", getImage("dirt.png"));
-		images.put("Seedling", getImage("seedling.png"));
-		images.put("Flower0", getImage("flower_blue.png"));
-		images.put("Flower1", getImage("flower_fat_cage.png"));
-		images.put("Flower2", getImage("flower_green.png"));
-		images.put("Flower3", getImage("flower_red.png"));
-		images.put("Flower4", getImage("flower_violet.png"));
-		images.put("Flower5", getImage("flower_yellow.png"));
-		images.put("DeadFlower", getImage("flower_dead.png"));
+		images.put(
+				"Hive0",
+				getImage("beehive_empty.png").getScaledInstance(HIVE_GRAPHIC_SIZE,
+						HIVE_GRAPHIC_SIZE, 0));
+		images.put(
+				"Hive1",
+				getImage("beehive_full_1.png").getScaledInstance(HIVE_GRAPHIC_SIZE,
+						HIVE_GRAPHIC_SIZE, 0));
+		images.put(
+				"Hive2",
+				getImage("beehive_full_2.png").getScaledInstance(HIVE_GRAPHIC_SIZE,
+						HIVE_GRAPHIC_SIZE, 0));
+		images.put(
+				"Hive3",
+				getImage("beehive_full_3.png").getScaledInstance(HIVE_GRAPHIC_SIZE,
+						HIVE_GRAPHIC_SIZE, 0));
+		images.put(
+				"Hive4",
+				getImage("beehive_full_4.png").getScaledInstance(HIVE_GRAPHIC_SIZE,
+						HIVE_GRAPHIC_SIZE, 0));
+		images.put(
+				"Hive5",
+				getImage("beehive_full_5.png").getScaledInstance(HIVE_GRAPHIC_SIZE,
+						HIVE_GRAPHIC_SIZE, 0));
+		images.put(
+				"Hive6",
+				getImage("beehive_full_6.png").getScaledInstance(HIVE_GRAPHIC_SIZE,
+						HIVE_GRAPHIC_SIZE, 0));
+		images.put(
+				"Hive6A",
+				getImage("beehive_full_6c.png").getScaledInstance(HIVE_GRAPHIC_SIZE,
+						HIVE_GRAPHIC_SIZE, 0));
+		images.put(
+				"Hive6B",
+				getImage("beehive_full_6d.png").getScaledInstance(HIVE_GRAPHIC_SIZE,
+						HIVE_GRAPHIC_SIZE, 0));
+		images.put("JustPlanted",
+				getImage("dirt.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
+		images.put("Seedling",
+				getImage("seedling.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
+		images.put("Flower0",
+				getImage("flower_blue.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
+		images.put("Flower1",
+				getImage("flower_fat_cage.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
+		images.put("Flower2",
+				getImage("flower_green.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
+		images.put("Flower3",
+				getImage("flower_red.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
+		images.put("Flower4",
+				getImage("flower_violet.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
+		images.put("Flower5",
+				getImage("flower_yellow.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
+		images.put("DeadFlower",
+				getImage("flower_dead.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
 
 		// Filler images
 		images.put("TotallyAPosie", getImage("totallyAPosie.png"));

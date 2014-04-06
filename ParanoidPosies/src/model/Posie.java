@@ -44,15 +44,48 @@ public class Posie extends Plant {
 	private List<String> nameList;
 	private String name;
 
+	private Image justPlantedImage;
+	private Image seedlingImage;
+	private Image[] adultImage;
+	private Image deadImage;
+	private int whichAdult;
+
 	public Posie(Point initialLocation) {
 		super(initialLocation);
-		setImage(SEED_IMAGE);
 		maxSeedsToDrop = posie_max_seeds_to_drop;
 		lifespan = posie_lifespan;
 		setHP(posie_hitPoints);
 		nameList = new ArrayList<String>();
 		setUpNameList();
 		name = getPosieName();
+		Random r = new Random();
+		whichAdult = r.nextInt(6);
+
+		ImageReg i = ImageReg.getInstance();
+		justPlantedImage = i.getImageFromStr("JustPlanted");
+		seedlingImage = i.getImageFromStr("Seedling");
+		deadImage = i.getImageFromStr("DeadFlower");
+
+		adultImage = new Image[6];
+		adultImage[0] = i.getImageFromStr("Flower0");
+		adultImage[1] = i.getImageFromStr("Flower1");
+		adultImage[2] = i.getImageFromStr("Flower2");
+		adultImage[3] = i.getImageFromStr("Flower3");
+		adultImage[4] = i.getImageFromStr("Flower4");
+		adultImage[5] = i.getImageFromStr("Flower5");
+
+	}
+
+	public Image getImage() {
+		if (currentState == GrowthState.JustPlanted) {
+			return justPlantedImage;
+		} else if (currentState == GrowthState.Seedling) {
+			return seedlingImage;
+		} else if (currentState == GrowthState.Flower) {
+			return adultImage[whichAdult];
+		} else {
+			return deadImage;
+		}
 	}
 
 	public String getAction() {
