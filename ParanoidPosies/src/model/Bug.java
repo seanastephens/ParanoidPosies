@@ -247,7 +247,7 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 					this.getLocation().x + hundred * multipleOf100,
 					this.getLocation().y + hundred * multipleOf100);
 			for (Thing aThing : things) {
-				if (aThing instanceof Caterpillar) {
+				if (aThing instanceof Caterpillar && !(aThing instanceof SegmentedCaterpillarBody)) {
 					return (Caterpillar) aThing;
 				}
 			}

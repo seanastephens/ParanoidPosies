@@ -24,11 +24,11 @@ public class SegmentedCaterpillarHead extends Caterpillar {
 		int segmentsNumber = rand.nextInt(maxSegments);
 		this.setImage(ImageReg.getInstance().getImageFromStr(C4));
 		next = new SegmentedCaterpillarBody(location, gameboard, segmentsNumber,this);
+		setHP(segmentsNumber+1);
 	}
 	public SegmentedCaterpillarHead(Point location, GameBoard gameboard, boolean a){
 		super(location, gameboard);
 	}
-	
 	public void update(){
 		Point before = this.getLocation();
 		super.update();
@@ -51,6 +51,14 @@ public class SegmentedCaterpillarHead extends Caterpillar {
 			this.setImage(ImageReg.getInstance().getImageFromStr(C5));
 		} else if (diffx < 0 && diffy < 0) {
 			this.setImage(ImageReg.getInstance().getImageFromStr(C7));
+		}
+	}
+	@Override
+	public void updateHP(int hp) {
+		System.out.println("updated!");
+		this.setHP(this.getHP()+hp);
+		if (next!=null){
+			next.propogateHP(hp);
 		}
 	}
 
