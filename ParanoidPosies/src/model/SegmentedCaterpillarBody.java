@@ -9,6 +9,7 @@ public class SegmentedCaterpillarBody extends SegmentedCaterpillarHead {
 		super(location, gameboard);
 		previous = prev;
 		this.setStrategy(new SegmentStrategy(this, gameboard), prev);
+		this.setImage(ImageReg.getInstance().getImageFromStr(CATERPILLAR_IMAGE));
 		if(segmentsNumber>0) {
 			next(location,gameboard,segmentsNumber-1);
 		}
