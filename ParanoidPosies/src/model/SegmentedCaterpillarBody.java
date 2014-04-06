@@ -15,7 +15,7 @@ public class SegmentedCaterpillarBody extends SegmentedCaterpillarHead {
 			next = new SegmentedCaterpillarBody(location,gameboard,segmentsNumber-1, this);
 			gameboard.addThing(this);
 		}
-		setHP(1);
+		setHP(segmentsNumber);
 	}
 	public void update(){
 		super.update();
