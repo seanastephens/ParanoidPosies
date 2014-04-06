@@ -70,7 +70,16 @@ public class GameBoard implements GameInterface {
 		friendlyList = new ArrayList<Bug>();
 		enemyList = new ArrayList<Bug>();
 		things.add(hive);
-
+		Random rand = new Random();
+		for (int i = 0; i < STARTING_FLOWERS; i++) {
+			int randX = centerX + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET / 2);
+			int randY = centerY + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET / 2);
+			Posie temp = new Posie(new Point(randX, randY));
+			for(int j = 0; j < 200; j++){
+				temp.update();
+			}
+			things.add(temp);
+		}
 		for (int i = 0; i < STARTING_BEES; i++) {
 
 			Bee b = new Bee(getRandomBeeSpawn(), this);
@@ -78,12 +87,7 @@ public class GameBoard implements GameInterface {
 			friendlyList.add(b);
 		}
 
-		Random rand = new Random();
-		for (int i = 0; i < STARTING_FLOWERS; i++) {
-			int randX = centerX + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET / 2);
-			int randY = centerY + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET / 2);
-			things.add(new Posie(new Point(randX, randY)));
-		}
+		
 
 	}
 
