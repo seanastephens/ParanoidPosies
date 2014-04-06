@@ -31,7 +31,7 @@ public class GatherStrategy implements BugStrategy {
 				Random random = new Random();
 				int randomNum = random.nextInt(10);
 				bug.setObjectiveToNull();
-				if(randomNum < 5){
+				if(randomNum < 2){
 					bug.setObjectiveThing(bug.getClosestPosie());
 				}
 				else{
