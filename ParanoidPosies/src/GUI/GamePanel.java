@@ -20,7 +20,10 @@ import model.FightStrategy;
 import model.GameBoard;
 import model.GatherStrategy;
 import model.GuardStrategy;
+import model.Hive;
+import model.ImageReg;
 import model.Plant;
+import model.Posie;
 import model.Thing;
 
 public class GamePanel extends JPanel {
@@ -28,7 +31,7 @@ public class GamePanel extends JPanel {
 	/** Distance from border that triggers scrolling. */
 	public int BORDER_MARGIN = 50;
 	/** Max distance from a mob a click can be to access it. */
-	public static int SELECT_MARGIN = 25;
+	public static int SELECT_MARGIN = 256;
 	/** Pixels per tic */
 	public static int SCROLL_SPEED = 10;
 
@@ -127,7 +130,6 @@ public class GamePanel extends JPanel {
 			view.x -= SCROLL_SPEED;
 		} else if (direction == Direction.RIGHT) {
 			view.x += SCROLL_SPEED;
-
 		}
 	}
 
@@ -183,8 +185,11 @@ public class GamePanel extends JPanel {
 
 			int x = e.getPoint().x - PPGUI.WINDOW_WIDTH / 2 + view.x;
 			int y = e.getPoint().y - PPGUI.WINDOW_HEIGHT / 2 + view.y;
-			List<Thing> atPoint = game.getThingsBetween(x - SELECT_MARGIN, y - SELECT_MARGIN, x
+			Point clickedPoint = new Point(x, y);
+			List<Thing> allAtPoint = game.getThingsBetween(x - SELECT_MARGIN, y - SELECT_MARGIN, x
 					+ SELECT_MARGIN, y + SELECT_MARGIN);
+
+			List<Thing> atPoint = pruneListForPoint(allAtPoint, clickedPoint);
 
 			if (selected.size() == 0) {
 
@@ -213,7 +218,6 @@ public class GamePanel extends JPanel {
 				} else if (target instanceof Caterpillar) {
 					tellAllSelectedToAttack(target);
 				}
-
 				selected.clear();
 			} else { // selected.size == 0
 				Point point = e.getPoint();
@@ -221,6 +225,68 @@ public class GamePanel extends JPanel {
 						- PPGUI.WINDOW_HEIGHT / 2);
 				tellAllSelectedToGaurd(point);
 			}
+		}
+
+		private List<Thing> pruneListForPoint(List<Thing> allAtPoint, Point clickedPoint) {
+
+			int BEE_MARGIN_W = ImageReg.getInstance().getImageFromStr("Bee").getWidth(null) / 2;
+			int BEE_MARGIN_H = ImageReg.getInstance().getImageFromStr("Bee").getHeight(null) / 2;
+			int BEE_MARGIN = Math.max(BEE_MARGIN_H, BEE_MARGIN_W);
+			int POSIE_MARGIN_W = ImageReg.getInstance().getImageFromStr("TotallyAPosie")
+					.getWidth(null) / 2;
+			int POSIE_MARGIN_H = ImageReg.getInstance().getImageFromStr("TotallyAPosie")
+					.getHeight(null) / 2;
+			int POSIE_MARGIN = Math.max(POSIE_MARGIN_H, POSIE_MARGIN_W);
+			int HIVE_MARGIN_W = ImageReg.getInstance().getImageFromStr("Hive").getWidth(null) / 2;
+			int HIVE_MARGIN_H = ImageReg.getInstance().getImageFromStr("Hive").getHeight(null) / 2;
+			int HIVE_MARGIN = Math.max(HIVE_MARGIN_H, HIVE_MARGIN_W);
+			int CAT_MARGIN_W = ImageReg.getInstance().getImageFromStr("Caterpillar").getWidth(null) / 2;
+			int CAT_MARGIN_H = ImageReg.getInstance().getImageFromStr("Caterpillar")
+					.getHeight(null) / 2;
+			int CAT_MARGIN = Math.max(CAT_MARGIN_H, CAT_MARGIN_W);
+
+			List<Thing> atPoint = new ArrayList<Thing>();
+			for (Thing t : allAtPoint) {
+				if (t instanceof Bee) {
+					if (t.getLocation().distance(clickedPoint) < BEE_MARGIN) {
+						atPoint.add(t);
+					}
+				}
+			}
+			if (atPoint.size() > 0) {
+				return atPoint;
+			}
+			for (Thing t : allAtPoint) {
+				if (t instanceof Posie) {
+					if (t.getLocation().distance(clickedPoint) < POSIE_MARGIN) {
+						atPoint.add(t);
+					}
+				}
+			}
+			if (atPoint.size() > 0) {
+				return atPoint;
+			}
+			for (Thing t : allAtPoint) {
+				if (t instanceof Hive) {
+					if (t.getLocation().distance(clickedPoint) < HIVE_MARGIN) {
+						atPoint.add(t);
+					}
+				}
+			}
+			if (atPoint.size() > 0) {
+				return atPoint;
+			}
+			for (Thing t : allAtPoint) {
+				if (t instanceof Caterpillar) {
+					if (t.getLocation().distance(clickedPoint) < CAT_MARGIN) {
+						atPoint.add(t);
+					}
+				}
+			}
+			if (atPoint.size() > 0) {
+				return atPoint;
+			}
+			return atPoint;
 		}
 	}
 
