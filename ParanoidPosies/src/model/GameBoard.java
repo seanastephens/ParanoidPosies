@@ -60,7 +60,7 @@ public class GameBoard implements GameInterface {
 
 	private static final int SCORE_PER_KILL = 10;
 	private static final int SCORE_PER_PLANT = 2;
-	private static final int PERCENT_KUBA_CATERBUGS = 0;
+	private static final int PERCENT_KUBA_CATERBUGS = 100;
 
 	private int totalScore = 0;
 
@@ -254,10 +254,11 @@ public class GameBoard implements GameInterface {
 				enemyList.add(c);
 			}
 		}
-		//Spawn Hitler after third wave
-		if(timer == 3 * WAVE_INTERVAL){
+		// Spawn Hitler after third wave
+		if (timer == 3 * WAVE_INTERVAL) {
 			Caterpillar hitler = new Caterpillar(getNorthSpawn(), this);
-			hitler.makeHitler();SoundManager.playSiren();
+			hitler.makeHitler();
+			SoundManager.playSiren();
 			JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
 			things.add(hitler);
 			enemyList.add(hitler);
