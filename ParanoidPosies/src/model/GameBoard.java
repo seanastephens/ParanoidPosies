@@ -53,19 +53,23 @@ public class GameBoard implements GameInterface {
 		friendlyList = new ArrayList<Bug>();
 		enemyList = new ArrayList<Bug>();
 		things.add(hive);
+		
+
+		
 		for (int i = 0; i < STARTING_BEES; i++) {
 
 			Bee b = new Bee(getRandomBeeSpawn(), this);
 			things.add(b);
 			friendlyList.add(b);
 		}
+		
+		things.add(new Posie(new Point(centerX, centerY + 200)));
+
 
 		// These Things are just here for testing
 		// things.add(new Caterpillar(new Point(2200, 2200), this));
-		things.add(new Posie(new Point(centerX, centerY + 200)));
 
-		((Bee) things.get(1)).setStrategy(new GatherStrategy(((Bug) things.get(1)), this),
-				things.get(6));
+		
 
 	}
 	

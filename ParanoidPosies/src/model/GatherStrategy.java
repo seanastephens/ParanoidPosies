@@ -12,7 +12,6 @@ public class GatherStrategy implements BugStrategy {
 
 	@Override
 	public void doNextAction() {
-
 		if (!bug.getLocation().equals(bug.getObjectiveThing().getLocation())) {
 			bug.move(bug.getObjectiveThing().getLocation());
 		} else if (bug.getLocation().equals(
