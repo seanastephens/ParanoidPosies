@@ -56,16 +56,22 @@ public class PPGUI extends JFrame implements Runnable {
 		animator.start();
 	}
 
+	public long time = 0;
+	public static long diff = 0;
+
 	public void run() {
 		while (true) {
 			while (PAUSED) {
 				doSomeSleeping();
 			}
 			try {
-				Thread.sleep(1000 / UPDATES_PER_SEC);
+				diff = 1000 / UPDATES_PER_SEC - (System.currentTimeMillis() - time);
+				diff = Math.max(diff, 0);
+				Thread.sleep(diff);
 			} catch (InterruptedException e) {
 				System.out.println("Interrupted!");
 			}
+			time = System.currentTimeMillis();
 			gamePanel.shiftViewPoint();
 			game.update();
 			if (game.getHive().isDead()) {
