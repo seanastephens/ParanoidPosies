@@ -132,7 +132,7 @@ public class Hive implements Thing {
 	}
 
 	public void convertNectorToHoney() {
-		if (getNector() > 0 && timer % PPGUI.UPDATES_PER_SEC == 0) {
+		if (getNector() > 0 && timer % PPGUI.UPDATES_PER_SEC/2 == 0) {
 			updateNector(-1);
 			updateHoney(1);
 		}

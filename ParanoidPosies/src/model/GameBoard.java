@@ -27,9 +27,9 @@ public class GameBoard implements GameInterface {
 	
 	public static final int BEE_INTERVAL = 5;
 
-	public static final int STARTING_BEES = 25;
+	public static final int STARTING_BEES = 30;
 	public static final int STARTING_FLOWERS = 5;
-	public static final int FLOWER_OFFSET = 700;
+	public static final int FLOWER_OFFSET = 600;
 
 	private int timer;
 	private List<Bug> enemyList;
