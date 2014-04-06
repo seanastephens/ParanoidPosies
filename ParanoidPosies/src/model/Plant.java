@@ -114,7 +114,6 @@ public abstract class Plant implements Thing {
 	}
 
 	public int takeSeeds() {
-		System.out.println("Seeds were just taken.");
 		int temp = seedsDropped;
 		seedsDropped = 0;
 		shouldBeCleanedUp = true;

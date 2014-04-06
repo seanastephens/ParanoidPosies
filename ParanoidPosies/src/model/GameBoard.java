@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import songplayer.SongPlayer;
 import GUI.GameInterface;
 import GUI.PPGUI;
 
@@ -20,16 +19,18 @@ public class GameBoard implements GameInterface {
 	public static final int INCREASE_ENEMIES_BY = 1;
 	public static final int GRACE_PERIOD = 30 * PPGUI.UPDATES_PER_SEC;
 
-	public static final int POSIE_COST_IN_HONEY = 2;
+	public static final int POSIE_COST_IN_HONEY = 1;
 	public static final int POSIE_COST_IN_SEEDS = 1;
 
-	public static final int BEE_SPAWN_X_OFFSET = 100;
+	public static final int BEE_SPAWN_X_OFFSET = 1;
 	public static final int BEE_SPAWN_Y_OFFSET = 100;
+	
+	public static final int BEE_INTERVAL = 5;
 
-	public static final int STARTING_BEES = 20;
+	public static final int STARTING_BEES = 25;
 	public static final int STARTING_FLOWERS = 5;
 	public static final int FLOWER_OFFSET = 700;
-	
+
 	private int timer;
 	private List<Bug> enemyList;
 	private List<Bug> friendlyList;
@@ -43,16 +44,13 @@ public class GameBoard implements GameInterface {
 	public static final int ENEMY_DISTANCE_FROM_HIVE = 600;
 	public static final int ENEMY_NORTH_SPAWN_RANGE = 300;
 	public static final int ENEMY_EAST_SPAWN_RANGE = 300;
-	
+
 	private int waveSize;
-	private static final int INITIAL_WAVE_SIZE = 5;
+	private static final int INITIAL_WAVE_SIZE = 3;
 	public static final int WAVE_INTERVAL = 120 * PPGUI.UPDATES_PER_SEC;
 	public static final int SPAWN_INTERVAL = 10;
-	
-	
-	
-	public SoundManager sound;
 
+	public SoundManager sound;
 
 	public GameBoard() {
 		sound = new SoundManager();
@@ -64,26 +62,24 @@ public class GameBoard implements GameInterface {
 		friendlyList = new ArrayList<Bug>();
 		enemyList = new ArrayList<Bug>();
 		things.add(hive);
-		
 
-		
 		for (int i = 0; i < STARTING_BEES; i++) {
 
 			Bee b = new Bee(getRandomBeeSpawn(), this);
 			things.add(b);
 			friendlyList.add(b);
 		}
-		
+
 		Random rand = new Random();
-		for(int i = 0; i < STARTING_FLOWERS; i++){
-			int randX = centerX + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET/2);
-			int randY = centerY + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET/2);
+		for (int i = 0; i < STARTING_FLOWERS; i++) {
+			int randX = centerX + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET / 2);
+			int randY = centerY + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET / 2);
 			things.add(new Posie(new Point(randX, randY)));
 		}
 
 	}
-	
-	public void spawnWave(){
+
+	public void spawnWave() {
 		for (int i = 0; i < waveSize; i++) {
 			Point toSpawnAt = null;
 			Random rand = new Random();
@@ -102,16 +98,13 @@ public class GameBoard implements GameInterface {
 				toSpawnAt = getWestSpawn();
 				break;
 			}
-			
+
 			Caterpillar c = new Caterpillar(toSpawnAt, this);
 			things.add(c);
-			
-			
+
 		}
 		waveSize += INITIAL_WAVE_SIZE;
 	}
-	
-	
 
 	public Point getRandomBeeSpawn() {
 		Random beeSpawn = new Random();
@@ -125,11 +118,13 @@ public class GameBoard implements GameInterface {
 	}
 
 	public void askHiveForBees() {
-		int bees = hive.getBeesToMake();
-		for (int i = 0; i < bees; i++) {
-			things.add(new Bee(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
+		if(timer % BEE_INTERVAL == 0){
+			int bees = hive.getBeesToMake();
+			for (int i = 0; i < bees; i++) {
+				things.add(new Bee(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
+			}
+			hive.updateBeesToMake(bees * -1);
 		}
-		hive.updateBeesToMake(bees * -1);
 	}
 
 	@Override
@@ -155,8 +150,7 @@ public class GameBoard implements GameInterface {
 	}
 
 	@Override
-	public void update() {
-		// TODO Handle enemy spawning
+	public void update(){
 		timer++;
 		askHiveForBees();
 
@@ -170,17 +164,18 @@ public class GameBoard implements GameInterface {
 		for (Thing t : toRemove) {
 			things.remove(t);
 		}
-		
-		if(timer % SPAWN_INTERVAL == 0){
+
+		if (timer % SPAWN_INTERVAL == 0) {
 			spawnEnemies();
 		}
+		
 	}
 
 	public void spawnEnemies() {
-		if(timer % WAVE_INTERVAL == 0){
+		if (timer % WAVE_INTERVAL == 0) {
 			spawnWave();
 		}
-		
+
 		for (int i = 0; i < getNumberOfEnemiesToSpawn(); i++) {
 			Point toSpawnAt = null;
 			Random rand = new Random();
@@ -257,4 +252,33 @@ public class GameBoard implements GameInterface {
 
 	}
 
+	public int getNumberOfBees() {
+		int number = 0;
+		for (Thing t : things) {
+			if (t instanceof Bee) {
+				number++;
+			}
+		}
+		return number;
+	}
+
+	public int getNumberOfCats() {
+		int number = 0;
+		for (Thing t : things) {
+			if (t instanceof Caterpillar) {
+				number++;
+			}
+		}
+		return number;
+	}
+
+	public int getNumberOfFlowers() {
+		int number = 0;
+		for (Thing t : things) {
+			if (t instanceof Plant) {
+				number++;
+			}
+		}
+		return number;
+	}
 }
