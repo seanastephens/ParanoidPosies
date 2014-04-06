@@ -17,7 +17,7 @@ public class ImageReg {
 		images = new HashMap<String, Image>();
 
 		/*
-		 * Add images here.
+		 * Add images here. 
 		 */
 		images.put("Bee", getImage("bee.png"));
 		images.put("Hive", getImage("beehive.png").getScaledInstance(200, 200, 0));
