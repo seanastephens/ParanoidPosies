@@ -17,13 +17,13 @@ public class GatherStrategy implements BugStrategy {
 		} else if (bug.getLocation().equals(bug.getObjectiveThing().getLocation())
 				&& bug.getObjectiveThing() instanceof Posie) {
 			if (bug instanceof Bee) {
-				((Bee) bug).askFlowerForNectorOrSeeds();
+				((Bee) bug).askFlowerForNectarOrSeeds();
 				bug.setObjectiveThing(board.getHive());
 			}
 		} else if (bug.getLocation().equals(bug.getObjectiveThing().getLocation())
 				&& bug.getObjectiveThing() instanceof Hive) {
 			if (bug instanceof Bee) {
-				((Bee) bug).unloadNectorAndSeedsToHive();
+				((Bee) bug).unloadNectarAndSeedsToHive();
 				bug.setObjectiveThing(bug.getClosestPosie());
 			}
 		}
