@@ -27,6 +27,7 @@ public class ImageReg {
 		images.put("BeeSelected", getImage("bee_selected.png"));
 		images.put("SegmentedCaterpillarHead", getImage("segmented_caterpillar_head.png"));
 		images.put("SegmentedCaterpillarBody", getImage("segmented_caterpillar_body.png"));
+		images.put("DeadBees", getImage("dead_bees.jpg"));
 		
 		//Filler images
 		images.put("TotallyAPosie", getImage("totallyAPosie.png"));
