@@ -168,16 +168,16 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 			if (rand.nextBoolean()) {
 				randY = randY * -1;
 			}
-			if(this instanceof Bee && endLocation.x > this.location.x && randX < this.location.x){
+			if(endLocation.x > this.location.x && randX < this.location.x){
 				//Do nothing
 			}
-			else if(this instanceof Bee && endLocation.x < this.location.x && randX > this.location.x){
+			else if(endLocation.x < this.location.x && randX > this.location.x){
 				//Do nothing
 			}
-			else if(this instanceof Bee && endLocation.y > this.location.y && randY < this.location.y){
+			else if(endLocation.y > this.location.y && randY < this.location.y){
 				//Do nothing			
 			}
-			else if(this instanceof Bee && endLocation.y < this.location.y && randY > this.location.y){
+			else if(endLocation.y < this.location.y && randY > this.location.y){
 				//Do nothing
 			}
 			else{
