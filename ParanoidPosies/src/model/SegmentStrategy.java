@@ -7,16 +7,23 @@ public class SegmentStrategy implements BugStrategy{
 
 	private Bug bug;
 	private GameBoard board;
-	private int velocity=1;
+	private boolean forward;
 
 	public SegmentStrategy(Bug bug, GameBoard board) {
 		this.bug = bug;
 		this.board = board;
+		forward = false;
 	}
 	
-	public void move(Point endLocation, int speed) {
-		int moveConstant = speed;
-		if (!bug.getLocation().equals(endLocation)) {
+	public void move(Point endLocation) {
+		int moveConstant=1;
+		if(bug.getLocation().distance(bug.getObjectivePoint())<bug.getImage().getWidth(null)*1/2){
+			forward = false;
+		} else if (bug.getLocation().distance(bug.getObjectivePoint())>bug.getImage().getWidth(null)*3/4){
+			forward = true;
+		}
+		
+		if (forward) {
 			if (bug.getLocation().x < endLocation.x) {
 				bug.setLocation(new Point(bug.getLocation().x + moveConstant, bug.getLocation().y));
 			}
@@ -34,12 +41,8 @@ public class SegmentStrategy implements BugStrategy{
 	
 	@Override
 	public void doNextAction() {
-		if (bug.getLocation().distance(bug.getObjectivePoint())<bug.getImage().getHeight(null)/2) {
-			velocity =  (int)(-2*(bug.getLocation().distance(bug.getObjectivePoint())-bug.getImage().getHeight(null))/(bug.getImage().getHeight(null)));
-		} else if (bug.getLocation().distance(bug.getObjectivePoint())>bug.getImage().getHeight(null)) {
-			velocity = (int)(2*(bug.getLocation().distance(bug.getObjectivePoint())-bug.getImage().getHeight(null))/(bug.getImage().getHeight(null)));
-		}
-		move(bug.getObjectiveThing().getLocation(), velocity);
+		move(bug.getObjectiveThing().getLocation());
+		move(bug.getObjectiveThing().getLocation());
 	}
 
 }
