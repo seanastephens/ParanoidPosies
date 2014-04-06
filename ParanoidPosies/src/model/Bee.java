@@ -11,6 +11,7 @@ public class Bee extends Bug {
 	private List<String> beeNames;
 	private String name;
 	private int nectarToGet;
+	private int speed = 2;
 	private static final int maxNectar = 10;
 	public static final int BEE_HP = 5;
 	public static final int BEE_ATTACK_DAMAGE = 1;
@@ -43,6 +44,14 @@ public class Bee extends Bug {
 		return beeNames.get(0);
 	}
 
+	public void setSpeed(int newSpeed){
+		speed = newSpeed;
+	}
+	
+	public int getSpeed(){
+		return speed;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -57,12 +66,19 @@ public class Bee extends Bug {
 	public void setName(String newName) {
 		name = newName;
 	}
-
-	// TODO this will need code to handle when bug makes it to objective
+	
 	@Override
 	public void update() {
 		if (this.getStrategy() != null) {
-			this.getStrategy().doNextAction();
+			Point temp;
+			for(int i = 0; i < speed; i++){
+				temp = this.getLocation();
+				this.getStrategy().doNextAction();
+				if(temp.equals(this.getLocation())){
+					break;
+				}
+			}
+			
 		}
 	}
 
