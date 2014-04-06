@@ -16,7 +16,7 @@ public class GameBoard implements GameInterface {
 	public static final int centerX = 2500;
 	public static final int centerY = 2500;
 
-	public static final int DIFFICULTY_INTERVAL = 60 * PPGUI.UPDATES_PER_SEC;
+	public static final int DIFFICULTY_INTERVAL = 45 * PPGUI.UPDATES_PER_SEC;
 	public static final int INITIAL_ENEMY_THRESHOLD = 5;
 	public static final int INCREASE_ENEMIES_BY = 2;
 	public static final int GRACE_PERIOD = 30 * PPGUI.UPDATES_PER_SEC;
@@ -48,7 +48,7 @@ public class GameBoard implements GameInterface {
 	public static final int ENEMY_EAST_SPAWN_RANGE = 300;
 
 	private int waveSize;
-	private static final int INITIAL_WAVE_SIZE = 3;
+	private static final int INITIAL_WAVE_SIZE = 6;
 	public static final int WAVE_INTERVAL = 120 * PPGUI.UPDATES_PER_SEC;
 	public static final int SPAWN_INTERVAL = 10;
 
