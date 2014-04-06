@@ -14,6 +14,7 @@ public abstract class Bug implements Thing {
 	private BugStrategy currentStrategy;
 	private Thing objectiveThing;
 	private Point objectivePoint;
+	
 
 	public Bug(GameBoard gameboard) {
 		this.gameboard = gameboard;
@@ -145,6 +146,8 @@ public abstract class Bug implements Thing {
 			}
 		}
 	}
+	
+	
 
 	//TODO handle null
 	public Thing getClosestPosie() {
