@@ -26,7 +26,10 @@ public class GameBoard implements GameInterface {
 	public static final int BEE_SPAWN_X_OFFSET = 100;
 	public static final int BEE_SPAWN_Y_OFFSET = 100;
 
-	public static final int STARTING_BEES = 10;
+	public static final int STARTING_BEES = 20;
+	public static final int STARTING_FLOWERS = 5;
+	public static final int FLOWER_OFFSET = 700;
+	
 	private int timer;
 	private List<Bug> enemyList;
 	private List<Bug> friendlyList;
@@ -44,6 +47,7 @@ public class GameBoard implements GameInterface {
 	private int waveSize;
 	private static final int INITIAL_WAVE_SIZE = 5;
 	public static final int WAVE_INTERVAL = 120 * PPGUI.UPDATES_PER_SEC;
+	public static final int SPAWN_INTERVAL = 10;
 	
 	
 	
@@ -70,13 +74,12 @@ public class GameBoard implements GameInterface {
 			friendlyList.add(b);
 		}
 		
-		things.add(new Posie(new Point(centerX, centerY + 200)));
-
-
-		// These Things are just here for testing
-		// things.add(new Caterpillar(new Point(2200, 2200), this));
-
-		
+		Random rand = new Random();
+		for(int i = 0; i < STARTING_FLOWERS; i++){
+			int randX = centerX + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET/2);
+			int randY = centerY + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET/2);
+			things.add(new Posie(new Point(randX, randY)));
+		}
 
 	}
 	
@@ -167,7 +170,10 @@ public class GameBoard implements GameInterface {
 		for (Thing t : toRemove) {
 			things.remove(t);
 		}
-		spawnEnemies();
+		
+		if(timer % SPAWN_INTERVAL == 0){
+			spawnEnemies();
+		}
 	}
 
 	public void spawnEnemies() {

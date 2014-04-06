@@ -16,7 +16,7 @@ public class Hive implements Thing {
 	private int honey;
 	private int timer;
 	private final int timeToBuildABee = 10;
-	private final int honeyCostToBuildABee = 10;
+	private final int honeyCostToBuildABee = 5;
 	private boolean beeProduction;
 	private int beesToMake;
 	public static final String HIVE_NAME = "Hive";
