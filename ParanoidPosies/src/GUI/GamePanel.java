@@ -44,7 +44,6 @@ public class GamePanel extends JPanel {
 	private int boxWidth;
 	private int boxHeight;
 	private List<Thing> selected = new LinkedList<Thing>();
-	private double zoom;
 
 	public GamePanel(GameBoard g) {
 		this.game = g;
@@ -65,7 +64,6 @@ public class GamePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 
 		Graphics2D g2 = (Graphics2D) g;
-		g2.scale(.5, .5);
 		List<Thing> things = game.getAllThingsOnBoard();
 		List<Thing> three = new ArrayList<Thing>();
 		List<Thing> two = new ArrayList<Thing>();
@@ -352,7 +350,4 @@ public class GamePanel extends JPanel {
 				+ PPGUI.WINDOW_HEIGHT / 2);
 	}
 
-	public void setZoom(double z) {
-		zoom = z;
-	}
 }
