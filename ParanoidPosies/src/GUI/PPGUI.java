@@ -8,7 +8,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
-import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -106,7 +105,9 @@ public class PPGUI extends JFrame implements Runnable {
 					System.exit(0);
 				}
 				PAUSED = false;
-			}
+			} else if	(e.getKeyChar() == ' ') {
+				gamePanel.setZoom(.9);
+				break;
 		}
 	}
 	

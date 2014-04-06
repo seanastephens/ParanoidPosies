@@ -3,9 +3,8 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -45,6 +44,7 @@ public class GamePanel extends JPanel {
 	private int boxWidth;
 	private int boxHeight;
 	private List<Thing> selected = new LinkedList<Thing>();
+	private double zoom;
 
 	public GamePanel(GameBoard g) {
 		this.game = g;
@@ -59,12 +59,13 @@ public class GamePanel extends JPanel {
 		addMouseListener(new ClickListener());
 		addMouseListener(new DragBoxListener());
 		addMouseMotionListener(new DragBoxListener());
-
-		addKeyListener(new ScrollKeyListener());
 	}
 
 	// TODO refactor layers
-	public void paintComponent(Graphics graphics) {
+	public void paintComponent(Graphics g) {
+
+		Graphics2D g2 = (Graphics2D) g;
+		g2.scale(.5, .5);
 		List<Thing> things = game.getAllThingsOnBoard();
 		List<Thing> three = new ArrayList<Thing>();
 		List<Thing> two = new ArrayList<Thing>();
@@ -82,21 +83,21 @@ public class GamePanel extends JPanel {
 		for (BackgroundTile b : tileManager.getTiles(view)) {
 			Point p = new Point(b.getLocation().x - view.x + PPGUI.WINDOW_WIDTH / 2,
 					b.getLocation().y - view.y + PPGUI.WINDOW_HEIGHT / 2);
-			graphics.drawImage(b.getImage(), p.x, p.y, null);
+			g2.drawImage(b.getImage(), p.x, p.y, null);
 		}
 
 		for (Thing t : three) {
-			drawThing(graphics, t);
+			drawThing(g2, t);
 		}
 		for (Thing t : two) {
-			drawThing(graphics, t);
+			drawThing(g2, t);
 		}
 		for (Thing t : one) {
-			drawThing(graphics, t);
+			drawThing(g2, t);
 		}
 
 		if (userIsDrawingABox) {
-			drawSelectionBox(graphics);
+			drawSelectionBox(g2);
 		}
 	}
 
@@ -147,33 +148,6 @@ public class GamePanel extends JPanel {
 			} else {
 				direction = Direction.NONE;
 			}
-		}
-	}
-
-	private class ScrollKeyListener extends KeyAdapter {
-		@Override
-		public void keyTyped(KeyEvent k) {
-			switch (k.getKeyChar()) {
-			case ' ':
-				remove(popup);
-				break;
-			case 'w':
-				direction = Direction.UP;
-				break;
-			case 'a':
-				direction = Direction.LEFT;
-				break;
-			case 's':
-				direction = Direction.DOWN;
-				break;
-			case 'd':
-				direction = Direction.RIGHT;
-			}
-		}
-
-		@Override
-		public void keyReleased(KeyEvent arg0) {
-			direction = Direction.NONE;
 		}
 	}
 
@@ -376,5 +350,9 @@ public class GamePanel extends JPanel {
 	private Point translateFromRealToScreen(Point point) {
 		return new Point(point.x - view.x + PPGUI.WINDOW_WIDTH / 2, point.y - view.y
 				+ PPGUI.WINDOW_HEIGHT / 2);
+	}
+
+	public void setZoom(double z) {
+		zoom = z;
 	}
 }
