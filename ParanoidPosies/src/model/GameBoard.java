@@ -26,10 +26,11 @@ public class GameBoard implements GameInterface {
 	private List<Bug> enemyList;
 	private List<Bug> friendlyList;
 	
-	public static final Point NORTH_SPAWN = new Point(centerX, centerY - 500);
-	public static final Point EAST_SPAWN = new Point(centerX + 500, centerY);
-	public static final Point SOUTH_SPAWN = new Point(centerX, centerY + 500);
-	public static final Point WEST_SPAWN = new Point(centerX - 500, centerY);
+	public static final Point NORTH_SPAWN = new Point(centerX, centerY - 700);
+	public static final Point EAST_SPAWN = new Point(centerX + 700, centerY);
+	public static final Point SOUTH_SPAWN = new Point(centerX, centerY + 700);
+	public static final Point WEST_SPAWN = new Point(centerX - 700, centerY);
+	public static final int SPAWN_PROBABILITY = 1;
 
 	public GameBoard() {
 		timer = 0;
@@ -50,7 +51,7 @@ public class GameBoard implements GameInterface {
 		things.add(new Posie(new Point(centerX, centerY + 200)));
 
 		((Bee) things.get(1)).setStrategy(new GatherStrategy(((Bug) things.get(1)), this),
-				things.get(7));
+				things.get(6));
 
 	}
 
@@ -104,6 +105,7 @@ public class GameBoard implements GameInterface {
 		for (Thing t : toRemove) {
 			things.remove(t);
 		}		
+		spawnEnemies();
 	}
 	
 	public void spawnEnemies(){
@@ -116,10 +118,13 @@ public class GameBoard implements GameInterface {
 			case 2: toSpawnAt = EAST_SPAWN; break;
 			case 3: toSpawnAt = SOUTH_SPAWN; break;
 			case 4: toSpawnAt = WEST_SPAWN; break;
+			} 
+			int spawnProb = rand.nextInt(100);
+			if(spawnProb < SPAWN_PROBABILITY){
+				Caterpillar c = new Caterpillar(toSpawnAt, this);
+				things.add(c);
+				enemyList.add(c);
 			}
-			Caterpillar c = new Caterpillar(toSpawnAt, this);
-			things.add(c);
-			enemyList.add(c);
 		}
 	}
 	
