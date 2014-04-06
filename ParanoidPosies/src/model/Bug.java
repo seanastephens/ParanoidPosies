@@ -151,19 +151,17 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 
 	//TODO handle null
 	public Thing getClosestPosie() {
-		if(getObjectiveThing() == null){
-			return null;
-		}
 		List<Thing> things;
 		int multipleOf100 = 1;
 		int maxMultipleOf100 = 20;
 		int hundred = 100;
 		while (multipleOf100 < maxMultipleOf100) {
 			things = this.getGameBoard().getThingsBetween(
-					this.getObjectiveThing().getLocation().x - hundred * multipleOf100,
-					this.getObjectiveThing().getLocation().y - hundred * multipleOf100,
-					this.getObjectiveThing().getLocation().x + hundred * multipleOf100,
-					this.getObjectiveThing().getLocation().y + hundred * multipleOf100);
+					
+					this.getLocation().x - hundred * multipleOf100,
+					this.getLocation().y - hundred * multipleOf100,
+					this.getLocation().x + hundred * multipleOf100,
+					this.getLocation().y + hundred * multipleOf100);
 			for (Thing aThing : things) {
 				if (aThing instanceof Posie) {
 					return (Posie) aThing;

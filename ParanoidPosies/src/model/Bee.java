@@ -23,8 +23,12 @@ public class Bee extends Bug {
 		this.setHP(BEE_HP);
 		setImage(ImageReg.getInstance().getImageFromStr(BEE_IMAGE_NAME));
 		this.setLocation(location);
-		this.setStrategy(new SquareStrategy(this, board),
-				new Point(this.getLocation().x + 50, this.getLocation().y));
+		this.setStrategy(new GatherStrategy(this, board),
+				getClosestPosie());
+		if(getObjectiveThing() == null){
+			this.setStrategy(new SquareStrategy(this, board),
+					new Point(this.getLocation().x + 50, this.getLocation().y));
+		}
 		nector = 0;
 		seeds = 0;
 		nectarToGet = maxNectar;
