@@ -63,8 +63,8 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 
 	public String getAction() {
 		String result = "";
-		result += "HP: " + this.getHP() + "\nLocation: " + this.getLocation().toString();
-		return result + " " + currentStrategy.getClass().getSimpleName();
+		result += "HP=" + this.getHP() + " ";
+		return result;
 	}
 
 	public String getType() {
@@ -187,7 +187,7 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 					this.getLocation().y + hundred * multipleOf100);
 			for (Thing aThing : things) {
 				if (aThing instanceof Posie && this instanceof Bee) {
-						return (Posie) aThing;
+					return (Posie) aThing;
 				}
 				if (aThing instanceof Posie && this instanceof Caterpillar) {
 					if (!aThing.isDead()) {
@@ -199,22 +199,20 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 		}
 		return gameboard.getHive();
 	}
-	
+
 	public Thing getRandomPosie() {
 		List<Thing> things;
 		int distance = 1000;
-		things = this.getGameBoard().getThingsBetween(
-					this.getLocation().x - distance,
-					this.getLocation().y - distance,
-					this.getLocation().x + distance,
-					this.getLocation().y + distance);
-		List<Thing> posies = new ArrayList<Thing>();	
+		things = this.getGameBoard().getThingsBetween(this.getLocation().x - distance,
+				this.getLocation().y - distance, this.getLocation().x + distance,
+				this.getLocation().y + distance);
+		List<Thing> posies = new ArrayList<Thing>();
 		for (Thing aThing : things) {
-				if(aThing instanceof Posie){
-					posies.add((Posie) aThing);
-				}
+			if (aThing instanceof Posie) {
+				posies.add((Posie) aThing);
+			}
 		}
-		if(posies == null || posies.size() == 0){
+		if (posies == null || posies.size() == 0) {
 			return gameboard.getHive();
 		}
 		Collections.shuffle(posies);
@@ -223,13 +221,13 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 			return posies.get(0);
 		}
 		if (this instanceof Caterpillar) {
-			for(Thing posie: posies){
+			for (Thing posie : posies) {
 				if (!posie.isDead()) {
 					return posies.get(0);
 				}
 			}
 		}
-		return gameboard.getHive();	
+		return gameboard.getHive();
 	}
 
 	// TODO handle null

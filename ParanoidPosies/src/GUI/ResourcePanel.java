@@ -82,8 +82,8 @@ public class ResourcePanel extends JPanel {
 		int IMAGE_X = PANEL_WIDTH / 3 + (PANEL_WIDTH / 3 - ImageReg.HIVE_GRAPHIC_SIZE / 2);
 		int IMAGE_Y = PANEL_HEIGHT / 2 - ImageReg.HIVE_GRAPHIC_SIZE / 2;
 
-		if (hive.getHoney() < 18) {
-			g.drawImage(images[hive.getHoney() % 3], IMAGE_X, IMAGE_Y, null);
+		if (hive.getHoney() < 30) {
+			g.drawImage(images[hive.getHoney() % 6], IMAGE_X, IMAGE_Y, null);
 		} else {
 			state = (state + 1) % 3;
 			g.drawImage(images[state + 6], IMAGE_X, IMAGE_Y, null);
