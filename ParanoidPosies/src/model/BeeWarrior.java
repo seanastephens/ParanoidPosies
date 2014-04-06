@@ -6,6 +6,8 @@ import java.util.Random;
 
 public class BeeWarrior extends Bee {
 
+	public static final int WARRIOR_SPEED = 5;
+
 	private int imageNumber = 0;
 	private int state = 0;
 	private Image[][][] images = new Image[2][8][3];
@@ -13,15 +15,16 @@ public class BeeWarrior extends Bee {
 	public BeeWarrior(Point location, GameBoard board) {
 		super(location, board);
 		setHP(BEE_HP * 2);
-		
+		setSpeed(WARRIOR_SPEED);
 		int randomConstant = 100;
-		
+
 		Random random = new Random();
-		Point ranPoint = new Point(board.getHive().getLocation().x + random.nextInt(randomConstant)+100, board.getHive().getLocation().x + random.nextInt(randomConstant)+100);
-		
+		Point ranPoint = new Point(board.getHive().getLocation().x + random.nextInt(randomConstant)
+				+ 100, board.getHive().getLocation().x + random.nextInt(randomConstant) + 100);
+
 		this.setObjectiveToNull();
 		this.setStrategy(new GuardStrategy(this, board), ranPoint);
-		
+
 		ImageReg i = ImageReg.getInstance();
 		images[0][0][0] = i.getImageFromStr("BeeWarrior00");
 		images[0][0][1] = i.getImageFromStr("BeeWarrior01");

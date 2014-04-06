@@ -21,6 +21,7 @@ public class ScorePanel extends JPanel {
 	private JLabel timeLabel;
 	private JLabel levelLabel;
 	private JLabel scoreLabel;
+	private JButton warriorButton;
 	private GameBoard game;
 
 	private int PANEL_WIDTH = 200;
@@ -42,8 +43,7 @@ public class ScorePanel extends JPanel {
 		levelLabel = new JLabel();
 		scoreLabel = new JLabel();
 
-		JButton warriorButton = new JButton("WARRIOR! (" + game.hive.honeyCostToBuildAWarriorBee
-				+ ")");
+		warriorButton = new JButton("WARRIOR! (" + game.hive.honeyCostToBuildAWarriorBee + ")");
 		warriorButton.addActionListener(new WarriorListener());
 
 		add(timeLabel);
@@ -57,7 +57,14 @@ public class ScorePanel extends JPanel {
 		timeLabel.setText(String.format("Time %.2f", game.getNumberOfTics()
 				/ (1. * PPGUI.UPDATES_PER_SEC)));
 		levelLabel.setText("Wave size: " + game.getWaveSize());
-		scoreLabel.setText("SCORE FILLER");
+		scoreLabel.setText("Score : " + game.getScore());
+
+		if (game.hive.canBuildWarriorBee()) {
+			warriorButton.setEnabled(true);
+		} else {
+			warriorButton.setEnabled(false);
+		}
+
 	}
 
 	private class WarriorListener implements ActionListener {
