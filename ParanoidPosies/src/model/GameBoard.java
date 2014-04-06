@@ -78,10 +78,8 @@ public class GameBoard implements GameInterface {
 		things.add(hive);
 		Random rand = new Random();
 		for (int i = 0; i < STARTING_FLOWERS; i++) {
-			int randX = centerX
-					+ (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET / 2);
-			int randY = centerY
-					+ (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET / 2);
+			int randX = centerX + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET / 2);
+			int randY = centerY + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET / 2);
 			Posie temp = new Posie(new Point(randX, randY));
 			for (int j = 0; j < 200; j++) {
 				temp.update();
@@ -121,7 +119,7 @@ public class GameBoard implements GameInterface {
 			System.out.println(hitlerRand);
 			if (hitlerRand < HITLER_PROB && timer >= 2 * WAVE_INTERVAL) {
 				System.out.println("Making Hitler");
-				
+
 				c.makeHitler();
 
 			}
@@ -129,22 +127,20 @@ public class GameBoard implements GameInterface {
 				c = new SegmentedCaterpillarHead(toSpawnAt, this);
 
 			}
-			if(c.IS_LITERALLY_HITLER){
+			if (c.IS_LITERALLY_HITLER) {
 				SoundManager.playSiren();
 				JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
 			}
 			things.add(c);
-			
+
 		}
 		waveSize += INITIAL_WAVE_SIZE;
 	}
 
 	public Point getRandomBeeSpawn() {
 		Random beeSpawn = new Random();
-		int randX = beeSpawn.nextInt(BEE_SPAWN_X_OFFSET) - BEE_SPAWN_X_OFFSET
-				/ 2 + centerX;
-		int randY = beeSpawn.nextInt(BEE_SPAWN_Y_OFFSET) - BEE_SPAWN_Y_OFFSET
-				/ 2 + centerY;
+		int randX = beeSpawn.nextInt(BEE_SPAWN_X_OFFSET) - BEE_SPAWN_X_OFFSET / 2 + centerX;
+		int randY = beeSpawn.nextInt(BEE_SPAWN_Y_OFFSET) - BEE_SPAWN_Y_OFFSET / 2 + centerY;
 		return new Point(randX, randY);
 	}
 
@@ -163,8 +159,7 @@ public class GameBoard implements GameInterface {
 	}
 
 	public void spawnAWarrior() {
-		things.add(new BeeWarrior(new Point(centerX + BEE_SPAWN_X_OFFSET,
-				centerY), this));
+		things.add(new BeeWarrior(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
 	}
 
 	@Override
@@ -177,8 +172,7 @@ public class GameBoard implements GameInterface {
 		List<Thing> toReturn = new ArrayList<Thing>();
 		for (Thing t : things) {
 			Point coords = t.getLocation();
-			if (coords.x > xLow && coords.x <= xHigh && coords.y > yLow
-					&& coords.y <= yHigh) {
+			if (coords.x > xLow && coords.x <= xHigh && coords.y > yLow && coords.y <= yHigh) {
 				toReturn.add(t);
 			}
 		}
@@ -246,14 +240,13 @@ public class GameBoard implements GameInterface {
 
 				System.out.println(hitlerRand);
 				if (hitlerRand < HITLER_PROB && timer >= 2 * WAVE_INTERVAL) {
-					System.out.println("Making Hitler");					
-					c.makeHitler();		
+					System.out.println("Making Hitler");
+					c.makeHitler();
 				}
-				if (rand.nextInt(100) <= PERCENT_KUBA_CATERBUGS
-						&& !c.IS_LITERALLY_HITLER) {
+				if (rand.nextInt(100) <= PERCENT_KUBA_CATERBUGS && !c.IS_LITERALLY_HITLER) {
 					c = new SegmentedCaterpillarHead(toSpawnAt, this);
 				}
-				if(c.IS_LITERALLY_HITLER){
+				if (c.IS_LITERALLY_HITLER) {
 					SoundManager.playSiren();
 					JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
 				}
@@ -265,11 +258,9 @@ public class GameBoard implements GameInterface {
 
 	public Point getWestSpawn() {
 		Random rand = new Random();
-		int randX = centerX
-				- (rand.nextInt(ENEMY_EAST_SPAWN_RANGE) + ENEMY_DISTANCE_FROM_HIVE);
+		int randX = centerX - (rand.nextInt(ENEMY_EAST_SPAWN_RANGE) + ENEMY_DISTANCE_FROM_HIVE);
 
-		int randY = rand.nextInt(ENEMY_NORTH_SPAWN_RANGE)
-				- (ENEMY_NORTH_SPAWN_RANGE / 2);
+		int randY = rand.nextInt(ENEMY_NORTH_SPAWN_RANGE) - (ENEMY_NORTH_SPAWN_RANGE / 2);
 		randY += centerY;
 
 		return new Point(randX, randY);
@@ -277,23 +268,19 @@ public class GameBoard implements GameInterface {
 
 	public Point getSouthSpawn() {
 		Random rand = new Random();
-		int randX = rand.nextInt(ENEMY_EAST_SPAWN_RANGE)
-				- (ENEMY_EAST_SPAWN_RANGE / 2);
+		int randX = rand.nextInt(ENEMY_EAST_SPAWN_RANGE) - (ENEMY_EAST_SPAWN_RANGE / 2);
 		randX += centerX;
 
-		int randY = rand.nextInt(ENEMY_NORTH_SPAWN_RANGE)
-				+ ENEMY_DISTANCE_FROM_HIVE + centerY;
+		int randY = rand.nextInt(ENEMY_NORTH_SPAWN_RANGE) + ENEMY_DISTANCE_FROM_HIVE + centerY;
 
 		return new Point(randX, randY);
 	}
 
 	public Point getEastSpawn() {
 		Random rand = new Random();
-		int randX = centerX
-				+ (rand.nextInt(ENEMY_EAST_SPAWN_RANGE) + ENEMY_DISTANCE_FROM_HIVE);
+		int randX = centerX + (rand.nextInt(ENEMY_EAST_SPAWN_RANGE) + ENEMY_DISTANCE_FROM_HIVE);
 
-		int randY = rand.nextInt(ENEMY_NORTH_SPAWN_RANGE)
-				- ENEMY_NORTH_SPAWN_RANGE / 2;
+		int randY = rand.nextInt(ENEMY_NORTH_SPAWN_RANGE) - ENEMY_NORTH_SPAWN_RANGE / 2;
 		randY += centerY;
 
 		return new Point(randX, randY);
@@ -301,12 +288,10 @@ public class GameBoard implements GameInterface {
 
 	public Point getNorthSpawn() {
 		Random rand = new Random();
-		int randX = rand.nextInt(ENEMY_EAST_SPAWN_RANGE)
-				- ENEMY_EAST_SPAWN_RANGE / 2;
+		int randX = rand.nextInt(ENEMY_EAST_SPAWN_RANGE) - ENEMY_EAST_SPAWN_RANGE / 2;
 		randX += centerX;
 
-		int randY = centerY
-				- (rand.nextInt(ENEMY_NORTH_SPAWN_RANGE) + ENEMY_DISTANCE_FROM_HIVE);
+		int randY = centerY - (rand.nextInt(ENEMY_NORTH_SPAWN_RANGE) + ENEMY_DISTANCE_FROM_HIVE);
 
 		return new Point(randX, randY);
 	}
@@ -315,8 +300,7 @@ public class GameBoard implements GameInterface {
 		if (timer < GRACE_PERIOD) {
 			return 0;
 		} else
-			return (INITIAL_ENEMY_THRESHOLD + INCREASE_ENEMIES_BY
-					* (timer / DIFFICULTY_INTERVAL))
+			return (INITIAL_ENEMY_THRESHOLD + INCREASE_ENEMIES_BY * (timer / DIFFICULTY_INTERVAL))
 					- enemyList.size();
 
 	}

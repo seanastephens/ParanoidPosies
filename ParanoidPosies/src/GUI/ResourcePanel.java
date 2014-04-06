@@ -23,6 +23,7 @@ public class ResourcePanel extends JPanel {
 	private JLabel seedLabel;
 	private JLabel beeLabel;
 	private JLabel flowerLabel;
+	private JLabel healthLabel;
 	private GameBoard game;
 
 	private int PANEL_WIDTH = 300;
@@ -61,6 +62,7 @@ public class ResourcePanel extends JPanel {
 		seedLabel = new JLabel();
 		beeLabel = new JLabel();
 		flowerLabel = new JLabel();
+		healthLabel = new JLabel();
 		setLabels();
 
 		JPanel labelWrapper = new JPanel();
@@ -71,6 +73,7 @@ public class ResourcePanel extends JPanel {
 		labelWrapper.add(seedLabel);
 		labelWrapper.add(beeLabel);
 		labelWrapper.add(flowerLabel);
+		labelWrapper.add(healthLabel);
 		add(labelWrapper);
 	}
 
@@ -94,5 +97,6 @@ public class ResourcePanel extends JPanel {
 		seedLabel.setText("Seeds        " + hive.getSeeds());
 		beeLabel.setText("Bees         " + game.getNumberOfBees());
 		flowerLabel.setText("Flowers      " + game.getNumberOfFlowers());
+		healthLabel.setText("Hive HP      " + game.hive.getHP());
 	}
 }
