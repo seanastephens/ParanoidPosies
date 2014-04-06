@@ -37,11 +37,15 @@ public class GameBoard implements GameInterface {
 	public static final int SPAWN_PROBABILITY = 1;
 
 	public static final int ENEMY_DISTANCE_FROM_HIVE = 600;
-	public static final int ENEMY_NORTH_SPAWN_RANGE = 100;
-	public static final int ENEMY_EAST_SPAWN_RANGE = 100;
+	public static final int ENEMY_NORTH_SPAWN_RANGE = 300;
+	public static final int ENEMY_EAST_SPAWN_RANGE = 300;
+	
+	private int waveSize;
+	private static final int INITIAL_WAVE_SIZE = 5;
 
 	public GameBoard() {
 		timer = 0;
+		waveSize = INITIAL_WAVE_SIZE;
 		hive = new Hive();
 		hive.setLocation(new Point(centerX, centerY));
 		things = new ArrayList<Thing>();
@@ -63,6 +67,8 @@ public class GameBoard implements GameInterface {
 				things.get(6));
 
 	}
+	
+	
 
 	public Point getRandomBeeSpawn() {
 		Random beeSpawn = new Random();
