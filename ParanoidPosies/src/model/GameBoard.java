@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import GUI.GameInterface;
 import GUI.PPGUI;
 
@@ -51,8 +53,9 @@ public class GameBoard implements GameInterface {
 	public static final int SPAWN_INTERVAL = 10;
 	
 	private static final int HITLER_TIME = 120 * PPGUI.UPDATES_PER_SEC;
-	private static final int HITLER_PROB_RANGE = 100;
-	private static final int HITLER_PROB = 1;
+	private static final int HITLER_PROB_RANGE = 50;
+	private static final int HITLER_PROB = 2;
+	private static final String HITLER_MESSAGE = "ULTRA HYPER GIGA MECHA HITLER has just appeared! Are you a bad enough dude to stop him?";
 
 	public SoundManager sound;
 
@@ -73,6 +76,8 @@ public class GameBoard implements GameInterface {
 			things.add(b);
 			friendlyList.add(b);
 		}
+		
+		
 
 		Random rand = new Random();
 		for (int i = 0; i < STARTING_FLOWERS; i++) {
@@ -105,12 +110,15 @@ public class GameBoard implements GameInterface {
 				break;
 			}
 			Caterpillar c;
-			// Random r = new Random();
-			// if (r.nextBoolean()) {
 			c = new Caterpillar(toSpawnAt, this);
-			// } else {
-			// c = new SegmentedCaterpillarHead(toSpawnAt, this);
-			// }
+			int hitlerRand = rand.nextInt(HITLER_PROB_RANGE);
+			System.out.println(hitlerRand);
+			if(hitlerRand < HITLER_PROB && timer >= 2 * WAVE_INTERVAL){
+				System.out.println("Making Hitler");
+				SoundManager.playSiren();
+				JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
+				c.makeHitler();
+			}
 			things.add(c);
 
 		}
@@ -210,13 +218,17 @@ public class GameBoard implements GameInterface {
 				break;
 			}
 			int spawnProb = rand.nextInt(100);
+			
 			if (spawnProb < SPAWN_PROBABILITY) {
 				Caterpillar c = new Caterpillar(toSpawnAt, this);
 				int hitlerRand = rand.nextInt(HITLER_PROB_RANGE);
-				if(hitlerRand < HITLER_PROB){
+				System.out.println(hitlerRand);
+				if(hitlerRand < HITLER_PROB && timer >= 2 * WAVE_INTERVAL){
+					System.out.println("Making Hitler");
+					SoundManager.playSiren();
+					JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
 					c.makeHitler();
 				}
-				
 				things.add(c);
 				enemyList.add(c);
 			}
