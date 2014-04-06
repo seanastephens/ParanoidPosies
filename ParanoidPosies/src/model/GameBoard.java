@@ -33,11 +33,9 @@ public class GameBoard implements GameInterface {
 	public static final Point WEST_SPAWN = new Point(centerX - 700, centerY);
 	public static final int SPAWN_PROBABILITY = 1;
 	
-//	public static final int BEE_SPAWN_FIELD_LOW_X = centerX + BEE_SPAWN_X_OFFSET;
-//	public static final int BEE_SPAWN_FIELD_HIGH_X = centerX + 3 * BEE_SPAWN_X_OFFSET;
-//	public static final int BEE_SPAWN_FIELD_LOW_Y = centerY + BEE_SPAWN_Y_OFFSET;
-//	public static final int BEE_SPAWN_FIELD_HIGH_Y = centerY + 3 * BEE_SPAWN_Y_OFFSET;
-	
+	public static final int ENEMY_DISTANCE_FROM_HIVE = 600;
+	public static final int ENEMY_NORTH_SPAWN_RANGE = 100;
+	public static final int ENEMY_EAST_SPAWN_RANGE = 100;
 	
 
 	public GameBoard() {
@@ -130,10 +128,10 @@ public class GameBoard implements GameInterface {
 			Random rand = new Random();
 			int randInt = rand.nextInt(4) + 1; //Get random integer from 1-4
 			switch(randInt){
-			case 1: toSpawnAt = NORTH_SPAWN; break;
-			case 2: toSpawnAt = EAST_SPAWN; break;
-			case 3: toSpawnAt = SOUTH_SPAWN; break;
-			case 4: toSpawnAt = WEST_SPAWN; break;
+			case 1: toSpawnAt = getNorthSpawn(); break;
+			case 2: toSpawnAt = getEastSpawn(); break;
+			case 3: toSpawnAt = getSouthSpawn(); break;
+			case 4: toSpawnAt = getWestSpawn(); break;
 			} 
 			int spawnProb = rand.nextInt(100);
 			if(spawnProb < SPAWN_PROBABILITY){
@@ -142,6 +140,46 @@ public class GameBoard implements GameInterface {
 				enemyList.add(c);
 			}
 		}
+	}
+	
+	public Point getWestSpawn(){
+		Random rand = new Random();
+		int randX = centerX - (rand.nextInt(ENEMY_EAST_SPAWN_RANGE) + ENEMY_DISTANCE_FROM_HIVE);
+		
+		int randY = rand.nextInt(ENEMY_NORTH_SPAWN_RANGE) - (ENEMY_NORTH_SPAWN_RANGE/2);
+		randY += centerY;
+		
+		return new Point(randX, randY);
+	}
+	
+	public Point getSouthSpawn(){
+		Random rand = new Random();
+		int randX = rand.nextInt(ENEMY_EAST_SPAWN_RANGE) - (ENEMY_EAST_SPAWN_RANGE/2);
+		randX += centerX;
+		
+		int randY = rand.nextInt(ENEMY_NORTH_SPAWN_RANGE) + ENEMY_DISTANCE_FROM_HIVE + centerY;
+		
+		return new Point(randX, randY);
+	}
+	
+	public Point getEastSpawn(){
+		Random rand = new Random();
+		int randX = centerX + (rand.nextInt(ENEMY_EAST_SPAWN_RANGE) + ENEMY_DISTANCE_FROM_HIVE);
+		
+		int randY = rand.nextInt(ENEMY_NORTH_SPAWN_RANGE) - ENEMY_NORTH_SPAWN_RANGE/2;
+		randY += centerY;
+		
+		return new Point(randX, randY);
+	}
+	
+	public Point getNorthSpawn(){
+		Random rand = new Random();
+		int randX = rand.nextInt(ENEMY_EAST_SPAWN_RANGE) - ENEMY_EAST_SPAWN_RANGE/2;
+		randX += centerX;
+		
+		int randY = centerY - (rand.nextInt(ENEMY_NORTH_SPAWN_RANGE) + ENEMY_DISTANCE_FROM_HIVE);
+		
+		return new Point(randX, randY);
 	}
 	
 	
