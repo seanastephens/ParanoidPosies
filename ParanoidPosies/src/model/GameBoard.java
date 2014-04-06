@@ -20,6 +20,7 @@ public class GameBoard implements GameInterface {
 	public static final int GRACE_PERIOD = 30 * PPGUI.UPDATES_PER_SEC;
 
 	public static final int BEE_SPAWN_X_OFFSET = 50;
+	public static final int BEE_SPAWN_Y_OFFSET = 50;
 
 	public static final int STARTING_BEES = 5;
 	private int timer;
@@ -31,6 +32,13 @@ public class GameBoard implements GameInterface {
 	public static final Point SOUTH_SPAWN = new Point(centerX, centerY + 700);
 	public static final Point WEST_SPAWN = new Point(centerX - 700, centerY);
 	public static final int SPAWN_PROBABILITY = 1;
+	
+	public static final int BEE_SPAWN_FIELD_LOW_X = centerX + BEE_SPAWN_X_OFFSET;
+	public static final int BEE_SPAWN_FIELD_HIGH_X = centerX + 3 * BEE_SPAWN_X_OFFSET;
+	public static final int BEE_SPAWN_FIELD_LOW_Y = centerY + BEE_SPAWN_Y_OFFSET;
+	public static final int BEE_SPAWN_FIELD_HIGH_Y = centerY + 3 * BEE_SPAWN_Y_OFFSET;
+	
+	
 
 	public GameBoard() {
 		timer = 0;
@@ -41,7 +49,8 @@ public class GameBoard implements GameInterface {
 		enemyList = new ArrayList<Bug>();
 		things.add(hive);
 		for (int i = 0; i < STARTING_BEES; i++) {
-			Bee b = new Bee(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this);
+			
+			Bee b = new Bee(getRandomBeeSpawn(), this);
 			things.add(b);
 			friendlyList.add(b);
 		}
@@ -53,6 +62,13 @@ public class GameBoard implements GameInterface {
 		((Bee) things.get(1)).setStrategy(new GatherStrategy(((Bug) things.get(1)), this),
 				things.get(6));
 
+	}
+	
+	public Point getRandomBeeSpawn(){
+		Random beeSpawn = new Random();
+		int randX = beeSpawn.nextInt(BEE_SPAWN_FIELD_HIGH_X) + BEE_SPAWN_FIELD_LOW_X;
+		int randY = beeSpawn.nextInt(BEE_SPAWN_FIELD_HIGH_Y) + BEE_SPAWN_FIELD_LOW_Y;
+		return new Point(randX, randY);
 	}
 
 	public void addThing(Thing thing) {
