@@ -44,7 +44,7 @@ public class EndGamePanel extends JPanel{
 		Border titleBorder = BorderFactory.createTitledBorder(etchedBorder);
 		((TitledBorder) titleBorder).setTitle(loseButton.getText());
 		((TitledBorder) titleBorder).setTitleColor(Color.YELLOW);
-		loseButton.setBorder(titleBorder);
+		setBorder(titleBorder);
 		add(loseButton);
 		EndGameListener listener = new EndGameListener();
 		loseButton.addActionListener(listener);
