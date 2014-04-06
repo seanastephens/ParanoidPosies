@@ -15,6 +15,8 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import model.Bee;
+import model.Caterpillar;
+import model.FightStrategy;
 import model.GameBoard;
 import model.GatherStrategy;
 import model.Plant;
@@ -31,7 +33,7 @@ public class GamePanel extends JPanel {
 
 	private GameInterface game;
 	private Point view = new Point(2500, 2500);
-	private PopupPanel popup;
+	protected JPanel popup;
 	private TileManager tileManager = new TileManager();
 
 	private boolean userIsDrawingABox = false;
@@ -173,6 +175,8 @@ public class GamePanel extends JPanel {
 	}
 
 	private class ClickListener extends MouseAdapter {
+		private int lastSelection;
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
 
@@ -187,23 +191,48 @@ public class GamePanel extends JPanel {
 					remove(popup);
 				}
 				if (atPoint.size() > 0) {
-					popup = new PopupPanel(atPoint.get(0));
+					popup = new PopupPanel(atPoint.get(lastSelection % atPoint.size()));
 					popup.setLocation(e.getPoint());
+					lastSelection++;
 					add(popup);
+				} else if (popup == null) {
+					if (game.getHive().getSeeds() > 0) {
+						popup = new PlantMenu((GameBoard) game, new Point(x, y));
+						popup.setLocation(e.getPoint());
+						lastSelection++;
+						add(popup);
+					}
+				} else {
+					popup = null;
 				}
 			} else {
 				if (atPoint.size() > 0) {
 					Thing target = atPoint.get(0);
 					if (target instanceof Plant) {
-						for (Thing actor : selected) {
-							if (actor instanceof Bee) {
-								Bee bee = ((Bee) actor);
-								bee.setStrategy(new GatherStrategy(bee, (GameBoard) game), target);
-							}
-						}
+						tellAllSelectedToGatherFrom(target);
+					} else if (target instanceof Caterpillar) {
+						tellAllSelectedToAttack(target);
 					}
 				}
 				selected.clear();
+			}
+		}
+	}
+
+	private void tellAllSelectedToAttack(Thing target) {
+		for (Thing actor : selected) {
+			if (actor instanceof Bee) {
+				Bee bee = ((Bee) actor);
+				bee.setStrategy(new FightStrategy(bee, (GameBoard) game), target);
+			}
+		}
+	}
+
+	private void tellAllSelectedToGatherFrom(Thing target) {
+		for (Thing actor : selected) {
+			if (actor instanceof Bee) {
+				Bee bee = ((Bee) actor);
+				bee.setStrategy(new GatherStrategy(bee, (GameBoard) game), target);
 			}
 		}
 	}
