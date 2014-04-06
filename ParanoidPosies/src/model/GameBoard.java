@@ -49,13 +49,13 @@ public class GameBoard implements GameInterface {
 
 	private int waveSize;
 	private static final int INITIAL_WAVE_SIZE = 3;
-	public static final int WAVE_INTERVAL = 120 * PPGUI.UPDATES_PER_SEC;
+	public static final int WAVE_INTERVAL = 5 * PPGUI.UPDATES_PER_SEC;
 	public static final int SPAWN_INTERVAL = 10;
 
 	private static final int HITLER_TIME = 120 * PPGUI.UPDATES_PER_SEC;
 
 	private static final int HITLER_PROB_RANGE = 50;
-	private static final int HITLER_PROB = 50;
+	private static final int HITLER_PROB = 2;
 	private static final String HITLER_MESSAGE = "ULTRA HYPER GIGA MECHA HITLER has just appeared! Are you a bad enough dude to stop him?";
 
 	private static final int SCORE_PER_KILL = 10;
@@ -121,8 +121,7 @@ public class GameBoard implements GameInterface {
 			System.out.println(hitlerRand);
 			if (hitlerRand < HITLER_PROB && timer >= 2 * WAVE_INTERVAL) {
 				System.out.println("Making Hitler");
-				SoundManager.playSiren();
-				JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
+				
 				c.makeHitler();
 
 			}
@@ -130,9 +129,14 @@ public class GameBoard implements GameInterface {
 				c = new SegmentedCaterpillarHead(toSpawnAt, this);
 
 			}
+			if(c.IS_LITERALLY_HITLER){
+				SoundManager.playSiren();
+				JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
+			}
 			things.add(c);
-			waveSize += INITIAL_WAVE_SIZE;
+			
 		}
+		waveSize += INITIAL_WAVE_SIZE;
 	}
 
 	public Point getRandomBeeSpawn() {
@@ -242,18 +246,16 @@ public class GameBoard implements GameInterface {
 
 				System.out.println(hitlerRand);
 				if (hitlerRand < HITLER_PROB && timer >= 2 * WAVE_INTERVAL) {
-					System.out.println("Making Hitler");
-					SoundManager.playSiren();
-					JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
-
-					if (hitlerRand < HITLER_PROB) {
-						c.makeHitler();
-					}
-					
+					System.out.println("Making Hitler");					
+					c.makeHitler();		
 				}
 				if (rand.nextInt(100) <= PERCENT_KUBA_CATERBUGS
 						&& !c.IS_LITERALLY_HITLER) {
 					c = new SegmentedCaterpillarHead(toSpawnAt, this);
+				}
+				if(c.IS_LITERALLY_HITLER){
+					SoundManager.playSiren();
+					JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
 				}
 				things.add(c);
 				enemyList.add(c);
