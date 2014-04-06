@@ -5,65 +5,61 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import model.GameBoard;
-import model.Posie;
 
-public class DenialPopup extends JPanel {
+public class DenialPopup extends JPanel implements ActionListener {
 
 	private int WIDTH = 150; // default
-	private int HEIGHT = 80; // default
+	private int HEIGHT = 60; // default
+	private int X_OFFSET = 5;
+	private int Y_OFFSET = 10;
+	private int TIME_UNTIL_AUTO_REMOVE = 2000;
+	private String TITLE = "NOPE";
 
-	private GameBoard game;
-	private Point where;
-
-	public DenialPopup(GameBoard game, Point where) {
-		this.game = game;
-		this.where = where;
+	public DenialPopup(GameBoard game) {
 		setSize(WIDTH, HEIGHT);
 		setBackground(Color.GRAY);
+		setBorder(BorderFactory.createLoweredSoftBevelBorder());
 		setLayout(null);
 
-		JButton yes = new JButton("Yes!");
-		yes.addActionListener(new YesListener());
-		add(yes);
-		yes.setLocation(new Point(0, HEIGHT / 2));
-		yes.setSize(WIDTH / 2, HEIGHT / 2);
+		Border etchedBorder = BorderFactory.createEtchedBorder();
+		Border titleBorder = BorderFactory.createTitledBorder(etchedBorder);
+		((TitledBorder) titleBorder).setTitle(TITLE);
+		((TitledBorder) titleBorder).setTitleColor(Color.YELLOW);
+		setBorder(titleBorder);
 
-		JButton no = new JButton("no.");
-		no.addActionListener(new NoListener());
-		add(no);
-		no.setLocation(WIDTH / 2, HEIGHT / 2);
-		no.setSize(WIDTH / 2, HEIGHT / 2);
+		String msg = "<html>Not enough ";
+		if (game.getHive().getSeeds() < GameBoard.POSIE_COST_IN_SEEDS) {
+			msg += "seeds: have " + game.getHive().getSeeds() + " / "
+					+ GameBoard.POSIE_COST_IN_SEEDS + "!</html>";
+		} else {
+			msg += "seeds: have " + game.getHive().getHoney() + " / "
+					+ GameBoard.POSIE_COST_IN_HONEY + "!</html>";
+		}
+		msg += "!</html>";
 
-		JLabel q = new JLabel("<html>Put a plant here?</html>");
+		JLabel q = new JLabel(msg);
+		q.setLocation(new Point(X_OFFSET, Y_OFFSET));
 		add(q);
-		q.setLocation(0, 0);
 		q.setSize(WIDTH, HEIGHT / 2);
+
+		Timer timer = new Timer(TIME_UNTIL_AUTO_REMOVE, this);
+		timer.start();
 	}
 
-	private class YesListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			game.getAllThingsOnBoard().add(new Posie(where));
-			System.out.println(game.getAllThingsOnBoard());
-			setVisible(false);
-			setEnabled(false);
-			((GamePanel) getParent()).popup = null;
-			getParent().repaint();
-		}
-	}
-
-	private class NoListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			setVisible(false);
-			setEnabled(false);
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		setVisible(false);
+		setEnabled(false);
+		if (((GamePanel) getParent()).popup == DenialPopup.this) {
 			((GamePanel) getParent()).popup = null;
 		}
-
 	}
 }

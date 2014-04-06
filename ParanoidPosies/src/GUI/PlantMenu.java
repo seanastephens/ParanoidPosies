@@ -5,20 +5,21 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import model.GameBoard;
 import model.Posie;
 
 public class PlantMenu extends JPanel {
-	
-	private static final int POSIE_COST = 2;
-	private static final int SEED_COST = 1;
 
 	private int WIDTH = 150; // default
 	private int HEIGHT = 80; // default
+	private String TITLE = "Place a Seed!";
 
 	private GameBoard game;
 	private Point where;
@@ -29,6 +30,12 @@ public class PlantMenu extends JPanel {
 		setSize(WIDTH, HEIGHT);
 		setBackground(Color.GRAY);
 		setLayout(null);
+
+		Border etchedBorder = BorderFactory.createEtchedBorder();
+		Border titleBorder = BorderFactory.createTitledBorder(etchedBorder);
+		((TitledBorder) titleBorder).setTitle(TITLE);
+		((TitledBorder) titleBorder).setTitleColor(Color.YELLOW);
+		setBorder(titleBorder);
 
 		JButton yes = new JButton("Yes!");
 		yes.addActionListener(new YesListener());
@@ -51,19 +58,26 @@ public class PlantMenu extends JPanel {
 	private class YesListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			GamePanel gPanel = (GamePanel) getParent();
 			int currentHoney = game.hive.getHoney();
 			int currentSeeds = game.hive.getSeeds();
-			if(currentHoney >= POSIE_COST && currentSeeds > 0){
-				game.hive.updateHoney(-1 * POSIE_COST);
-				game.hive.updateSeeds(-1 * SEED_COST);
+			if (currentHoney >= GameBoard.POSIE_COST_IN_HONEY
+					&& currentSeeds >= GameBoard.POSIE_COST_IN_SEEDS) {
+				game.hive.updateHoney(-1 * GameBoard.POSIE_COST_IN_HONEY);
+				game.hive.updateSeeds(-1 * GameBoard.POSIE_COST_IN_SEEDS);
 				game.getAllThingsOnBoard().add(new Posie(where));
 				System.out.println(game.getAllThingsOnBoard());
-				setVisible(false);
-				setEnabled(false);
-				((GamePanel) getParent()).popup = null;
-				getParent().repaint();
+				gPanel.popup = null;
+			} else {
+				Point ourCoords = gPanel.popup.getLocation();
+				JPanel denied = new DenialPopup(game);
+				gPanel.add(denied);
+				gPanel.popup = denied;
+				gPanel.popup.setLocation(ourCoords);
 			}
-			
+			setVisible(false);
+			setEnabled(false);
+
 		}
 	}
 
@@ -74,6 +88,5 @@ public class PlantMenu extends JPanel {
 			setEnabled(false);
 			((GamePanel) getParent()).popup = null;
 		}
-
 	}
 }

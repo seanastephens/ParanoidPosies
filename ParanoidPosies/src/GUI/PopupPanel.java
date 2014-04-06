@@ -3,8 +3,11 @@ package GUI;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import model.Thing;
 
@@ -13,9 +16,9 @@ public class PopupPanel extends JPanel {
 	private int WIDTH = 180; // default
 	private int HEIGHT = 150; // default
 	private int LINE_HEIGHT = 24; // depends on font.
-	private int LINE_OFFSET = 4;
-	private int MAX_CHARS_PER_LINE = 20; // should be about 1/8 of WIDTH, but
-											// depends on FONT
+	private int LINE_OFFSET = 12;
+	private int MAX_CHARS_PER_LINE = 18; // should be about 1/8 of WIDTH
+	private int TITLE_OFFSET = 20;
 
 	private Thing thing;
 	private JLabel name = new JLabel();
@@ -31,6 +34,11 @@ public class PopupPanel extends JPanel {
 		this.thing = thing;
 
 		setLayout(null);
+		Border etchedBorder = BorderFactory.createEtchedBorder();
+		Border titleBorder = BorderFactory.createTitledBorder(etchedBorder);
+		((TitledBorder) titleBorder).setTitle(thing.getType());
+		((TitledBorder) titleBorder).setTitleColor(Color.YELLOW);
+		setBorder(titleBorder);
 
 		dynamicResize();
 
@@ -96,16 +104,18 @@ public class PopupPanel extends JPanel {
 	}
 
 	private void dynamicResize() {
-		int dynamicWidth = WIDTH;
 
-		name.setSize(dynamicWidth, nameLineCount * LINE_HEIGHT);
-		hp.setSize(dynamicWidth, hpLineCount * LINE_HEIGHT);
-		action.setSize(dynamicWidth, actionLineCount * LINE_HEIGHT);
+		HEIGHT = (actionLineCount + hpLineCount + nameLineCount) * LINE_HEIGHT + 2 * TITLE_OFFSET;
+
+		System.out.println(nameLineCount + " : " + hpLineCount + " : " + actionLineCount);
+		name.setSize(WIDTH, nameLineCount * LINE_HEIGHT + TITLE_OFFSET);
+		hp.setSize(WIDTH, hpLineCount * LINE_HEIGHT + TITLE_OFFSET);
+		action.setSize(WIDTH, actionLineCount * LINE_HEIGHT + TITLE_OFFSET);
 
 		name.setLocation(LINE_OFFSET, 0);
-		hp.setLocation(LINE_OFFSET, nameLineCount * LINE_HEIGHT);
-		action.setLocation(LINE_OFFSET, (hpLineCount + nameLineCount) * LINE_HEIGHT);
+		hp.setLocation(LINE_OFFSET, nameLineCount * LINE_HEIGHT + TITLE_OFFSET);
+		action.setLocation(LINE_OFFSET, (hpLineCount + nameLineCount) * LINE_HEIGHT + TITLE_OFFSET);
 
-		setSize(dynamicWidth, (actionLineCount + hpLineCount + nameLineCount) * LINE_HEIGHT);
+		setSize(WIDTH, HEIGHT);
 	}
 }
