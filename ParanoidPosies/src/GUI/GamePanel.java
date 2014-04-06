@@ -1,30 +1,24 @@
 package GUI;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.swing.JPanel;
-
-import model.Bee;
-import model.Caterpillar;
-import model.FightStrategy;
-import model.GameBoard;
-import model.GatherStrategy;
-import model.GuardStrategy;
-import model.Hive;
-import model.ImageReg;
-import model.Plant;
-import model.Posie;
-import model.Thing;
+import src.GUI.BackgroundTile;
+import src.GUI.Direction;
+import src.GUI.GameInterface;
+import src.GUI.PPGUI;
+import src.GUI.PlantMenu;
+import src.GUI.PopupPanel;
+import src.GUI.ResourcePanel;
+import src.GUI.TileManager;
+import src.model.Bee;
+import src.model.Caterpillar;
+import src.model.FightStrategy;
+import src.model.GameBoard;
+import src.model.GatherStrategy;
+import src.model.GuardStrategy;
+import src.model.Hive;
+import src.model.ImageReg;
+import src.model.Plant;
+import src.model.Posie;
+import src.model.Thing;
 
 public class GamePanel extends JPanel {
 
@@ -231,19 +225,19 @@ public class GamePanel extends JPanel {
 
 			int BEE_MARGIN_W = ImageReg.getInstance().getImageFromStr("Bee").getWidth(null) / 2;
 			int BEE_MARGIN_H = ImageReg.getInstance().getImageFromStr("Bee").getHeight(null) / 2;
-			int BEE_MARGIN = Math.max(BEE_MARGIN_H, BEE_MARGIN_W);
+			Image BEE_MARGIN = Math.max(BEE_MARGIN_H, BEE_MARGIN_W);
 			int POSIE_MARGIN_W = ImageReg.getInstance().getImageFromStr("TotallyAPosie")
 					.getWidth(null) / 2;
 			int POSIE_MARGIN_H = ImageReg.getInstance().getImageFromStr("TotallyAPosie")
 					.getHeight(null) / 2;
-			int POSIE_MARGIN = Math.max(POSIE_MARGIN_H, POSIE_MARGIN_W);
+			Image POSIE_MARGIN = Math.max(POSIE_MARGIN_H, POSIE_MARGIN_W);
 			int HIVE_MARGIN_W = ImageReg.getInstance().getImageFromStr("Hive").getWidth(null) / 2;
 			int HIVE_MARGIN_H = ImageReg.getInstance().getImageFromStr("Hive").getHeight(null) / 2;
-			int HIVE_MARGIN = Math.max(HIVE_MARGIN_H, HIVE_MARGIN_W);
+			Image HIVE_MARGIN = Math.max(HIVE_MARGIN_H, HIVE_MARGIN_W);
 			int CAT_MARGIN_W = ImageReg.getInstance().getImageFromStr("Caterpillar").getWidth(null) / 2;
 			int CAT_MARGIN_H = ImageReg.getInstance().getImageFromStr("Caterpillar")
 					.getHeight(null) / 2;
-			int CAT_MARGIN = Math.max(CAT_MARGIN_H, CAT_MARGIN_W);
+			Image CAT_MARGIN = Math.max(CAT_MARGIN_H, CAT_MARGIN_W);
 
 			List<Thing> atPoint = new ArrayList<Thing>();
 			for (Thing t : allAtPoint) {
