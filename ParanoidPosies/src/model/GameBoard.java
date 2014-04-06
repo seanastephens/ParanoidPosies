@@ -55,7 +55,7 @@ public class GameBoard implements GameInterface {
 	private static final int HITLER_TIME = 120 * PPGUI.UPDATES_PER_SEC;
 
 	private static final int HITLER_PROB_RANGE = 50;
-	private static final int HITLER_PROB = 2;
+	private static final int HITLER_PROB = 50;
 	private static final String HITLER_MESSAGE = "ULTRA HYPER GIGA MECHA HITLER has just appeared! Are you a bad enough dude to stop him?";
 
 	private static final int SCORE_PER_KILL = 10;
@@ -235,11 +235,10 @@ public class GameBoard implements GameInterface {
 					System.out.println("Making Hitler");
 					SoundManager.playSiren();
 					JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
-
-
+					c.makeHitler();
+			}
 				things.add(c);
 				enemyList.add(c);
-			}
 			}
 		}
 	}
