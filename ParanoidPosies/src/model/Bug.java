@@ -3,6 +3,7 @@ package model;
 import java.awt.Image;
 import java.awt.Point;
 import java.util.List;
+import java.util.Random;
 
 public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, UpgradeTotalHP {
 	private Point location;
@@ -14,6 +15,9 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 	private BugStrategy currentStrategy;
 	private Thing objectiveThing;
 	private Point objectivePoint;
+	
+	private static final int RAND_RANGE = 100;
+	private static int MOVE_PROBABILITY = (RAND_RANGE * 6)/10;
 
 	public Bug(GameBoard gameboard) {
 		this.gameboard = gameboard;
@@ -130,25 +134,45 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 	// from one place to another.
 	public void move(Point endLocation) {
 		int moveConstant = 1;
-		if (!this.getLocation().equals(endLocation)) {
-			if (this.getLocation().x < endLocation.x) {
-				this.setLocation(new Point(this.getLocation().x + moveConstant,
-						this.getLocation().y));
-			}
-			if (this.getLocation().x > endLocation.x) {
-				this.setLocation(new Point(this.getLocation().x - moveConstant,
-						this.getLocation().y));
-			}
-			if (this.getLocation().y < endLocation.y) {
-				this.setLocation(new Point(this.getLocation().x, this.getLocation().y
-						+ moveConstant));
-			}
-			if (this.getLocation().y > endLocation.y) {
-				this.setLocation(new Point(this.getLocation().x, this.getLocation().y
-						- moveConstant));
+		Random rand = new Random();
+		int randInt = rand.nextInt(RAND_RANGE);
+		if(MOVE_PROBABILITY < randInt){
+			if (!this.getLocation().equals(endLocation)) {
+				if (this.getLocation().x < endLocation.x) {
+					this.setLocation(new Point(this.getLocation().x + moveConstant,
+							this.getLocation().y));
+				}
+				if (this.getLocation().x > endLocation.x) {
+					this.setLocation(new Point(this.getLocation().x - moveConstant,
+							this.getLocation().y));
+				}
+				if (this.getLocation().y < endLocation.y) {
+					this.setLocation(new Point(this.getLocation().x, this.getLocation().y
+							+ moveConstant));
+				}
+				if (this.getLocation().y > endLocation.y) {
+					this.setLocation(new Point(this.getLocation().x, this.getLocation().y
+							- moveConstant));
+				}
 			}
 		}
+		else{
+			int randX = rand.nextInt(moveConstant) + 1;
+			int randY = rand.nextInt(moveConstant) + 1;
+			
+			boolean subY = rand.nextBoolean();
+			if(rand.nextBoolean()){
+				randX = randX * -1;
+			}
+			if(rand.nextBoolean()){
+				randY = randY * -1;
+			}
+			this.setLocation(new Point(randX, randY));
+			
+			
+		}
 	}
+	
 
 	// TODO handle null
 	public Thing getClosestPosie() {
