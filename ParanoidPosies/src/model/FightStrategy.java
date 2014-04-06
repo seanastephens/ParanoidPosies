@@ -19,7 +19,7 @@ public class FightStrategy implements BugStrategy{
 			bug.attack(bug.getObjectiveThing());
 		}
 		else if(bug.getObjectiveThing().isDead() && bug instanceof Bee){
-			bug.setObjectiveThing(board.getHive());
+			bug.setStrategy(new MoveStrategy(bug, board), board.getHive());
 		}
 		else if(bug.getObjectiveThing().isDead() && bug instanceof Caterpillar){
 			bug.setObjectiveToNull();
