@@ -2,8 +2,12 @@ package GUI;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import model.GameBoard;
 
@@ -14,15 +18,26 @@ public class PPGUI extends JFrame implements Runnable {
 	}
 
 	public static final int UPDATES_PER_SEC = 20;
-	public static final int WINDOW_WIDTH = 900;
-	public static final int WINDOW_HEIGHT = 720;
+	public static int WINDOW_WIDTH = 900;
+	public static int WINDOW_HEIGHT = 720;
 
 	private GameInterface game;
 	private GamePanel gamePanel;
+	private Thread animator;
+	private boolean PAUSED = false;
 
 	public PPGUI() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setResizable(false);
+		addKeyListener(new ExitListener());
+
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+		setResizable(true);
+		setUndecorated(true);
+		WINDOW_WIDTH = (int) screenSize.getWidth();
+		WINDOW_HEIGHT = (int) screenSize.getHeight();
+		System.out.println(WINDOW_HEIGHT);
+		System.out.println(WINDOW_WIDTH);
 		setSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
 		game = new GameBoard();
@@ -33,12 +48,15 @@ public class PPGUI extends JFrame implements Runnable {
 		add(gamePanel);
 		gamePanel.setLocation(new Point(0, 0));
 
-		Thread animator = new Thread(this);
+		animator = new Thread(this);
 		animator.start();
 	}
 
 	public void run() {
 		while (true) {
+			while (PAUSED) {
+				doSomeSleeping();
+			}
 			try {
 				Thread.sleep(1000 / UPDATES_PER_SEC);
 			} catch (InterruptedException e) {
@@ -47,6 +65,34 @@ public class PPGUI extends JFrame implements Runnable {
 			gamePanel.shiftViewPoint();
 			game.update();
 			repaint();
+		}
+	}
+
+	private void doSomeSleeping() {
+		try {
+			Thread.sleep(100);
+		} catch (Exception e) {
+
+		}
+	}
+
+	private class ExitListener extends KeyAdapter {
+
+		private String TITLE = "Exit?";
+		private String MESSAGE = "Quit Paranoid Posies?";
+		private String[] options = { "Yes", "Cancel" };
+
+		public void keyPressed(KeyEvent e) {
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				PAUSED = true;
+				int exit = JOptionPane.showOptionDialog(null, MESSAGE, TITLE,
+						JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION, null, options,
+						options[1]);
+				if (exit == 0) {
+					System.exit(0);
+				}
+				PAUSED = false;
+			}
 		}
 	}
 }

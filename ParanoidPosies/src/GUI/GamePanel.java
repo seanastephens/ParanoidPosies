@@ -19,6 +19,7 @@ import model.Caterpillar;
 import model.FightStrategy;
 import model.GameBoard;
 import model.GatherStrategy;
+import model.GuardStrategy;
 import model.Plant;
 import model.Thing;
 
@@ -196,7 +197,7 @@ public class GamePanel extends JPanel {
 					lastSelection++;
 					add(popup);
 				} else if (popup == null) {
-					if (game.getHive().getSeeds() > 0) {
+					if (game.getHive().getSeeds() >= 0) {
 						popup = new PlantMenu((GameBoard) game, new Point(x, y));
 						popup.setLocation(e.getPoint());
 						lastSelection++;
@@ -205,16 +206,20 @@ public class GamePanel extends JPanel {
 				} else {
 					popup = null;
 				}
-			} else {
-				if (atPoint.size() > 0) {
-					Thing target = atPoint.get(0);
-					if (target instanceof Plant) {
-						tellAllSelectedToGatherFrom(target);
-					} else if (target instanceof Caterpillar) {
-						tellAllSelectedToAttack(target);
-					}
+			} else if (atPoint.size() > 0) {
+				Thing target = atPoint.get(0);
+				if (target instanceof Plant) {
+					tellAllSelectedToGatherFrom(target);
+				} else if (target instanceof Caterpillar) {
+					tellAllSelectedToAttack(target);
 				}
+
 				selected.clear();
+			} else { // selected.size == 0
+				Point point = e.getPoint();
+				point = new Point(point.x + view.x - PPGUI.WINDOW_WIDTH / 2, point.y + view.y
+						- PPGUI.WINDOW_HEIGHT / 2);
+				tellAllSelectedToGaurd(point);
 			}
 		}
 	}
@@ -233,6 +238,15 @@ public class GamePanel extends JPanel {
 			if (actor instanceof Bee) {
 				Bee bee = ((Bee) actor);
 				bee.setStrategy(new GatherStrategy(bee, (GameBoard) game), target);
+			}
+		}
+	}
+
+	private void tellAllSelectedToGaurd(Point point) {
+		for (Thing actor : selected) {
+			if (actor instanceof Bee) {
+				Bee bee = ((Bee) actor);
+				bee.setStrategy(new GuardStrategy(bee, (GameBoard) game), point);
 			}
 		}
 	}
@@ -265,5 +279,15 @@ public class GamePanel extends JPanel {
 			}
 			userIsDrawingABox = false;
 		}
+	}
+
+	private Point translateFromScreenToReal(Point point) {
+		return new Point(point.x + view.x - PPGUI.WINDOW_WIDTH / 2, point.y + view.y
+				- PPGUI.WINDOW_HEIGHT / 2);
+	}
+
+	private Point translateFromRealToScreen(Point point) {
+		return new Point(point.x - view.x + PPGUI.WINDOW_WIDTH / 2, point.y - view.y
+				+ PPGUI.WINDOW_HEIGHT / 2);
 	}
 }
