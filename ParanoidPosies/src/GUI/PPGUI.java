@@ -8,7 +8,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
-import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -74,6 +73,7 @@ public class PPGUI extends JFrame implements Runnable {
 			game.update();
 			if(game.getHive().isDead()){
 				//TODO add endgamepanel here
+
 			}
 			repaint();
 		}
@@ -105,7 +105,6 @@ public class PPGUI extends JFrame implements Runnable {
 				PAUSED = false;
 			}
 		}
+
 	}
-	
-	
 }
