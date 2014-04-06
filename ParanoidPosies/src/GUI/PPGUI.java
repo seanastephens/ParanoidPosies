@@ -71,7 +71,7 @@ public class PPGUI extends JFrame implements Runnable {
 			}
 			gamePanel.shiftViewPoint();
 			game.update();
-			if(!game.getHive().isDead()){
+			if(game.getHive().isDead()){
 				System.out.println("Running end game if");
 				EndGamePanel endPanel = new EndGamePanel();
 				gamePanel.add(endPanel);
