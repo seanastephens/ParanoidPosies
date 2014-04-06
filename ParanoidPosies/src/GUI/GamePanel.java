@@ -46,12 +46,12 @@ public class GamePanel extends JPanel {
 	private int boxHeight;
 	private List<Thing> selected = new LinkedList<Thing>();
 
-	public GamePanel(GameInterface g) {
+	public GamePanel(GameBoard g) {
 		this.game = g;
 		setSize(new Dimension(PPGUI.WINDOW_WIDTH, PPGUI.WINDOW_HEIGHT));
 
 		setLayout(null);
-		JPanel resourcePanel = new ResourcePanel(g.getHive());
+		JPanel resourcePanel = new ResourcePanel(g);
 		add(resourcePanel);
 		resourcePanel.setLocation(new Point(0, PPGUI.WINDOW_HEIGHT - resourcePanel.getHeight()));
 
