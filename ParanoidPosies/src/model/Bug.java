@@ -15,9 +15,9 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 	private BugStrategy currentStrategy;
 	private Thing objectiveThing;
 	private Point objectivePoint;
-	
+
 	private static final int RAND_RANGE = 100;
-	private static int MOVE_PROBABILITY = (RAND_RANGE * 4)/10;
+	private static int MOVE_PROBABILITY = (RAND_RANGE * 4) / 10;
 
 	public Bug(GameBoard gameboard) {
 		this.gameboard = gameboard;
@@ -136,15 +136,15 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 		int moveConstant = 1;
 		Random rand = new Random();
 		int randInt = rand.nextInt(RAND_RANGE);
-		if(MOVE_PROBABILITY < randInt){
+		if (MOVE_PROBABILITY < randInt) {
 			if (!this.getLocation().equals(endLocation)) {
 				if (this.getLocation().x < endLocation.x) {
-					this.setLocation(new Point(this.getLocation().x + moveConstant,
-							this.getLocation().y));
+					this.setLocation(new Point(this.getLocation().x + moveConstant, this
+							.getLocation().y));
 				}
 				if (this.getLocation().x > endLocation.x) {
-					this.setLocation(new Point(this.getLocation().x - moveConstant,
-							this.getLocation().y));
+					this.setLocation(new Point(this.getLocation().x - moveConstant, this
+							.getLocation().y));
 				}
 				if (this.getLocation().y < endLocation.y) {
 					this.setLocation(new Point(this.getLocation().x, this.getLocation().y
@@ -155,24 +155,21 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 							- moveConstant));
 				}
 			}
-		}
-		else{
+		} else {
 			int randX = rand.nextInt(moveConstant) + 1;
 			int randY = rand.nextInt(moveConstant) + 1;
-			
+
 			boolean subY = rand.nextBoolean();
-			if(rand.nextBoolean()){
+			if (rand.nextBoolean()) {
 				randX = randX * -1;
 			}
-			if(rand.nextBoolean()){
+			if (rand.nextBoolean()) {
 				randY = randY * -1;
 			}
 			this.setLocation(new Point(this.getLocation().x + randX, this.getLocation().y + randY));
-			
-			
+
 		}
 	}
-	
 
 	// TODO handle null
 	public Thing getClosestPosie() {
@@ -205,7 +202,7 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 	public Thing getClosestCaterpillar() {
 		List<Thing> things;
 		int multipleOf100 = 1;
-		int maxMultipleOf100 = 20;
+		int maxMultipleOf100 = 5;
 		int hundred = 100;
 		while (multipleOf100 < maxMultipleOf100) {
 			things = this.getGameBoard().getThingsBetween(
