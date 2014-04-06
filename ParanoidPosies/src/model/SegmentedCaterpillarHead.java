@@ -15,11 +15,12 @@ public class SegmentedCaterpillarHead extends Caterpillar {
 	public static final String C6 = "SegmentedCaterpillarHead6";
 	public static final String C7 = "SegmentedCaterpillarHead7";
 	public static final String C0 = "SegmentedCaterpillarHead0";
-	private int maxSegments=8;
+	private int maxSegments;
 	SegmentedCaterpillarBody next;
 
 	public SegmentedCaterpillarHead(Point location, GameBoard gameboard) {
 		super(location, gameboard);
+		maxSegments = gameboard.getNumberOfEnemiesToSpawn()/3;
 		Random rand = new Random();
 		int segmentsNumber = rand.nextInt(maxSegments);
 		this.setImage(ImageReg.getInstance().getImageFromStr(C4));
