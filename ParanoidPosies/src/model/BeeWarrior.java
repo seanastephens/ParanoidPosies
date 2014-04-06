@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.util.Random;
 
 public class BeeWarrior extends Bee {
 
@@ -12,7 +13,15 @@ public class BeeWarrior extends Bee {
 	public BeeWarrior(Point location, GameBoard board) {
 		super(location, board);
 		setHP(BEE_HP * 2);
-
+		
+		int randomConstant = 100;
+		
+		Random random = new Random();
+		Point ranPoint = new Point(board.getHive().getLocation().x + random.nextInt(randomConstant)+100, board.getHive().getLocation().x + random.nextInt(randomConstant)+100);
+		
+		this.setObjectiveToNull();
+		this.setStrategy(new GuardStrategy(this, board), ranPoint);
+		
 		ImageReg i = ImageReg.getInstance();
 		images[0][0][0] = i.getImageFromStr("BeeWarrior00");
 		images[0][0][1] = i.getImageFromStr("BeeWarrior01");
