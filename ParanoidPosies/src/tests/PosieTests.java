@@ -1,8 +1,15 @@
-package src.tests;
+package tests;
 
-import src.GUI.PPGUI;
-import src.model.GrowthState;
-import src.model.Posie;
+import static org.junit.Assert.assertEquals;
+
+import java.awt.Point;
+
+import model.GrowthState;
+import model.Posie;
+
+import org.junit.Test;
+
+import GUI.PPGUI;
 
 public class PosieTests {
 
