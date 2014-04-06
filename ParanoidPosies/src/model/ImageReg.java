@@ -50,6 +50,15 @@ public class ImageReg {
 		images.put("Hive6", getImage("beehive_full_6.png").getScaledInstance(200, 200, 0));
 		images.put("Hive6A", getImage("beehive_full_6c.png").getScaledInstance(200, 200, 0));
 		images.put("Hive6B", getImage("beehive_full_6d.png").getScaledInstance(200, 200, 0));
+		images.put("JustPlanted", getImage("dirt.png"));
+		images.put("Seedling", getImage("seedling.png"));
+		images.put("Flower0", getImage("flower_blue.png"));
+		images.put("Flower1", getImage("flower_fat_cage.png"));
+		images.put("Flower2", getImage("flower_green.png"));
+		images.put("Flower3", getImage("flower_red.png"));
+		images.put("Flower4", getImage("flower_violet.png"));
+		images.put("Flower5", getImage("flower_yellow.png"));
+		images.put("DeadFlower", getImage("flower_dead.png"));
 
 		// Filler images
 		images.put("TotallyAPosie", getImage("totallyAPosie.png"));
