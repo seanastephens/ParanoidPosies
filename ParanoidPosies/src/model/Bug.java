@@ -199,4 +199,9 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 	// Takes the object of the thing being attacked so updates can be made to
 	// both objects.
 	public abstract void attack(Thing thingBeingAttacked);
+	
+	public void setObjectiveToNull(){
+		objectivePoint = null;
+		objectiveThing = null;
+	}
 }
