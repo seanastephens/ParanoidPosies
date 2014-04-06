@@ -16,8 +16,8 @@ public class GameBoard implements GameInterface {
 	public static final int centerY = 2500;
 
 	public static final int DIFFICULTY_INTERVAL = 60 * PPGUI.UPDATES_PER_SEC;
-	public static final int INITIAL_ENEMY_THRESHOLD = 5;
-	public static final int INCREASE_ENEMIES_BY = 2;
+	public static final int INITIAL_ENEMY_THRESHOLD = 3;
+	public static final int INCREASE_ENEMIES_BY = 1;
 	public static final int GRACE_PERIOD = 30 * PPGUI.UPDATES_PER_SEC;
 
 	public static final int POSIE_COST_IN_HONEY = 2;
