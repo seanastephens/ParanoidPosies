@@ -40,7 +40,7 @@ public class DenialPopup extends JPanel implements ActionListener {
 			msg += "seeds: have " + game.getHive().getSeeds() + " / "
 					+ GameBoard.POSIE_COST_IN_SEEDS + "!</html>";
 		} else {
-			msg += "seeds: have " + game.getHive().getHoney() + " / "
+			msg += "honey: have " + game.getHive().getHoney() + " / "
 					+ GameBoard.POSIE_COST_IN_HONEY + "!</html>";
 		}
 		msg += "!</html>";
