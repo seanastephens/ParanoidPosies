@@ -27,11 +27,6 @@ public abstract class Bug implements Thing {
 	public void setObjectivePoint(Point newLoc) {
 		objectivePoint = newLoc;
 	}
-	
-	public void setObjectiveToNull(){
-		objectivePoint = null;
-		objectiveThing = null;
-	}
 
 	public void setStrategy(BugStrategy strat, Thing objective) {
 		currentStrategy = strat;
