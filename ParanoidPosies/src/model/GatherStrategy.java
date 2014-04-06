@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 public class GatherStrategy implements BugStrategy {
 
 	private Bug bug;
@@ -26,7 +28,16 @@ public class GatherStrategy implements BugStrategy {
 				&& bug.getObjectiveThing() instanceof Hive) {
 			if (bug instanceof Bee) {
 				((Bee) bug).unloadNectarAndSeedsToHive();
-				bug.setObjectiveThing(bug.getClosestPosie());
+				Random random = new Random();
+				int randomNum = random.nextInt(10);
+				bug.setObjectiveToNull();
+				if(randomNum < 5){
+					bug.setObjectiveThing(bug.getClosestPosie());
+				}
+				else{
+					bug.setObjectiveThing(bug.getRandomPosie());
+				}
+				
 			}
 		}
 	}
