@@ -241,7 +241,7 @@ public class GamePanel extends JPanel {
 					.getWidth(null) / 2;
 			int KUBA_MARGIN_H = ImageReg.getInstance().getImageFromStr("SegmentedCaterpillarHead0")
 					.getHeight(null) / 2;
-			int KUBA_MARGIN = Math.max(CAT_MARGIN_H, CAT_MARGIN_W);
+			int KUBA_MARGIN = Math.max(KUBA_MARGIN_H, KUBA_MARGIN_W);
 
 			List<Thing> atPoint = new ArrayList<Thing>();
 
@@ -272,7 +272,7 @@ public class GamePanel extends JPanel {
 						atPoint.add(t);
 					}
 				}
-				if (t instanceof Caterpillar && !(t instanceof SegmentedCaterpillarBody)) {
+				if (t instanceof Caterpillar && !(t instanceof SegmentedCaterpillarHead)) {
 					if (t.getLocation().distance(clickedPoint) < CAT_MARGIN) {
 						atPoint.add(t);
 					}
