@@ -17,7 +17,7 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 	private Point objectivePoint;
 	
 	private static final int RAND_RANGE = 100;
-	private static int MOVE_PROBABILITY = (RAND_RANGE * 6)/10;
+	private static int MOVE_PROBABILITY = (RAND_RANGE * 4)/10;
 
 	public Bug(GameBoard gameboard) {
 		this.gameboard = gameboard;
@@ -167,7 +167,7 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 			if(rand.nextBoolean()){
 				randY = randY * -1;
 			}
-			this.setLocation(new Point(randX, randY));
+			this.setLocation(new Point(this.getLocation().x + randX, this.getLocation().y + randY));
 			
 			
 		}
