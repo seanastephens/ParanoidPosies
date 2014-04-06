@@ -48,12 +48,12 @@ public class Bee extends Bug {
 	}
 
 	@Override
-	public String getAction(){
+	public String getAction() {
 		String result = super.getAction();
 		result += "\nNectar: " + nector + "\nSeeds: " + seeds;
 		return result;
 	}
-	
+
 	public void setName(String newName) {
 		name = newName;
 	}
@@ -96,8 +96,9 @@ public class Bee extends Bug {
 		if (getObjectiveThing().isDead() == true) {
 			seeds = ((Plant) getObjectiveThing()).takeSeeds();
 		} else {
+
 			calculateNectarToGet();
-			((Plant) getObjectiveThing()).takeNectar(nectarToGet);
+			nector += ((Plant) getObjectiveThing()).takeNectar(nectarToGet);
 		}
 	}
 

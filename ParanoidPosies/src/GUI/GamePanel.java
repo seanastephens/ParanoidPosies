@@ -14,6 +14,10 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import model.Bee;
+import model.GameBoard;
+import model.GatherStrategy;
+import model.Plant;
 import model.Thing;
 
 public class GamePanel extends JPanel {
@@ -112,21 +116,15 @@ public class GamePanel extends JPanel {
 	private Direction direction = Direction.NONE;
 
 	public void shiftViewPoint() {
-		switch (direction) {
-		case DOWN:
+		if (direction == Direction.DOWN) {
 			view.y += SCROLL_SPEED;
-			break;
-		case UP:
+		} else if (direction == Direction.UP) {
 			view.y -= SCROLL_SPEED;
-			break;
-		case RIGHT:
-			view.x += SCROLL_SPEED;
-			break;
-		case LEFT:
+		} else if (direction == Direction.LEFT) {
 			view.x -= SCROLL_SPEED;
-			break;
-		default:
-			break;
+		} else if (direction == Direction.RIGHT) {
+			view.x += SCROLL_SPEED;
+
 		}
 	}
 
@@ -177,18 +175,35 @@ public class GamePanel extends JPanel {
 	private class ClickListener extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
+
 			int x = e.getPoint().x - PPGUI.WINDOW_WIDTH / 2 + view.x;
 			int y = e.getPoint().y - PPGUI.WINDOW_HEIGHT / 2 + view.y;
-
 			List<Thing> atPoint = game.getThingsBetween(x - SELECT_MARGIN, y - SELECT_MARGIN, x
 					+ SELECT_MARGIN, y + SELECT_MARGIN);
-			if (popup != null) {
-				remove(popup);
-			}
-			if (atPoint.size() > 0) {
-				popup = new PopupPanel(atPoint.get(0));
-				popup.setLocation(e.getPoint());
-				add(popup);
+
+			if (selected.size() == 0) {
+
+				if (popup != null) {
+					remove(popup);
+				}
+				if (atPoint.size() > 0) {
+					popup = new PopupPanel(atPoint.get(0));
+					popup.setLocation(e.getPoint());
+					add(popup);
+				}
+			} else {
+				if (atPoint.size() > 0) {
+					Thing target = atPoint.get(0);
+					if (target instanceof Plant) {
+						for (Thing actor : selected) {
+							if (actor instanceof Bee) {
+								Bee bee = ((Bee) actor);
+								bee.setStrategy(new GatherStrategy(bee, (GameBoard) game), target);
+							}
+						}
+					}
+				}
+				selected.clear();
 			}
 		}
 	}

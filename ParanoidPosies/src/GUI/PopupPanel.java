@@ -10,11 +10,11 @@ import model.Thing;
 
 public class PopupPanel extends JPanel {
 
-	private int WIDTH = 160; // default
+	private int WIDTH = 180; // default
 	private int HEIGHT = 150; // default
-	private int LINE_HEIGHT = 20; // depends on font.
-
-	private int MAX_CHARS_PER_LINE = 15; // should be about 1/8 of WIDTH, but
+	private int LINE_HEIGHT = 24; // depends on font.
+	private int LINE_OFFSET = 4;
+	private int MAX_CHARS_PER_LINE = 20; // should be about 1/8 of WIDTH, but
 											// depends on FONT
 
 	private Thing thing;
@@ -38,15 +38,17 @@ public class PopupPanel extends JPanel {
 		add(hp);
 		add(action);
 
+		name.setForeground(Color.WHITE);
+		hp.setForeground(Color.WHITE);
+		action.setForeground(Color.WHITE);
 	}
 
 	public void paintComponent(Graphics g) {
 
 		dynamicResize();
 
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
 		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 
 		name.setText("<html>" + getModNameStr() + "</html>");
 		hp.setText("<html>Health: " + thing.getHP() + "</html>");
@@ -100,9 +102,9 @@ public class PopupPanel extends JPanel {
 		hp.setSize(dynamicWidth, hpLineCount * LINE_HEIGHT);
 		action.setSize(dynamicWidth, actionLineCount * LINE_HEIGHT);
 
-		name.setLocation(0, 0);
-		hp.setLocation(0, nameLineCount * LINE_HEIGHT);
-		action.setLocation(0, (hpLineCount + nameLineCount) * LINE_HEIGHT);
+		name.setLocation(LINE_OFFSET, 0);
+		hp.setLocation(LINE_OFFSET, nameLineCount * LINE_HEIGHT);
+		action.setLocation(LINE_OFFSET, (hpLineCount + nameLineCount) * LINE_HEIGHT);
 
 		setSize(dynamicWidth, (actionLineCount + hpLineCount + nameLineCount) * LINE_HEIGHT);
 	}
