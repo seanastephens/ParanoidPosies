@@ -224,6 +224,7 @@ public class GamePanel extends JPanel {
 				point = new Point(point.x + view.x - PPGUI.WINDOW_WIDTH / 2, point.y + view.y
 						- PPGUI.WINDOW_HEIGHT / 2);
 				tellAllSelectedToGaurd(point);
+				selected.clear();
 			}
 		}
 

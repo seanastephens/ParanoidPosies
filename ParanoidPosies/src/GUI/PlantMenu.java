@@ -20,6 +20,8 @@ public class PlantMenu extends JPanel {
 	private int WIDTH = 150; // default
 	private int HEIGHT = 80; // default
 	private String TITLE = "Place a Seed!";
+	private static int OFFSET = 8;
+	private static int PADDING = 3;
 
 	private GameBoard game;
 	private Point where;
@@ -37,21 +39,21 @@ public class PlantMenu extends JPanel {
 		((TitledBorder) titleBorder).setTitleColor(Color.YELLOW);
 		setBorder(titleBorder);
 
-		JButton yes = new JButton("Yes!");
+		JButton yes = new JButton("Yes");
 		yes.addActionListener(new YesListener());
 		add(yes);
-		yes.setLocation(new Point(0, HEIGHT / 2));
-		yes.setSize(WIDTH / 2, HEIGHT / 2);
+		yes.setLocation(new Point(OFFSET, HEIGHT / 2));
+		yes.setSize(WIDTH / 2 - OFFSET - PADDING, HEIGHT / 2 - OFFSET);
 
-		JButton no = new JButton("no.");
+		JButton no = new JButton("no");
 		no.addActionListener(new NoListener());
 		add(no);
-		no.setLocation(WIDTH / 2, HEIGHT / 2);
-		no.setSize(WIDTH / 2, HEIGHT / 2);
+		no.setLocation(WIDTH / 2 + PADDING, HEIGHT / 2);
+		no.setSize(WIDTH / 2 - OFFSET - PADDING, HEIGHT / 2 - OFFSET);
 
 		JLabel q = new JLabel("<html>Put a plant here?</html>");
 		add(q);
-		q.setLocation(0, 0);
+		q.setLocation(OFFSET, 0);
 		q.setSize(WIDTH, HEIGHT / 2);
 	}
 
