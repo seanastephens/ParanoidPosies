@@ -218,12 +218,22 @@ public class GamePanel extends JPanel {
 				} else if (target instanceof Caterpillar) {
 					tellAllSelectedToAttack(target);
 				}
+				for (Thing t : selected) {
+					if (t instanceof Bee) {
+						((Bee) t).setSelected(false);
+					}
+				}
 				selected.clear();
 			} else { // selected.size == 0
 				Point point = e.getPoint();
 				point = new Point(point.x + view.x - PPGUI.WINDOW_WIDTH / 2, point.y + view.y
 						- PPGUI.WINDOW_HEIGHT / 2);
 				tellAllSelectedToGaurd(point);
+				for (Thing t : selected) {
+					if (t instanceof Bee) {
+						((Bee) t).setSelected(false);
+					}
+				}
 				selected.clear();
 			}
 		}
@@ -345,6 +355,11 @@ public class GamePanel extends JPanel {
 						- PPGUI.WINDOW_HEIGHT / 2;
 
 				selected = game.getThingsBetween(minX, minY, maxX, maxY);
+				for (Thing t : selected) {
+					if (t instanceof Bee) {
+						((Bee) t).setSelected(true);
+					}
+				}
 			}
 			userIsDrawingABox = false;
 		}

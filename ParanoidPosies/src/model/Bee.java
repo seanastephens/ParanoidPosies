@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,23 +18,38 @@ public class Bee extends Bug {
 	public static int BEE_ATTACK_DAMAGE = 1;
 	public static final String BEE_IMAGE_NAME = "Bee";
 	private int seeds;
+	private Image selectedImage;
+	private boolean selected = false;
 
 	public Bee(Point location, GameBoard board) {
 		super(board);
 		this.setHP(BEE_HP);
 		setImage(ImageReg.getInstance().getImageFromStr(BEE_IMAGE_NAME));
 		this.setLocation(location);
-		this.setStrategy(new GatherStrategy(this, board),
-				getClosestPosie());
-		if(getObjectiveThing() == null){
-			this.setStrategy(new SquareStrategy(this, board),
-					new Point(this.getLocation().x + 50, this.getLocation().y));
+		this.setStrategy(new GatherStrategy(this, board), getClosestPosie());
+		if (getObjectiveThing() == null) {
+			this.setStrategy(new SquareStrategy(this, board), new Point(this.getLocation().x + 50,
+					this.getLocation().y));
 		}
 		nector = 0;
 		seeds = 0;
 		nectarToGet = maxNectar;
 		buildBeeNamesList();
 		name = getBeeName();
+
+		selectedImage = ImageReg.getInstance().getImageFromStr("BeeSelected");
+	}
+
+	@Override
+	public Image getImage() {
+		if (selected) {
+			return selectedImage;
+		}
+		return super.getImage();
+	}
+
+	public void setSelected(boolean change) {
+		selected = change;
 	}
 
 	private void buildBeeNamesList() {
@@ -48,14 +64,14 @@ public class Bee extends Bug {
 		return beeNames.get(0);
 	}
 
-	public void setSpeed(int newSpeed){
+	public void setSpeed(int newSpeed) {
 		speed = newSpeed;
 	}
-	
-	public int getSpeed(){
+
+	public int getSpeed() {
 		return speed;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -70,25 +86,25 @@ public class Bee extends Bug {
 	public void setName(String newName) {
 		name = newName;
 	}
-	
+
 	@Override
 	public void update() {
 		if (this.getStrategy() != null) {
 			Point temp;
-			for(int i = 0; i < speed; i++){
+			for (int i = 0; i < speed; i++) {
 				temp = this.getLocation();
 				this.getStrategy().doNextAction();
-				if(temp.equals(this.getLocation())){
+				if (temp.equals(this.getLocation())) {
 					break;
 				}
 			}
-			
+
 		}
 	}
 
 	@Override
 	public void attack(Thing thingBeingAttacked) {
-		if(thingBeingAttacked != null){
+		if (thingBeingAttacked != null) {
 			thingBeingAttacked.updateHP(-1 * BEE_ATTACK_DAMAGE);
 			this.updateHP(-1 * BEE_HP);
 		}
@@ -150,19 +166,19 @@ public class Bee extends Bug {
 	@Override
 	public void upgradeAttack(int newAttack) {
 		BEE_ATTACK_DAMAGE = newAttack;
-		
+
 	}
 
 	@Override
 	public void upgradeSpeed(int newSpeed) {
 		speed = newSpeed;
-		
+
 	}
 
 	@Override
 	public void upgradeTotalHP(int hp) {
 		BEE_HP = hp;
-		
+
 	}
 
 }
