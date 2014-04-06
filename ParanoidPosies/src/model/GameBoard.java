@@ -15,11 +15,11 @@ public class GameBoard implements GameInterface {
 	public static final int centerY = 2500;
 
 	public static final int DIFFICULTY_INTERVAL = 60 * PPGUI.UPDATES_PER_SEC;
-	public static final int INITIAL_ENEMY_THRESHOLD = 3;
-	public static final int INCREASE_ENEMIES_BY = 1;
+	public static final int INITIAL_ENEMY_THRESHOLD = 5;
+	public static final int INCREASE_ENEMIES_BY = 2;
 	public static final int GRACE_PERIOD = 30 * PPGUI.UPDATES_PER_SEC;
 
-	public static final int POSIE_COST_IN_HONEY = 1;
+	public static final int POSIE_COST_IN_HONEY = 2;
 	public static final int POSIE_COST_IN_SEEDS = 1;
 
 	public static final int BEE_SPAWN_X_OFFSET = 1;
@@ -49,6 +49,10 @@ public class GameBoard implements GameInterface {
 	private static final int INITIAL_WAVE_SIZE = 3;
 	public static final int WAVE_INTERVAL = 120 * PPGUI.UPDATES_PER_SEC;
 	public static final int SPAWN_INTERVAL = 10;
+	
+	private static final int HITLER_TIME = 120 * PPGUI.UPDATES_PER_SEC;
+	private static final int HITLER_PROB_RANGE = 100;
+	private static final int HITLER_PROB = 1;
 
 	public SoundManager sound;
 
@@ -76,6 +80,8 @@ public class GameBoard implements GameInterface {
 			int randY = centerY + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET / 2);
 			things.add(new Posie(new Point(randX, randY)));
 		}
+		
+		
 
 	}
 
@@ -126,7 +132,7 @@ public class GameBoard implements GameInterface {
 		if (timer % BEE_INTERVAL == 0) {
 			int bees = hive.getBeesToMake();
 			for (int i = 0; i < bees; i++) {
-				things.add(new Bee(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
+				things.add(new Bee(getRandomBeeSpawn(), this));
 			}
 			hive.updateBeesToMake(bees * -1);
 		}
@@ -202,6 +208,11 @@ public class GameBoard implements GameInterface {
 			int spawnProb = rand.nextInt(100);
 			if (spawnProb < SPAWN_PROBABILITY) {
 				Caterpillar c = new Caterpillar(toSpawnAt, this);
+				int hitlerRand = rand.nextInt(HITLER_PROB_RANGE);
+				if(hitlerRand < HITLER_PROB){
+					c.makeHitler();
+				}
+				
 				things.add(c);
 				enemyList.add(c);
 			}

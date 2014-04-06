@@ -15,7 +15,7 @@ public class Hive implements Thing {
 	private int nector;
 	private int honey;
 	private int timer;
-	private final int timeToBuildABee = 10;
+	private final int timeToBuildABee = 5 * PPGUI.UPDATES_PER_SEC;
 	private final int honeyCostToBuildABee = 7;
 	private boolean beeProduction;
 	private int beesToMake;

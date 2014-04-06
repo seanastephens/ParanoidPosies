@@ -26,7 +26,7 @@ public class Posie extends Plant {
 	public static final int posie_time_to_seedling = 5 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_time_to_flower = 15 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_hitPoints = 10;
-	public static final int posie_max_nectar = 15;
+	public static final int posie_max_nectar = 5;
 
 	public static final Image SEED_IMAGE = ImageReg.getInstance().getImageFromStr("thisIsAPosie");
 	public static final Image SEEDLING_IMAGE = ImageReg.getInstance().getImageFromStr(

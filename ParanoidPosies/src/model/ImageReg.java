@@ -26,7 +26,7 @@ public class ImageReg {
 		images.put("Hive", getImage("beehive.png").getScaledInstance(200, 200, 0));
 		images.put("GrassTile", getImage("grasstile.png"));
 		images.put("Caterpillar", getImage("caterpillar.png"));
-		images.put("HITLER", getImage("HITLER.gif"));
+		images.put("HITLER", getImage("HITLER.png"));
 		images.put("BeeSelected", getImage("bee_selected.png"));
 		images.put("SegmentedCaterpillarHead", getImage("segmented_caterpillar_head.png"));
 		images.put("SegmentedCaterpillarBody", getImage("segmented_caterpillar_body.png"));
