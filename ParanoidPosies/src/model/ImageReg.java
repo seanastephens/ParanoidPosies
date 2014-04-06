@@ -81,7 +81,7 @@ public class ImageReg {
 				getImage("beehive_full_6d.png").getScaledInstance(HIVE_GRAPHIC_SIZE,
 						HIVE_GRAPHIC_SIZE, 0));
 		images.put("JustPlanted",
-				getImage("dirt.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
+				getImage("dirt.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE * 7 / 10, 0));
 		images.put("Seedling",
 				getImage("seedling.png").getScaledInstance(FLOWER_SIZE, FLOWER_SIZE, 0));
 		images.put("Flower0",
