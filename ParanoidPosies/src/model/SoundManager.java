@@ -19,10 +19,14 @@ public class SoundManager {
 	private static String Tulips = baseDir + "tiptoeThroughTheTulips.mp3";
 	
 	
+	//End of game
+	private static String GabeOver = baseDir + "GabeOver.mp3";
+	
+	
 	//Sound Effects
 	private static String Chomp = baseDir + "chomp.mp3";
 	
-	private SongPlayer mainSong;
+	private static SongPlayer mainSong;
 	
 	public SoundManager(){
 		songs = new ArrayList<String>();
@@ -40,6 +44,10 @@ public class SoundManager {
 	
 	public static void playChomp(){
 		SongPlayer.playFile(Chomp);
+	}
+	
+	public static void GabeOver(){
+		mainSong.playFile(GabeOver);
 	}
 	
 	
