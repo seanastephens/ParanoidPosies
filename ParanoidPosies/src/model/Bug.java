@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.util.List;
 
-public abstract class Bug implements Thing {
+public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, UpgradeTotalHP {
 	private Point location;
 	private int hp;
 	private Image image;
