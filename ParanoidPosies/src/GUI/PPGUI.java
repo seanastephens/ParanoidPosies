@@ -68,6 +68,11 @@ public class PPGUI extends JFrame implements Runnable {
 			}
 			gamePanel.shiftViewPoint();
 			game.update();
+			if(game.getHive().isDead()){
+				JOptionPane pane = new JOptionPane();
+				pane.showMessageDialog(null, "You lost! Feel free to enjoy the music by not clicking :D");
+				System.exit(0);
+			}
 			repaint();
 		}
 	}

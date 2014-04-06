@@ -19,13 +19,15 @@ public class GameBoard implements GameInterface {
 	public static final int INCREASE_ENEMIES_BY = 1;
 	public static final int GRACE_PERIOD = 30 * PPGUI.UPDATES_PER_SEC;
 
-	public static final int POSIE_COST_IN_HONEY = 2;
+	public static final int POSIE_COST_IN_HONEY = 1;
 	public static final int POSIE_COST_IN_SEEDS = 1;
 
-	public static final int BEE_SPAWN_X_OFFSET = 100;
+	public static final int BEE_SPAWN_X_OFFSET = 1;
 	public static final int BEE_SPAWN_Y_OFFSET = 100;
+	
+	public static final int BEE_INTERVAL = 5;
 
-	public static final int STARTING_BEES = 20;
+	public static final int STARTING_BEES = 25;
 	public static final int STARTING_FLOWERS = 5;
 	public static final int FLOWER_OFFSET = 700;
 
@@ -44,7 +46,7 @@ public class GameBoard implements GameInterface {
 	public static final int ENEMY_EAST_SPAWN_RANGE = 300;
 
 	private int waveSize;
-	private static final int INITIAL_WAVE_SIZE = 5;
+	private static final int INITIAL_WAVE_SIZE = 3;
 	public static final int WAVE_INTERVAL = 120 * PPGUI.UPDATES_PER_SEC;
 	public static final int SPAWN_INTERVAL = 10;
 
@@ -116,11 +118,13 @@ public class GameBoard implements GameInterface {
 	}
 
 	public void askHiveForBees() {
-		int bees = hive.getBeesToMake();
-		for (int i = 0; i < bees; i++) {
-			things.add(new Bee(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
+		if(timer % BEE_INTERVAL == 0){
+			int bees = hive.getBeesToMake();
+			for (int i = 0; i < bees; i++) {
+				things.add(new Bee(new Point(centerX + BEE_SPAWN_X_OFFSET, centerY), this));
+			}
+			hive.updateBeesToMake(bees * -1);
 		}
-		hive.updateBeesToMake(bees * -1);
 	}
 
 	@Override
@@ -146,8 +150,7 @@ public class GameBoard implements GameInterface {
 	}
 
 	@Override
-	public void update() {
-		// TODO Handle enemy spawning
+	public void update(){
 		timer++;
 		askHiveForBees();
 
@@ -165,6 +168,7 @@ public class GameBoard implements GameInterface {
 		if (timer % SPAWN_INTERVAL == 0) {
 			spawnEnemies();
 		}
+		
 	}
 
 	public void spawnEnemies() {

@@ -9,7 +9,7 @@ import java.util.Random;
 import GUI.PPGUI;
 
 public class Caterpillar extends Bug {
-	public static  int CATERPILLAR_HP = 5;
+	public static  int CATERPILLAR_HP = 3;
 	public static  int CATERPILLAR_ATTACK_DAMAGE = 1;
 	public int timer;
 	private List<String> CaterpillarNameList;

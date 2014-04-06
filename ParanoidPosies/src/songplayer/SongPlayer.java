@@ -21,9 +21,12 @@ public class SongPlayer {
    * @param audioFileName
    *          The name of the file to be written to your output device.
    */
+	
+	public static AudioFilePlayer player;
+	
   public static void playFile(String audioFileName) {
 	
-    AudioFilePlayer player = new AudioFilePlayer(audioFileName);
+    player = new AudioFilePlayer(audioFileName);
     // AudioFilePlayer extends Thread. When start is called,
     // the overridden run method in AudioFilePlayer executes.
     // If the song is not played in a separate thread, your GUI stops working
