@@ -49,7 +49,7 @@ public class GameBoard implements GameInterface {
 
 	private int waveSize;
 	private static final int INITIAL_WAVE_SIZE = 3;
-	public static final int WAVE_INTERVAL = 5 * PPGUI.UPDATES_PER_SEC;
+	public static final int WAVE_INTERVAL = 120 * PPGUI.UPDATES_PER_SEC;
 	public static final int SPAWN_INTERVAL = 10;
 
 	private static final int HITLER_TIME = 120 * PPGUI.UPDATES_PER_SEC;
