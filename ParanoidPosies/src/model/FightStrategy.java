@@ -12,7 +12,14 @@ public class FightStrategy implements BugStrategy{
 	
 	@Override
 	public void doNextAction() {
-		if (!bug.getLocation().equals(bug.getObjectiveThing().getLocation())) {
+		if(bug.getObjectiveThing().isDead() && bug instanceof Caterpillar){
+			bug.setObjectiveToNull();
+			bug.setObjectiveThing(bug.getClosestPosie());
+			if(bug.getObjectiveThing() == null){
+				bug.setObjectiveThing(board.getHive());
+			}
+		}
+		else if (!bug.getLocation().equals(bug.getObjectiveThing().getLocation())) {
 			bug.move(bug.getObjectiveThing().getLocation());
 		} else if (!bug.getObjectiveThing().isDead() && 
 				bug.getLocation().equals(bug.getObjectiveThing().getLocation())){
@@ -21,12 +28,6 @@ public class FightStrategy implements BugStrategy{
 		else if(bug.getObjectiveThing().isDead() && bug instanceof Bee){
 			bug.setStrategy(new MoveStrategy(bug, board), board.getHive());
 		}
-		else if(bug.getObjectiveThing().isDead() && bug instanceof Caterpillar){
-			bug.setObjectiveToNull();
-			bug.setObjectiveThing(bug.getClosestPosie());
-			if(bug.getObjectiveThing() == null){
-				bug.setObjectiveThing(board.getHive());
-			}
-		}
+		
 	}
 }
