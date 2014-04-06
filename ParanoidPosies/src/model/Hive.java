@@ -3,6 +3,8 @@ package model;
 import java.awt.Image;
 import java.awt.Point;
 
+import GUI.PPGUI;
+
 public class Hive implements Thing {
 
 	private Point location;
@@ -130,7 +132,7 @@ public class Hive implements Thing {
 	}
 
 	public void convertNectorToHoney() {
-		if (getNector() > 0) {
+		if (getNector() > 0 && timer % PPGUI.UPDATES_PER_SEC == 0) {
 			updateNector(-1);
 			updateHoney(1);
 		}
