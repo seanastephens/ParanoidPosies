@@ -42,8 +42,8 @@ public class SoundManager {
 	
 	static int i = 0;
 	private void go(){
-		
-		mainSong.playFile(new LoopListener(), songs.get(i++));
+		Collections.shuffle(songs);
+		mainSong.playFile(new LoopListener(), songs.get(0));
 	}
 	
 	public static void playSiren(){
