@@ -24,8 +24,8 @@ public class GameBoard implements GameInterface {
 	public static final int POSIE_COST_IN_HONEY = 2;
 	public static final int POSIE_COST_IN_SEEDS = 1;
 
-	public static final int BEE_SPAWN_X_OFFSET = 1;
-	public static final int BEE_SPAWN_Y_OFFSET = 100;
+	public static final int BEE_SPAWN_X_OFFSET = 200;
+	public static final int BEE_SPAWN_Y_OFFSET = 200;
 
 	public static final int BEE_INTERVAL = 5;
 
@@ -51,11 +51,17 @@ public class GameBoard implements GameInterface {
 	private static final int INITIAL_WAVE_SIZE = 3;
 	public static final int WAVE_INTERVAL = 120 * PPGUI.UPDATES_PER_SEC;
 	public static final int SPAWN_INTERVAL = 10;
-	
+
 	private static final int HITLER_TIME = 120 * PPGUI.UPDATES_PER_SEC;
+
 	private static final int HITLER_PROB_RANGE = 50;
 	private static final int HITLER_PROB = 2;
 	private static final String HITLER_MESSAGE = "ULTRA HYPER GIGA MECHA HITLER has just appeared! Are you a bad enough dude to stop him?";
+
+	private static final int SCORE_PER_KILL = 10;
+	private static final int SCORE_PER_PLANT = 2;
+
+	private int totalScore = 0;
 
 	public SoundManager sound;
 
@@ -85,8 +91,6 @@ public class GameBoard implements GameInterface {
 			int randY = centerY + (rand.nextInt(FLOWER_OFFSET) - FLOWER_OFFSET / 2);
 			things.add(new Posie(new Point(randX, randY)));
 		}
-		
-		
 
 	}
 
@@ -127,8 +131,8 @@ public class GameBoard implements GameInterface {
 
 	public Point getRandomBeeSpawn() {
 		Random beeSpawn = new Random();
-		int randX = beeSpawn.nextInt(BEE_SPAWN_X_OFFSET) + centerX;
-		int randY = beeSpawn.nextInt(BEE_SPAWN_Y_OFFSET) + centerY;
+		int randX = beeSpawn.nextInt(BEE_SPAWN_X_OFFSET) - BEE_SPAWN_X_OFFSET / 2 + centerX;
+		int randY = beeSpawn.nextInt(BEE_SPAWN_Y_OFFSET) - BEE_SPAWN_Y_OFFSET / 2 + centerY;
 		return new Point(randX, randY);
 	}
 
@@ -186,6 +190,9 @@ public class GameBoard implements GameInterface {
 		}
 		for (Thing t : toRemove) {
 			things.remove(t);
+			if (t instanceof Caterpillar) {
+				totalScore += SCORE_PER_KILL;
+			}
 		}
 
 		if (timer % SPAWN_INTERVAL == 0) {
@@ -222,15 +229,17 @@ public class GameBoard implements GameInterface {
 			if (spawnProb < SPAWN_PROBABILITY) {
 				Caterpillar c = new Caterpillar(toSpawnAt, this);
 				int hitlerRand = rand.nextInt(HITLER_PROB_RANGE);
+
 				System.out.println(hitlerRand);
 				if(hitlerRand < HITLER_PROB && timer >= 2 * WAVE_INTERVAL){
 					System.out.println("Making Hitler");
 					SoundManager.playSiren();
 					JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
-					c.makeHitler();
-				}
+
+
 				things.add(c);
 				enemyList.add(c);
+			}
 			}
 		}
 	}
@@ -320,5 +329,13 @@ public class GameBoard implements GameInterface {
 
 	public int getWaveSize() {
 		return waveSize;
+	}
+
+	public void plantWasBuilt() {
+		totalScore += SCORE_PER_PLANT;
+	}
+
+	public int getScore() {
+		return totalScore + timer / PPGUI.UPDATES_PER_SEC;
 	}
 }
