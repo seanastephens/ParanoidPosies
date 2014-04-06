@@ -2,6 +2,8 @@ package model;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -196,6 +198,38 @@ public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, Upgrade
 			multipleOf100++;
 		}
 		return gameboard.getHive();
+	}
+	
+	public Thing getRandomPosie() {
+		List<Thing> things;
+		int distance = 1000;
+		things = this.getGameBoard().getThingsBetween(
+					this.getLocation().x - distance,
+					this.getLocation().y - distance,
+					this.getLocation().x + distance,
+					this.getLocation().y + distance);
+		List<Thing> posies = new ArrayList<Thing>();	
+		for (Thing aThing : things) {
+				if(aThing instanceof Posie){
+					posies.add((Posie) aThing);
+				}
+		}
+		if(posies == null || posies.size() == 0){
+			return gameboard.getHive();
+		}
+		Collections.shuffle(posies);
+		Posie aPosie = (Posie) posies.get(0);
+		if (this instanceof Bee) {
+			return posies.get(0);
+		}
+		if (this instanceof Caterpillar) {
+			for(Thing posie: posies){
+				if (!posies.get(0).isDead()) {
+					return posies.get(0);
+				}
+			}
+		}
+		return gameboard.getHive();	
 	}
 
 	// TODO handle null
