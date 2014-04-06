@@ -246,6 +246,7 @@ public class GamePanel extends JPanel {
 			int CAT_MARGIN = Math.max(CAT_MARGIN_H, CAT_MARGIN_W);
 
 			List<Thing> atPoint = new ArrayList<Thing>();
+
 			for (Thing t : allAtPoint) {
 				if (t instanceof Bee) {
 					if (t.getLocation().distance(clickedPoint) < BEE_MARGIN) {
@@ -286,6 +287,7 @@ public class GamePanel extends JPanel {
 			if (atPoint.size() > 0) {
 				return atPoint;
 			}
+
 			return atPoint;
 		}
 	}

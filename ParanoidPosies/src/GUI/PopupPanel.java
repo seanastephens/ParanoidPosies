@@ -107,7 +107,6 @@ public class PopupPanel extends JPanel {
 
 		HEIGHT = (actionLineCount + hpLineCount + nameLineCount) * LINE_HEIGHT + 2 * TITLE_OFFSET;
 
-		System.out.println(nameLineCount + " : " + hpLineCount + " : " + actionLineCount);
 		name.setSize(WIDTH, nameLineCount * LINE_HEIGHT + TITLE_OFFSET);
 		hp.setSize(WIDTH, hpLineCount * LINE_HEIGHT + TITLE_OFFSET);
 		action.setSize(WIDTH, actionLineCount * LINE_HEIGHT + TITLE_OFFSET);
