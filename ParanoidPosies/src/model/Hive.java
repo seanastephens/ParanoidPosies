@@ -17,8 +17,8 @@ public class Hive implements Thing {
 	private int timer;
 
 	private final int timeToBuildABee = 5 * PPGUI.UPDATES_PER_SEC;
-	public final int honeyCostToBuildABee = 7;
-	public final int honeyCostToBuildAWarriorBee = 15;
+	public final int honeyCostToBuildABee = 10;
+	public final int honeyCostToBuildAWarriorBee = 20;
 	private boolean beeProduction;
 	private int beesToMake;
 	public static final String HIVE_NAME = "Hive";
@@ -147,7 +147,7 @@ public class Hive implements Thing {
 	}
 
 	public void convertNectorToHoney() {
-		if (getNector() > 0 && timer % PPGUI.UPDATES_PER_SEC / 2 == 0) {
+		if (getNector() > 0 && timer % PPGUI.UPDATES_PER_SEC / 3 == 0) {
 			updateNector(-1);
 			updateHoney(1);
 		}
