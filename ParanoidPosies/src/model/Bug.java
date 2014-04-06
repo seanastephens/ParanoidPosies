@@ -170,6 +170,28 @@ public abstract class Bug implements Thing {
 		}
 		return gameboard.getHive();
 	}
+	
+	//TODO handle null
+		public Thing getClosestCaterpillar() {
+			List<Thing> things;
+			int multipleOf100 = 1;
+			int maxMultipleOf100 = 20;
+			int hundred = 100;
+			while (multipleOf100 < maxMultipleOf100) {
+				things = this.getGameBoard().getThingsBetween(
+						this.getObjectiveThing().getLocation().x - hundred * multipleOf100,
+						this.getObjectiveThing().getLocation().y - hundred * multipleOf100,
+						this.getObjectiveThing().getLocation().x + hundred * multipleOf100,
+						this.getObjectiveThing().getLocation().y + hundred * multipleOf100);
+				for (Thing aThing : things) {
+					if (aThing instanceof Caterpillar) {
+						return (Caterpillar) aThing;
+					}
+				}
+				multipleOf100++;
+			}
+			return gameboard.getHive();
+		}
 
 	// Takes the object of the thing being attacked so updates can be made to
 	// both objects.
