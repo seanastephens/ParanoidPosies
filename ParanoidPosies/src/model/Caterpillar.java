@@ -8,9 +8,9 @@ import java.util.Random;
 
 import GUI.PPGUI;
 
-public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTotalHP{
-	public static  int CATERPILLAR_HP = 3;
-	public static  int CATERPILLAR_ATTACK_DAMAGE = 1;
+public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTotalHP {
+	public static int CATERPILLAR_HP = 3;
+	public static int CATERPILLAR_ATTACK_DAMAGE = 1;
 	public int timer;
 	private List<String> CaterpillarNameList;
 	public static final String CATERPILLAR_IMAGE = "Caterpillar";
@@ -21,8 +21,6 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 	public static final String ULTRA_HYPER_GIGA_MECHA_HITLER_IMAGE_NAME = "HITLER";
 	public int speed = 1;
 
-	private String name;
-
 	public Caterpillar(Point location, GameBoard gameboard) {
 		super(gameboard);
 		timer = 0;
@@ -31,21 +29,17 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 		this.setImage(ImageReg.getInstance().getImageFromStr(CATERPILLAR_IMAGE));
 		CaterpillarNameList = new ArrayList<String>();
 		this.setUpNameList();
-		name = getCaterpillarName();
-		
-		this.setStrategy(new FightStrategy(this, gameboard), getClosestPosie()); 
+		giveNewRandomName();
+
+		this.setStrategy(new FightStrategy(this, gameboard), getClosestPosie());
 	}
-	
-	public void makeHitler(){
-		name = ULTRA_HYPER_GIGA_MECHA_HITLER_NAME;
+
+	public void makeHitler() {
+		setName(ULTRA_HYPER_GIGA_MECHA_HITLER_NAME);
 		this.setHP(ULTRA_HYPER_GIGA_MECHA_HITLER_HP);
 		IS_LITERALLY_HITLER = true;
 		this.setImage(ImageReg.getInstance().getImageFromStr(
 				ULTRA_HYPER_GIGA_MECHA_HITLER_IMAGE_NAME));
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	// Caterpillar names go here
@@ -56,7 +50,7 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 		CaterpillarNameList.add("404 Name Not Found");
 	}
 
-	private String getCaterpillarName() {
+	public void giveNewRandomName() {
 		String name = "";
 		Collections.shuffle(CaterpillarNameList);
 		name = CaterpillarNameList.get(0);
@@ -71,7 +65,7 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 					ULTRA_HYPER_GIGA_MECHA_HITLER_IMAGE_NAME));
 		} else
 			IS_LITERALLY_HITLER = false;
-		return name;
+		setName(name);
 	}
 
 	@Override
@@ -83,7 +77,7 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 
 	@Override
 	public void attack(Thing thingBeingAttacked) {
-		if(timer % PPGUI.UPDATES_PER_SEC == 0){
+		if (timer % PPGUI.UPDATES_PER_SEC == 0) {
 			if (IS_LITERALLY_HITLER) {
 				thingBeingAttacked.updateHP(-1 * ULTRA_HYPER_GIGA_MECHA_HITLER_ATTACK_DAMAGE);
 			} else
@@ -95,7 +89,7 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 
 	@Override
 	public void upgradeAttack(int newAttack) {
-		if(! IS_LITERALLY_HITLER){
+		if (!IS_LITERALLY_HITLER) {
 			CATERPILLAR_ATTACK_DAMAGE = newAttack;
 		}
 	}
@@ -107,7 +101,7 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 
 	@Override
 	public void upgradeTotalHP(int hp) {
-		if(! IS_LITERALLY_HITLER){
+		if (!IS_LITERALLY_HITLER) {
 			CATERPILLAR_HP = hp;
 		}
 	}

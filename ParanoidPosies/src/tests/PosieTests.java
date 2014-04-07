@@ -20,20 +20,20 @@ public class PosieTests {
 		p = new Posie(new Point(1, 1));
 
 		assertEquals(0, p.getNectar());
-		assertEquals(GrowthState.JustPlanted, p.currentState);
+		assertEquals(GrowthState.JustPlanted, p.getCurrentState());
 
 		for (int i = 0; i < Posie.posie_time_to_seedling; i++) {
 			p.update();
 		}
 
-		assertEquals(GrowthState.Seedling, p.currentState);
+		assertEquals(GrowthState.Seedling, p.getCurrentState());
 		assertEquals(0, p.getNectar());
 
 		for (int i = 0; i < Posie.posie_time_to_flower - Posie.posie_time_to_seedling; i++) {
 			p.update();
 		}
 
-		assertEquals(GrowthState.Flower, p.currentState);
+		assertEquals(GrowthState.Flower, p.getCurrentState());
 		assertEquals(1, p.getNectar());
 
 		// Increase by two nectar
@@ -45,8 +45,8 @@ public class PosieTests {
 			p.update();
 		}
 
-		assertEquals(GrowthState.DeadFlower, p.currentState);
-		assertEquals(0, p.currentNectar);
+		assertEquals(GrowthState.DeadFlower, p.getCurrentState());
+		assertEquals(0, p.getNectar());
 
 	}
 

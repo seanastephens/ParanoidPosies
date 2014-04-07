@@ -18,11 +18,16 @@ public abstract class Bug implements Thing {
 
 	private int hp;
 	private Point location;
+
+	private int maxHP;
+	private int layer;
+	private int speed;
 	private BugStrategy currentStrategy;
 	private Thing objectiveThing;
 	private Point objectivePoint;
 	private Image image;
 	private GameBoard gameboard;
+	private String name;
 
 	public Bug(GameBoard gameboard) {
 		this.hp = DEFAULT_HP;
@@ -110,6 +115,10 @@ public abstract class Bug implements Thing {
 		return image;
 	}
 
+	public void setLayer(int newLayer) {
+		layer = newLayer;
+	}
+
 	public boolean shouldBeCleanedUp() {
 		return isDead();
 	}
@@ -123,11 +132,7 @@ public abstract class Bug implements Thing {
 		}
 	}
 
-	public String getType() {
-		return this.getClass().getSimpleName();
-	}
-
-	public String getAction() {
+	public String getCriticalInfo() {
 		String result = "";
 		result += "HP=" + this.getHP() + " ";
 		return result;
@@ -158,6 +163,7 @@ public abstract class Bug implements Thing {
 				newX += signature(endLocation.x - currentX) * PIXELS_PER_MOVE;
 				newY += signature(endLocation.y - currentY) * PIXELS_PER_MOVE;
 				newPoint = new Point(newX, newY);
+
 			}
 		}
 		this.setLocation(newPoint);
@@ -252,6 +258,39 @@ public abstract class Bug implements Thing {
 
 	public abstract void attack(Thing thingBeingAttacked);
 
+	public void setSpeed(int newSpeed) {
+		speed = newSpeed;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setName(String newName) {
+		name = newName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
 	@Override
-	public abstract void update();
+	public void setMaxHP(int newMaxHP) {
+		maxHP = newMaxHP;
+	}
+
+	@Override
+	public int getMaxHP() {
+		return maxHP;
+	}
+
+	@Override
+	public void updateMaxHP(int valueToAdjustHPBy) {
+		maxHP += valueToAdjustHPBy;
+	}
+
+	@Override
+	public String getType() {
+		return getClass().getSimpleName();
+	}
 }

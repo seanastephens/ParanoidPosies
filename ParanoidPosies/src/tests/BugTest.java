@@ -39,7 +39,7 @@ public class BugTest {
 		// indicate breakage *or* it could just indicate a big game change.
 		assertEquals(1, bug.getLayer());
 		assertEquals("MockBug", bug.getType());
-		assertEquals("HP=0 ", bug.getAction());
+		assertEquals("HP=0 ", bug.getCriticalInfo());
 	}
 
 	@Test

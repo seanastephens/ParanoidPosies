@@ -6,16 +6,17 @@ import java.util.Random;
 
 public class BeeWarrior extends Bee {
 
-	public static final int WARRIOR_SPEED = 5;
-
 	private int imageNumber = 0;
 	private int state = 0;
 	private Image[][][] images = new Image[2][8][3];
+	
+	
 
 	public BeeWarrior(Point location, GameBoard board) {
 		super(location, board);
-		setHP(BEE_HP * 2);
-		setSpeed(WARRIOR_SPEED);
+		setHP(10);
+		setAttack(2);
+		setSpeed(4);
 		int randomConstant = 100;
 
 		Random random = new Random();
@@ -86,15 +87,15 @@ public class BeeWarrior extends Bee {
 	@Override
 	public void attack(Thing thingBeingAttacked) {
 		if (thingBeingAttacked != null) {
-			thingBeingAttacked.updateHP(-1 * BEE_ATTACK_DAMAGE * 2);
-			this.updateHP(-1 * BEE_HP);
+			thingBeingAttacked.updateHP(-1 * getAttack());
+			this.updateHP(-5);
 		}
 	}
 
 	@Override
-	public String getAction() {
-		String result = super.getAction();
-		result += "\nAttack: " + BEE_ATTACK_DAMAGE * 2;
+	public String getCriticalInfo() {
+		String result = super.getCriticalInfo();
+		result += "\nAttack: " + getAttack() * 2;
 		return result;
 	}
 
@@ -102,12 +103,12 @@ public class BeeWarrior extends Bee {
 	public void update() {
 		Point prev = getLocation();
 		if (this.getStrategy() instanceof GatherStrategy) {
-			this.setStrategy(new MoveStrategy(this, super.getGameBoard()), super.getGameBoard()
+			this.setStrategy(new MoveStrategy(this, getGameBoard()), getGameBoard()
 					.getHive());
 		}
 		if (this.getStrategy() != null) {
 			Point temp;
-			for (int i = 0; i < super.getSpeed(); i++) {
+			for (int i = 0; i < getSpeed(); i++) {
 				temp = this.getLocation();
 				this.getStrategy().doNextAction();
 				if (temp.equals(this.getLocation())) {
