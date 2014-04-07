@@ -64,7 +64,7 @@ public class PopupPanel extends JPanel {
 	}
 
 	private String getModActionStr() {
-		String[] words = thing.getAction().split(" ");
+		String[] words = thing.getCriticalInfo().split(" ");
 		String ret = words[0];
 		int numChars = ret.length();
 		actionLineCount = 1;

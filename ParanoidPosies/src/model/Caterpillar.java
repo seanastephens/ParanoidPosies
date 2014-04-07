@@ -21,8 +21,6 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 	public static final String ULTRA_HYPER_GIGA_MECHA_HITLER_IMAGE_NAME = "HITLER";
 	public int speed = 1;
 
-	private String name;
-
 	public Caterpillar(Point location, GameBoard gameboard) {
 		super(gameboard);
 		timer = 0;
@@ -31,21 +29,17 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 		this.setImage(ImageReg.getInstance().getImageFromStr(CATERPILLAR_IMAGE));
 		CaterpillarNameList = new ArrayList<String>();
 		this.setUpNameList();
-		name = getCaterpillarName();
+		giveNewRandomName();
 		
 		this.setStrategy(new FightStrategy(this, gameboard), getClosestPosie()); 
 	}
 	
 	public void makeHitler(){
-		name = ULTRA_HYPER_GIGA_MECHA_HITLER_NAME;
+		setName(ULTRA_HYPER_GIGA_MECHA_HITLER_NAME);
 		this.setHP(ULTRA_HYPER_GIGA_MECHA_HITLER_HP);
 		IS_LITERALLY_HITLER = true;
 		this.setImage(ImageReg.getInstance().getImageFromStr(
 				ULTRA_HYPER_GIGA_MECHA_HITLER_IMAGE_NAME));
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	// Caterpillar names go here
@@ -56,7 +50,8 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 		CaterpillarNameList.add("404 Name Not Found");
 	}
 
-	private String getCaterpillarName() {
+	@Override
+	public void giveNewRandomName() {
 		String name = "";
 		Collections.shuffle(CaterpillarNameList);
 		name = CaterpillarNameList.get(0);
@@ -71,7 +66,7 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 					ULTRA_HYPER_GIGA_MECHA_HITLER_IMAGE_NAME));
 		} else
 			IS_LITERALLY_HITLER = false;
-		return name;
+		setName(name);
 	}
 
 	@Override

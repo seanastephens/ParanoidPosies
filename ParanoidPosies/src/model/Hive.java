@@ -8,7 +8,7 @@ import GUI.PPGUI;
 public class Hive implements Thing {
 
 	private Point location;
-	private final int HIVE_HP = 50;
+	private int HIVE_HP = 50;
 	private int hp;
 	private Image image;
 	private final int layer = 3;
@@ -21,7 +21,7 @@ public class Hive implements Thing {
 	public final int honeyCostToBuildAWarriorBee = 20;
 	private boolean beeProduction;
 	private int beesToMake;
-	public static final String HIVE_NAME = "Hive";
+	public static String HIVE_NAME = "Hive";
 	private int seeds;
 	private GameBoard game;
 
@@ -52,7 +52,7 @@ public class Hive implements Thing {
 		return isDead();
 	}
 
-	public String getAction() {
+	public String getCriticalInfo() {
 		return "Has " + getNector() + " nectar and " + getSeeds() + " seeds";
 	}
 
@@ -200,6 +200,26 @@ public class Hive implements Thing {
 	@Override
 	public int getLayer() {
 		return layer;
+	}
+
+	@Override
+	public void setMaxHP(int newMaxHP) {
+		HIVE_HP = newMaxHP;
+	}
+
+	@Override
+	public int getMaxHP() {
+		return HIVE_HP;
+	}
+
+	@Override
+	public void updateMaxHP(int valueToAdjustHPBy) {
+		HIVE_HP += valueToAdjustHPBy;
+	}
+
+	@Override
+	public void setName(String newName) {
+		HIVE_NAME = newName;
 	}
 
 }

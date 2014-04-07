@@ -15,6 +15,8 @@ public abstract class Plant implements Thing {
 	public GrowthState currentState;
 	public int seedsDropped;
 	public int maxSeedsToDrop;
+	private String name;
+	private int maxHP;
 
 	public boolean shouldBeCleanedUp;
 
@@ -34,7 +36,7 @@ public abstract class Plant implements Thing {
 		shouldBeCleanedUp = false;
 	}
 
-	public abstract String getAction();
+	public abstract String getCriticalInfo();
 
 	public String getType() {
 		return this.getClass().getSimpleName();
@@ -126,4 +128,29 @@ public abstract class Plant implements Thing {
 
 	public abstract void replenishNectar();
 
+	@Override
+	public void setMaxHP(int newMaxHP) {
+		maxHP = newMaxHP;
+	}
+
+	@Override
+	public int getMaxHP() {
+		return maxHP;
+	}
+
+	@Override
+	public void updateMaxHP(int valueToAdjustHPBy) {
+		maxHP += valueToAdjustHPBy;
+	}
+
+	@Override
+	public void setName(String newName) {
+		name = newName;
+	}
+	
+	@Override
+	public String getName(){
+		return name;
+	}
+	
 }

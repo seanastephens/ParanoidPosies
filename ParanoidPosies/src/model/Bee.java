@@ -6,38 +6,49 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/*
+ * TODO add more unit tests
+ * TODO add minimum and maximum bee speeds?
+ * TODO change SquareStrategy to be about size of hive, set to a random location within hive to give effect of bees flying around hive
+ * TODO by setting larger shape strategies where the shapes may have variable sizes we can build dances for the bees
+ */
+
 public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTotalHP{
 
 	private int nector;
-	private List<String> beeNames;
-	private String name;
 	private int nectarToGet;
-	private int speed = 2;
-	private static final int maxNectar = 10;
-	public static int BEE_HP = 5;
-	public static int BEE_ATTACK_DAMAGE = 1;
-	public static final String BEE_IMAGE_NAME = "Bee";
+	private int maxNectar = 10;
+	private int beeAttackDamage = 1;
 	private int seeds;
+	
 	public boolean selected = false;
-
 	private Image[][][] images = new Image[2][8][3];
 	private int imageNumber = 0;
 	private int state = 0;
 
 	public Bee(Point location, GameBoard board) {
 		super(board);
-		this.setHP(BEE_HP);
-		// setImage(ImageReg.getInstance().getImageFromStr(BEE_IMAGE_NAME));
-		this.setLocation(location);
-		this.setStrategy(new GatherStrategy(this, board), getClosestPosie());
+		
+		/*
+		 * Set initial values for inherited values from Bug
+		 */
+		setHP(5);
+		setSpeed(2);
+		setLocation(location);
+		giveNewRandomName();
+		setStrategy(new GatherStrategy(this, board), getClosestPosie());
+		//TODO check to see if the next if statement even runs
 		if (getObjectiveThing() == null) {
 			this.setStrategy(new SquareStrategy(this, board), new Point(this.getLocation().x + 50,
 					this.getLocation().y));
 		}
+		
+		
+		
 		nector = 0;
 		seeds = 0;
 		nectarToGet = maxNectar;
-		name = getNewBeeName();
+		
 
 		ImageReg i = ImageReg.getInstance();
 		images[0][0][0] = i.getImageFromStr("Bee00");
@@ -101,8 +112,9 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		selected = change;
 	}
 
-	private void buildBeeNamesList() {
-		beeNames = new ArrayList<String>();
+	@Override
+	public void giveNewRandomName() {
+		List<String> beeNames = new ArrayList<String>();
 		beeNames.add("BeeYourself");
 		beeNames.add("Beeatrice");
 		beeNames.add("BusyBee");
@@ -112,25 +124,13 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		beeNames.add("A_C");
 		beeNames.add("Beeast");
 		beeNames.add("To Bee or Not to");
-	}
-
-	public String getNewBeeName() {
-		buildBeeNamesList();
 		Collections.shuffle(beeNames);
-		return beeNames.get(0);
-	}
-
-	public void setName(String newName) {
-		name = newName;
-	}
-
-	public String getName() {
-		return name;
+		setName(beeNames.get(0));
 	}
 
 	@Override
-	public String getAction() {
-		String result = super.getAction();
+	public String getCriticalInfo() {
+		String result = super.getCriticalInfo();
 		result += "Nectar=" + nector + "<br>Seeds=" + seeds;
 		return result;
 	}
@@ -140,7 +140,7 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		Point prev = getLocation();
 		if (this.getStrategy() != null) {
 			Point temp;
-			for (int i = 0; i < speed; i++) {
+			for (int i = 0; i < getSpeed(); i++) {
 				temp = this.getLocation();
 				this.getStrategy().doNextAction();
 				if (temp.equals(this.getLocation())) {
@@ -177,8 +177,8 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 	@Override
 	public void attack(Thing thingBeingAttacked) {
 		if (thingBeingAttacked != null) {
-			thingBeingAttacked.updateHP(-1 * BEE_ATTACK_DAMAGE);
-			this.updateHP(-1 * BEE_HP);
+			thingBeingAttacked.updateHP(- beeAttackDamage);
+			this.updateHP(-1 * getHP());
 		}
 	}
 
@@ -237,28 +237,27 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 
 	@Override
 	public void upgradeAttack(int newAttack) {
-		BEE_ATTACK_DAMAGE = newAttack;
-
+		beeAttackDamage += newAttack;
 	}
 
-	public void setSpeed(int newSpeed) {
-		speed = newSpeed;
+
+
+	@Override
+	public void upgradeTotalHP(int hp) {
+		updateHP(hp);
 	}
 
-	public int getSpeed() {
-		return speed;
+	public int getAttack(){
+		return beeAttackDamage;
+	}
+	
+	public void setAttack(int attack){
+		beeAttackDamage = attack;
 	}
 	
 	@Override
 	public void upgradeSpeed(int newSpeed) {
-		speed = newSpeed;
+		setSpeed(getSpeed() + newSpeed);
 
 	}
-
-	@Override
-	public void upgradeTotalHP(int hp) {
-		BEE_HP = hp;
-
-	}
-
 }

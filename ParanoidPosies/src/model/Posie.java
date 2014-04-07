@@ -42,8 +42,6 @@ public class Posie extends Plant {
 	public static final String DEAD_FLOWER_ACTION = "Flower is kill.";
 
 	private List<String> nameList;
-	private String name;
-
 	private Image justPlantedImage;
 	private Image seedlingImage;
 	private Image[] adultImage;
@@ -57,7 +55,7 @@ public class Posie extends Plant {
 		setHP(posie_hitPoints);
 		nameList = new ArrayList<String>();
 		setUpNameList();
-		name = getPosieName();
+		setName(getPosieName());
 		Random r = new Random();
 		whichAdult = r.nextInt(6);
 
@@ -88,7 +86,7 @@ public class Posie extends Plant {
 		}
 	}
 
-	public String getAction() {
+	public String getCriticalInfo() {
 		String temp = "";
 		switch (currentState) {
 		case JustPlanted:
@@ -121,10 +119,6 @@ public class Posie extends Plant {
 	private String getPosieName() {
 		Collections.shuffle(nameList);
 		return nameList.get(0);
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	@Override
@@ -180,5 +174,4 @@ public class Posie extends Plant {
 			shouldBeCleanedUp = true;
 		}
 	}
-
 }

@@ -10,13 +10,15 @@ import java.util.Random;
 public abstract class Bug implements Thing{
 	private Point location;
 	private int hp;
+	private int maxHP;
 	private Image image;
 	private final int layer = 1;
 	private GameBoard gameboard;
-
+	private int speed = 1;
 	private BugStrategy currentStrategy;
 	private Thing objectiveThing;
 	private Point objectivePoint;
+	private String name;
 
 	private static final int RAND_RANGE = 100;
 	private static int MOVE_PROBABILITY = (RAND_RANGE * 3) / 10;
@@ -61,7 +63,7 @@ public abstract class Bug implements Thing{
 		return isDead();
 	}
 
-	public String getAction() {
+	public String getCriticalInfo() {
 		String result = "";
 		result += "HP=" + this.getHP() + " ";
 		return result;
@@ -127,8 +129,8 @@ public abstract class Bug implements Thing{
 	public abstract void update();
 
 	@Override
-	public void updateHP(int hp) {
-		this.hp += hp;
+	public void updateHP(int newHP) {
+		hp += newHP;
 	}
 
 	// Since things don't teleport, this is where the animations take place to
@@ -273,5 +275,38 @@ public abstract class Bug implements Thing{
 	public void setObjectiveToNull() {
 		objectivePoint = null;
 		objectiveThing = null;
+	}
+	
+	public void setSpeed(int newSpeed) {
+		speed = newSpeed;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+	
+	public void setName(String newName) {
+		name = newName;
+	}
+
+	public abstract void giveNewRandomName();
+	
+	public String getName() {
+		return name;
+	}
+	
+	@Override
+	public void setMaxHP(int newMaxHP) {
+		maxHP = newMaxHP;
+	}
+
+	@Override
+	public int getMaxHP() {
+		return maxHP;
+	}
+
+	@Override
+	public void updateMaxHP(int valueToAdjustHPBy) {
+		maxHP += valueToAdjustHPBy;
 	}
 }
