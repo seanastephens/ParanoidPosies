@@ -11,7 +11,7 @@ public class Hive implements Thing {
 	private int HIVE_HP = 50;
 	private int hp;
 	private Image image;
-	private final int layer = 3;
+	private int layer = 3;
 	private int nector;
 	private int honey;
 	private int timer;
@@ -220,6 +220,11 @@ public class Hive implements Thing {
 	@Override
 	public void setName(String newName) {
 		HIVE_NAME = newName;
+	}
+
+	@Override
+	public void setLayer(int newLayer) {
+		layer = newLayer;
 	}
 
 }

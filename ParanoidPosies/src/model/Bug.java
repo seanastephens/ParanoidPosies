@@ -12,9 +12,9 @@ public abstract class Bug implements Thing{
 	private int hp;
 	private int maxHP;
 	private Image image;
-	private final int layer = 1;
+	private int layer;
 	private GameBoard gameboard;
-	private int speed = 1;
+	private int speed;
 	private BugStrategy currentStrategy;
 	private Thing objectiveThing;
 	private Point objectivePoint;
@@ -24,6 +24,8 @@ public abstract class Bug implements Thing{
 	private static int MOVE_PROBABILITY = (RAND_RANGE * 3) / 10;
 
 	public Bug(GameBoard gameboard) {
+		speed = 1; //Default speed for bugs
+		layer = 1;
 		this.gameboard = gameboard;
 	}
 
@@ -115,6 +117,10 @@ public abstract class Bug implements Thing{
 	public int getLayer() {
 		return layer;
 	}
+	
+	public void setLayer(int newLayer){
+		layer = newLayer;
+	}
 
 	@Override
 	public boolean isDead() {
@@ -189,7 +195,6 @@ public abstract class Bug implements Thing{
 		}
 	}
 
-	// TODO handle null
 	public Thing getClosestPosie() {
 		List<Thing> things;
 		int multipleOf100 = 1;
@@ -246,7 +251,6 @@ public abstract class Bug implements Thing{
 		return gameboard.getHive();
 	}
 
-	// TODO handle null
 	public Thing getClosestCaterpillar() {
 		List<Thing> things;
 		int multipleOf100 = 1;
@@ -268,8 +272,9 @@ public abstract class Bug implements Thing{
 		return gameboard.getHive();
 	}
 
-	// Takes the object of the thing being attacked so updates can be made to
-	// both objects.
+	/*
+	 * Takes the object of the thing being attacked so updates can be made to both objects.
+	 */
 	public abstract void attack(Thing thingBeingAttacked);
 
 	public void setObjectiveToNull() {

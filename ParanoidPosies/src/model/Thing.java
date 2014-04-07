@@ -16,6 +16,7 @@ public interface Thing {
 	public int getMaxHP();
 	public void updateMaxHP(int valueToAdjustHPBy);
 	public boolean isDead();
+	public void setLayer(int newLayer);
 	public int getLayer();
 	public void update();
 	public String getName();

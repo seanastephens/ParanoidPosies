@@ -15,17 +15,16 @@ import java.util.List;
 
 public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTotalHP{
 
-	private int nector;
-	private int nectarToGet;
-	private int maxNectar = 10;
-	private int beeAttackDamage = 1;
-	private int seeds;
+	private int nector, nectarToGet, maxNectar, beeAttackDamage, seeds;
 	
+	/*
+	 * Image GUI related variables
+	 */
 	public boolean selected = false;
 	private Image[][][] images = new Image[2][8][3];
 	private int imageNumber = 0;
 	private int state = 0;
-
+	
 	public Bee(Point location, GameBoard board) {
 		super(board);
 		
@@ -37,16 +36,16 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		setLocation(location);
 		giveNewRandomName();
 		setStrategy(new GatherStrategy(this, board), getClosestPosie());
-		//TODO check to see if the next if statement even runs
-		if (getObjectiveThing() == null) {
-			this.setStrategy(new SquareStrategy(this, board), new Point(this.getLocation().x + 50,
-					this.getLocation().y));
-		}
 		
-		
+		/*
+		 * Set initial values specific to Bee
+		 */
 		
 		nector = 0;
 		seeds = 0;
+		maxNectar = 10;
+		beeAttackDamage = 1;
+		
 		nectarToGet = maxNectar;
 		
 
@@ -202,11 +201,11 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 					+ getObjectiveThing().toString());
 		}
 		if (getObjectiveThing().isDead() == true) {
-			seeds = ((Plant) getObjectiveThing()).takeSeeds();
+			seeds = ((Posie) getObjectiveThing()).takeSeeds();
 		} else {
 
 			calculateNectarToGet();
-			nector += ((Plant) getObjectiveThing()).takeNectar(nectarToGet);
+			nector += ((Posie) getObjectiveThing()).takeNectar(nectarToGet);
 		}
 	}
 
@@ -239,8 +238,6 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 	public void upgradeAttack(int newAttack) {
 		beeAttackDamage += newAttack;
 	}
-
-
 
 	@Override
 	public void upgradeTotalHP(int hp) {

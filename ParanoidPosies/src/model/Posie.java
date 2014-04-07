@@ -41,6 +41,11 @@ public class Posie extends Plant {
 	public static final String FLOWER_ACTION = "Enjoying sunshine, brother.";
 	public static final String DEAD_FLOWER_ACTION = "Flower is kill.";
 
+	private int currentNectar = 0;
+	private int timer = 0;// Start life at 0, will be incremented by one each time update is called
+	private int seedsDropped = 0;
+	private boolean hasBloomed = false;
+	
 	private List<String> nameList;
 	private Image justPlantedImage;
 	private Image seedlingImage;
@@ -50,8 +55,6 @@ public class Posie extends Plant {
 
 	public Posie(Point initialLocation) {
 		super(initialLocation);
-		maxSeedsToDrop = posie_max_seeds_to_drop;
-		lifespan = posie_lifespan;
 		setHP(posie_hitPoints);
 		nameList = new ArrayList<String>();
 		setUpNameList();
@@ -75,11 +78,11 @@ public class Posie extends Plant {
 	}
 
 	public Image getImage() {
-		if (currentState == GrowthState.JustPlanted) {
+		if (getCurrentState() == GrowthState.JustPlanted) {
 			return justPlantedImage;
-		} else if (currentState == GrowthState.Seedling) {
+		} else if (getCurrentState() == GrowthState.Seedling) {
 			return seedlingImage;
-		} else if (currentState == GrowthState.Flower) {
+		} else if (getCurrentState() == GrowthState.Flower) {
 			return adultImage[whichAdult];
 		} else {
 			return deadImage;
@@ -88,7 +91,7 @@ public class Posie extends Plant {
 
 	public String getCriticalInfo() {
 		String temp = "";
-		switch (currentState) {
+		switch (getCurrentState()) {
 		case JustPlanted:
 			temp += SEED_ACTION;
 			break;
@@ -120,42 +123,79 @@ public class Posie extends Plant {
 		Collections.shuffle(nameList);
 		return nameList.get(0);
 	}
-
+	
 	@Override
 	public void grow() {
 
 		if (timer >= posie_time_to_seedling && timer < posie_time_to_flower) {
-			currentState = GrowthState.Seedling;
+			setCurrentState(GrowthState.Seedling);
 			setImage(SEEDLING_IMAGE);
 		} else if (timer >= posie_time_to_flower && timer < posie_lifespan) {
-			currentState = GrowthState.Flower;
+			setCurrentState(GrowthState.Flower);
 			setImage(FLOWER_IMAGE);
 			hasBloomed = true;
 		}
 
 		else if (timer >= posie_lifespan) {
-			currentState = GrowthState.DeadFlower;
+			setCurrentState(GrowthState.DeadFlower);
 			setImage(DEAD_FLOWER_IMAGE);
 			currentNectar = 0;
-			hitPoints = 0;
-			if (seedsDropped == 0 && !shouldBeCleanedUp) {
+			setHP(0);
+			if (seedsDropped == 0 && !shouldBeCleanedUp()) {
 				Random rand = new Random();
 				seedsDropped = rand.nextInt(posie_max_seeds_to_drop) + 1;
 			}
 		}
 	}
 
+	// return how many seeds the plant has dropped
+	public int getSeeds() {
+		return seedsDropped;
+	}
+
+	public int takeSeeds() {
+		int temp = seedsDropped;
+		seedsDropped = 0;
+		setShouldBeCleanedUp(true);
+		return temp;
+	}
+	
 	// If the flower has bloomed, and the nectar is not yet at capacity,
 	// increase
 	// the nectar at a rate of 1 per second
 	@Override
 	public void replenishNectar() {
-		if (hasBloomed && currentState == GrowthState.Flower && timer % PPGUI.UPDATES_PER_SEC == 0
+		if (hasBloomed && getCurrentState() == GrowthState.Flower && timer % PPGUI.UPDATES_PER_SEC == 0
 				&& currentNectar < posie_max_nectar && !isDead()) {
 			currentNectar++;
 		}
 	}
 
+	// return how much nectar this plant has
+	public int getNectar() {
+		return currentNectar;
+	}
+	
+	public int takeNectar(int reduceBy) {
+		if (currentNectar >= reduceBy) {
+			currentNectar -= reduceBy;
+			return reduceBy;
+		} else {
+			int temp = currentNectar;
+			currentNectar = 0;
+			return temp;
+		}
+	}
+	
+	@Override
+	public boolean isDead(){
+		boolean deathStatus = super.isDead();
+		if(deathStatus == true){
+			currentNectar = 0;
+		}
+		return deathStatus;
+	}
+	
 	@Override
 	public void update() {
 		timer++;
@@ -165,13 +205,13 @@ public class Posie extends Plant {
 
 	@Override
 	public void updateHP(int hp) {
-		hitPoints += hp;
-		if (hitPoints <= 0) {
-			currentState = GrowthState.DeadFlower;
+		super.updateHP(hp);
+		if (getHP() <= 0) {
+			setCurrentState(GrowthState.DeadFlower);
 			currentNectar = 0;
 			// only reached if plant is killed by enemy
 			seedsDropped = 0;
-			shouldBeCleanedUp = true;
+			setShouldBeCleanedUp(true);
 		}
 	}
 }

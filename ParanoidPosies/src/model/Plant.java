@@ -4,35 +4,20 @@ import java.awt.Image;
 import java.awt.Point;
 
 public abstract class Plant implements Thing {
-	public int hitPoints;
-	public int lifespan;
+	private int hp;
 	private Point location;
-	public int maxNectar;
-	public int currentNectar;
-	public boolean hasBloomed;
 	private Image image;
-	public int timer;
-	public GrowthState currentState;
-	public int seedsDropped;
-	public int maxSeedsToDrop;
+	private GrowthState currentState;
 	private String name;
 	private int maxHP;
 
-	public boolean shouldBeCleanedUp;
-
-	public final String PLANT_ACTION = "Growing happily.";
-
-	private final int layer = 2;
-	private final int starting_nectar = 0;
+	private boolean shouldBeCleanedUp;
+	private int layer;
 
 	public Plant(Point initialLocation) {
-		seedsDropped = 0;
+		layer = 2;
 		setLocation(initialLocation);
-		currentNectar = starting_nectar;
 		currentState = GrowthState.JustPlanted;
-		timer = 0;// Start life at 0, will be incremented by one each time
-					// update is called
-		hasBloomed = false;
 		shouldBeCleanedUp = false;
 	}
 
@@ -42,8 +27,18 @@ public abstract class Plant implements Thing {
 		return this.getClass().getSimpleName();
 	}
 
+	public GrowthState getCurrentState(){
+		return currentState;
+	}
+	
+	public void setCurrentState(GrowthState newState){
+		currentState = newState;
+	}
+	
 	@Override
-	public abstract void updateHP(int hp);
+	public void updateHP(int valueToAdjustBy){
+		hp += valueToAdjustBy;
+	}
 
 	@Override
 	public void setLocation(Point loc) {
@@ -66,19 +61,18 @@ public abstract class Plant implements Thing {
 	}
 
 	@Override
-	public void setHP(int hp) {
-		hitPoints = hp;
+	public void setHP(int newHP) {
+		hp = newHP;
 	}
 
 	@Override
 	public int getHP() {
-		return hitPoints;
+		return hp;
 	}
 
 	@Override
 	public boolean isDead() {
-		if (hitPoints <= 0) {
-			currentNectar = 0;
+		if (hp <= 0) {
 			return true;
 		} else
 			return false;
@@ -94,34 +88,10 @@ public abstract class Plant implements Thing {
 
 	public abstract void grow();
 
-	public int takeNectar(int reduceBy) {
-		if (currentNectar >= reduceBy) {
-			currentNectar -= reduceBy;
-			return reduceBy;
-		} else {
-			int temp = currentNectar;
-			currentNectar = 0;
-			return temp;
-		}
+	public void setShouldBeCleanedUp(boolean value){
+		shouldBeCleanedUp = value;
 	}
-
-	// return how much nectar this plant has
-	public int getNectar() {
-		return currentNectar;
-	}
-
-	// return how many seeds the plant has dropped
-	public int getSeeds() {
-		return seedsDropped;
-	}
-
-	public int takeSeeds() {
-		int temp = seedsDropped;
-		seedsDropped = 0;
-		shouldBeCleanedUp = true;
-		return temp;
-	}
-
+	
 	public boolean shouldBeCleanedUp() {
 		return shouldBeCleanedUp;
 	}
@@ -151,6 +121,11 @@ public abstract class Plant implements Thing {
 	@Override
 	public String getName(){
 		return name;
+	}
+	
+	@Override
+	public void setLayer(int newLayer){
+		layer = newLayer;
 	}
 	
 }
