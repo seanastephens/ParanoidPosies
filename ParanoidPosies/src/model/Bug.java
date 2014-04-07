@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Bug implements Thing{
 	private Point location;
@@ -19,9 +20,6 @@ public abstract class Bug implements Thing{
 	private Thing objectiveThing;
 	private Point objectivePoint;
 	private String name;
-
-	private static final int RAND_RANGE = 100;
-	private static int MOVE_PROBABILITY = (RAND_RANGE * 3) / 10;
 
 	public Bug(GameBoard gameboard) {
 		speed = 1; //Default speed for bugs
@@ -139,62 +137,42 @@ public abstract class Bug implements Thing{
 		hp += newHP;
 	}
 
-	// Since things don't teleport, this is where the animations take place to
-	// move the Thing
-	// from one place to another.
+	/*
+	 * Since things don't teleport, this is where decisions are made on which pixel to move to next.
+	 * Because Random(int) goes from zero inclusive to some int exclusive.
+	 * Before we had Random(int)+1 which would always return 1 defeating the purpose.
+	 * The effect now is that for every 1 speed a Bug has the potential to move between 0 to 2 pixels without spazzing.
+	 * When you set speed now think of it as an average speed for the bug.
+	 */
+	
 	public void move(Point endLocation) {
 		int moveConstant = 1;
+		int randomConstant = 2; 
 		Random rand = new Random();
-		int randInt = rand.nextInt(RAND_RANGE);
-		if (MOVE_PROBABILITY < randInt) {
+		for(int i = 0; i < 2; i++){
+			Point place = new Point(this.getLocation().x, this.getLocation().y);
 			if (!this.getLocation().equals(endLocation)) {
 				if (this.getLocation().x < endLocation.x) {
-					this.setLocation(new Point(this.getLocation().x + moveConstant, this
-							.getLocation().y));
+					place.x += moveConstant;
 				}
 				if (this.getLocation().x > endLocation.x) {
-					this.setLocation(new Point(this.getLocation().x - moveConstant, this
-							.getLocation().y));
+					place.x -= moveConstant;
 				}
 				if (this.getLocation().y < endLocation.y) {
-					this.setLocation(new Point(this.getLocation().x, this.getLocation().y
-							+ moveConstant));
+					place.y += moveConstant;
 				}
 				if (this.getLocation().y > endLocation.y) {
-					this.setLocation(new Point(this.getLocation().x, this.getLocation().y
-							- moveConstant));
+					place.y -= moveConstant;
 				}
+				int randNum = rand.nextInt(randomConstant);
+				if(randNum == 0){
+					place = this.getLocation();
+				}
+				this.setLocation(place);
 			}
-		} else {
-			int randX = rand.nextInt(moveConstant) + 1;
-			int randY = rand.nextInt(moveConstant) + 1;
-
-			//boolean subY = rand.nextBoolean();
-			if (rand.nextBoolean()) {
-				randX = randX * -1;
-			}
-			if (rand.nextBoolean()) {
-				randY = randY * -1;
-			}
-			if(endLocation.x > this.location.x && randX < this.location.x){
-				//Do nothing
-			}
-			else if(endLocation.x < this.location.x && randX > this.location.x){
-				//Do nothing
-			}
-			else if(endLocation.y > this.location.y && randY < this.location.y){
-				//Do nothing			
-			}
-			else if(endLocation.y < this.location.y && randY > this.location.y){
-				//Do nothing
-			}
-			else{
-				this.setLocation(new Point(this.getLocation().x + randX, this.getLocation().y + randY));
-			}
-
 		}
 	}
-
+	
 	public Thing getClosestPosie() {
 		List<Thing> things;
 		int multipleOf100 = 1;

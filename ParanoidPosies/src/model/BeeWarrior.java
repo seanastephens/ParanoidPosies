@@ -16,7 +16,7 @@ public class BeeWarrior extends Bee {
 		super(location, board);
 		setHP(10);
 		setAttack(2);
-		setSpeed(5);
+		setSpeed(4);
 		int randomConstant = 100;
 
 		Random random = new Random();
@@ -103,12 +103,12 @@ public class BeeWarrior extends Bee {
 	public void update() {
 		Point prev = getLocation();
 		if (this.getStrategy() instanceof GatherStrategy) {
-			this.setStrategy(new MoveStrategy(this, super.getGameBoard()), super.getGameBoard()
+			this.setStrategy(new MoveStrategy(this, getGameBoard()), getGameBoard()
 					.getHive());
 		}
 		if (this.getStrategy() != null) {
 			Point temp;
-			for (int i = 0; i < super.getSpeed(); i++) {
+			for (int i = 0; i < getSpeed(); i++) {
 				temp = this.getLocation();
 				this.getStrategy().doNextAction();
 				if (temp.equals(this.getLocation())) {
