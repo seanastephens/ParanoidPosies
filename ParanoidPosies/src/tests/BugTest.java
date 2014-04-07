@@ -128,7 +128,22 @@ public class BugTest {
 		assertTrue(bug.isDead());
 		bug.setHP(-3);
 		assertTrue(bug.isDead());
+	}
 
+	@Test
+	public void testMove() {
+		Bug bug = new MockBug(null);
+		Point goal = new Point(100, 100);
+
+		for (int i = 0; i < 500; i++) {
+			bug.move(goal);
+		}
+
+		// After 500 moves, we should be close to the goal point.
+		Point current = bug.getLocation();
+
+		assertTrue(Math.abs(current.x - goal.x) < 20);
+		assertTrue(Math.abs(current.y - goal.y) < 20);
 	}
 
 	/**

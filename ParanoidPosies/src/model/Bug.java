@@ -8,29 +8,55 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class Bug implements Thing {
-	private Point location = new Point(0, 0);
-	private int hp;
-	private Image image;
-	private final int layer = 1;
-	private GameBoard gameboard;
 
+	private static final Point DEFAULT_LOCATION = new Point(0, 0);
+	private static final int DEFAULT_LAYER = 1;
+	private static final int DEFAULT_HP = 0;
+
+	private static final int RAND_RANGE = 100;
+	private static final int PERCENT_CHANCE_RANDOM_MOVE = 30;
+
+	private int hp;
+	private Point location;
 	private BugStrategy currentStrategy;
 	private Thing objectiveThing;
 	private Point objectivePoint;
-
-	private static final int RAND_RANGE = 100;
-	private static int MOVE_PROBABILITY = (RAND_RANGE * 3) / 10;
+	private Image image;
+	private GameBoard gameboard;
 
 	public Bug(GameBoard gameboard) {
+		this.hp = DEFAULT_HP;
+		this.location = DEFAULT_LOCATION;
+		this.currentStrategy = null;
+		this.objectivePoint = null;
+		this.objectiveThing = null;
+		this.image = null;
 		this.gameboard = gameboard;
 	}
 
-	public Point getObjectivePoint() {
-		return objectivePoint;
+	@Override
+	public void setHP(int hp) {
+		this.hp = hp;
 	}
 
-	public void setObjectivePoint(Point newLoc) {
-		objectivePoint = newLoc;
+	@Override
+	public int getHP() {
+		return hp;
+	}
+
+	@Override
+	public void updateHP(int hp) {
+		this.hp += hp;
+	}
+
+	@Override
+	public void setLocation(Point loc) {
+		location = loc;
+	}
+
+	@Override
+	public Point getLocation() {
+		return location;
 	}
 
 	public void setStrategy(BugStrategy strat, Thing objective) {
@@ -45,6 +71,18 @@ public abstract class Bug implements Thing {
 		this.objectiveThing = null;
 	}
 
+	public BugStrategy getStrategy() {
+		return currentStrategy;
+	}
+
+	public Point getObjectivePoint() {
+		return objectivePoint;
+	}
+
+	public void setObjectivePoint(Point newLoc) {
+		objectivePoint = newLoc;
+	}
+
 	public Thing getObjectiveThing() {
 		return objectiveThing;
 	}
@@ -53,36 +91,13 @@ public abstract class Bug implements Thing {
 		objectiveThing = newObjective;
 	}
 
-	public BugStrategy getStrategy() {
-		return currentStrategy;
-	}
-
-	public boolean shouldBeCleanedUp() {
-		return isDead();
-	}
-
-	public String getAction() {
-		String result = "";
-		result += "HP=" + this.getHP() + " ";
-		return result;
-	}
-
-	public String getType() {
-		return this.getClass().getSimpleName();
+	public void setObjectiveToNull() {
+		objectivePoint = null;
+		objectiveThing = null;
 	}
 
 	public GameBoard getGameBoard() {
 		return gameboard;
-	}
-
-	@Override
-	public void setLocation(Point loc) {
-		location = loc;
-	}
-
-	@Override
-	public Point getLocation() {
-		return location;
 	}
 
 	@Override
@@ -95,19 +110,8 @@ public abstract class Bug implements Thing {
 		return image;
 	}
 
-	@Override
-	public void setHP(int hp) {
-		this.hp = hp;
-	}
-
-	@Override
-	public int getHP() {
-		return hp;
-	}
-
-	@Override
-	public int getLayer() {
-		return layer;
+	public boolean shouldBeCleanedUp() {
+		return isDead();
 	}
 
 	@Override
@@ -119,68 +123,56 @@ public abstract class Bug implements Thing {
 		}
 	}
 
-	@Override
-	public abstract void update();
-
-	@Override
-	public void updateHP(int hp) {
-		this.hp += hp;
+	public String getType() {
+		return this.getClass().getSimpleName();
 	}
 
-	// Since things don't teleport, this is where the animations take place to
-	// move the Thing
-	// from one place to another.
+	public String getAction() {
+		String result = "";
+		result += "HP=" + this.getHP() + " ";
+		return result;
+	}
+
+	@Override
+	public int getLayer() {
+		return DEFAULT_LAYER;
+	}
+
 	public void move(Point endLocation) {
-		int moveConstant = 1;
+		int PIXELS_PER_MOVE = 1;
 		Random rand = new Random();
-		int randInt = rand.nextInt(RAND_RANGE);
-		if (MOVE_PROBABILITY < randInt) {
-			if (!this.getLocation().equals(endLocation)) {
-				if (this.getLocation().x < endLocation.x) {
-					this.setLocation(new Point(this.getLocation().x + moveConstant, this
-							.getLocation().y));
-				}
-				if (this.getLocation().x > endLocation.x) {
-					this.setLocation(new Point(this.getLocation().x - moveConstant, this
-							.getLocation().y));
-				}
-				if (this.getLocation().y < endLocation.y) {
-					this.setLocation(new Point(this.getLocation().x, this.getLocation().y
-							+ moveConstant));
-				}
-				if (this.getLocation().y > endLocation.y) {
-					this.setLocation(new Point(this.getLocation().x, this.getLocation().y
-							- moveConstant));
-				}
-			}
+
+		Point currentPoint = this.getLocation();
+		int currentX = currentPoint.x;
+		int currentY = currentPoint.y;
+		Point newPoint = currentPoint;
+
+		if (rand.nextInt(RAND_RANGE) < PERCENT_CHANCE_RANDOM_MOVE) {
+			int randX = rand.nextInt(2 * PIXELS_PER_MOVE + 1) - PIXELS_PER_MOVE;
+			int randY = rand.nextInt(2 * PIXELS_PER_MOVE + 1) - PIXELS_PER_MOVE;
+			newPoint = new Point(currentX + randX, currentY + randY);
 		} else {
-			int randX = rand.nextInt(moveConstant) + 1;
-			int randY = rand.nextInt(moveConstant) + 1;
-
-			// boolean subY = rand.nextBoolean();
-			if (rand.nextBoolean()) {
-				randX = randX * -1;
+			if (!currentPoint.equals(endLocation)) {
+				int newX = currentX;
+				int newY = currentY;
+				newX += signature(endLocation.x - currentX) * PIXELS_PER_MOVE;
+				newY += signature(endLocation.y - currentY) * PIXELS_PER_MOVE;
+				newPoint = new Point(newX, newY);
 			}
-			if (rand.nextBoolean()) {
-				randY = randY * -1;
-			}
-			if (endLocation.x > this.location.x && randX < this.location.x) {
-				// Do nothing
-			} else if (endLocation.x < this.location.x && randX > this.location.x) {
-				// Do nothing
-			} else if (endLocation.y > this.location.y && randY < this.location.y) {
-				// Do nothing
-			} else if (endLocation.y < this.location.y && randY > this.location.y) {
-				// Do nothing
-			} else {
-				this.setLocation(new Point(this.getLocation().x + randX, this.getLocation().y
-						+ randY));
-			}
-
 		}
+		this.setLocation(newPoint);
 	}
 
-	// TODO handle null
+	private int signature(int x) {
+		if (x > 0) {
+			return 1;
+		}
+		if (x < 0) {
+			return -1;
+		}
+		return 0;
+	}
+
 	public Thing getClosestPosie() {
 		List<Thing> things;
 		int multipleOf100 = 1;
@@ -237,7 +229,6 @@ public abstract class Bug implements Thing {
 		return gameboard.getHive();
 	}
 
-	// TODO handle null
 	public Thing getClosestCaterpillar() {
 		List<Thing> things;
 		int multipleOf100 = 1;
@@ -259,12 +250,8 @@ public abstract class Bug implements Thing {
 		return gameboard.getHive();
 	}
 
-	// Takes the object of the thing being attacked so updates can be made to
-	// both objects.
 	public abstract void attack(Thing thingBeingAttacked);
 
-	public void setObjectiveToNull() {
-		objectivePoint = null;
-		objectiveThing = null;
-	}
+	@Override
+	public abstract void update();
 }
