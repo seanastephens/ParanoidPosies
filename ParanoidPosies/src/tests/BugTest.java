@@ -33,6 +33,7 @@ public class BugTest {
 		assertTrue(bug.isDead());
 		assertTrue(bug.shouldBeCleanedUp());
 		assertEquals(null, bug.getGameBoard());
+		assertEquals(0, bug.getMaxHP());
 
 		// These tests *could* change if we make significant changes to the
 		// layout of the game. In other words, failing these tests might
@@ -40,6 +41,8 @@ public class BugTest {
 		assertEquals(1, bug.getLayer());
 		assertEquals("MockBug", bug.getType());
 		assertEquals("HP=0 ", bug.getCriticalInfo());
+		assertEquals("ABSTRACT CLASS BUG DEFAULT NAME", bug.getName());
+		assertEquals(1, bug.getSpeed());
 	}
 
 	@Test
@@ -119,6 +122,44 @@ public class BugTest {
 	}
 
 	@Test
+	public void testMaxHPSetGetUpdate() {
+		Bug bug = new MockBug(null);
+
+		bug.setMaxHP(10);
+		assertEquals(10, bug.getMaxHP());
+		bug.setMaxHP(1);
+		assertEquals(1, bug.getMaxHP());
+		bug.updateMaxHP(1);
+		assertEquals(2, bug.getMaxHP());
+	}
+
+	@Test
+	public void testSpeedSetGetUpdate() {
+		Bug bug = new MockBug(null);
+
+		bug.setSpeed(10);
+		assertEquals(10, bug.getSpeed());
+		bug.setSpeed(1);
+		assertEquals(1, bug.getSpeed());
+	}
+
+	@Test
+	public void testNameSetGet() {
+		Bug bug = new MockBug(null);
+
+		bug.setName("TEST");
+		assertEquals("TEST", bug.getName());
+	}
+
+	@Test
+	public void testLayerSetGet() {
+		Bug bug = new MockBug(null);
+
+		bug.setLayer(-999);
+		assertEquals(-999, bug.getLayer());
+	}
+
+	@Test
 	public void testIsDead() {
 		Bug bug = new MockBug(null);
 
@@ -157,11 +198,6 @@ public class BugTest {
 	private class MockBug extends Bug {
 		public MockBug(GameBoard g) {
 			super(g);
-		}
-
-		@Override
-		public String getName() {
-			return "";
 		}
 
 		@Override

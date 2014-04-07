@@ -12,16 +12,18 @@ public abstract class Bug implements Thing {
 	private static final Point DEFAULT_LOCATION = new Point(0, 0);
 	private static final int DEFAULT_LAYER = 1;
 	private static final int DEFAULT_HP = 0;
+	private static final int DEFAULT_MAX_HP = 0;
+	private static final int DEFAULT_pixelsPerMove = 1;
+	private static final String DEFAULT_NAME = "ABSTRACT CLASS BUG DEFAULT NAME";
 
 	private static final int RAND_RANGE = 100;
 	private static final int PERCENT_CHANCE_RANDOM_MOVE = 30;
 
 	private int hp;
-	private Point location;
-
 	private int maxHP;
+	private Point location;
 	private int layer;
-	private int speed;
+	private int pixelsPerMove;
 	private BugStrategy currentStrategy;
 	private Thing objectiveThing;
 	private Point objectivePoint;
@@ -31,12 +33,16 @@ public abstract class Bug implements Thing {
 
 	public Bug(GameBoard gameboard) {
 		this.hp = DEFAULT_HP;
+		this.maxHP = DEFAULT_MAX_HP;
 		this.location = DEFAULT_LOCATION;
+		this.layer = DEFAULT_LAYER;
+		this.pixelsPerMove = DEFAULT_pixelsPerMove;
 		this.currentStrategy = null;
 		this.objectivePoint = null;
 		this.objectiveThing = null;
 		this.image = null;
 		this.gameboard = gameboard;
+		this.name = DEFAULT_NAME;
 	}
 
 	@Override
@@ -55,6 +61,21 @@ public abstract class Bug implements Thing {
 	}
 
 	@Override
+	public void setMaxHP(int newMaxHP) {
+		maxHP = newMaxHP;
+	}
+
+	@Override
+	public int getMaxHP() {
+		return maxHP;
+	}
+
+	@Override
+	public void updateMaxHP(int valueToAdjustHPBy) {
+		maxHP += valueToAdjustHPBy;
+	}
+
+	@Override
 	public void setLocation(Point loc) {
 		location = loc;
 	}
@@ -62,6 +83,14 @@ public abstract class Bug implements Thing {
 	@Override
 	public Point getLocation() {
 		return location;
+	}
+
+	public void setSpeed(int newSpeed) {
+		pixelsPerMove = newSpeed;
+	}
+
+	public int getSpeed() {
+		return pixelsPerMove;
 	}
 
 	public void setStrategy(BugStrategy strat, Thing objective) {
@@ -119,6 +148,14 @@ public abstract class Bug implements Thing {
 		layer = newLayer;
 	}
 
+	public void setName(String newName) {
+		name = newName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
 	public boolean shouldBeCleanedUp() {
 		return isDead();
 	}
@@ -140,11 +177,15 @@ public abstract class Bug implements Thing {
 
 	@Override
 	public int getLayer() {
-		return DEFAULT_LAYER;
+		return layer;
+	}
+
+	@Override
+	public String getType() {
+		return getClass().getSimpleName();
 	}
 
 	public void move(Point endLocation) {
-		int PIXELS_PER_MOVE = 1;
 		Random rand = new Random();
 
 		Point currentPoint = this.getLocation();
@@ -153,17 +194,16 @@ public abstract class Bug implements Thing {
 		Point newPoint = currentPoint;
 
 		if (rand.nextInt(RAND_RANGE) < PERCENT_CHANCE_RANDOM_MOVE) {
-			int randX = rand.nextInt(2 * PIXELS_PER_MOVE + 1) - PIXELS_PER_MOVE;
-			int randY = rand.nextInt(2 * PIXELS_PER_MOVE + 1) - PIXELS_PER_MOVE;
+			int randX = rand.nextInt(2 * pixelsPerMove + 1) - pixelsPerMove;
+			int randY = rand.nextInt(2 * pixelsPerMove + 1) - pixelsPerMove;
 			newPoint = new Point(currentX + randX, currentY + randY);
 		} else {
 			if (!currentPoint.equals(endLocation)) {
 				int newX = currentX;
 				int newY = currentY;
-				newX += signature(endLocation.x - currentX) * PIXELS_PER_MOVE;
-				newY += signature(endLocation.y - currentY) * PIXELS_PER_MOVE;
+				newX += signature(endLocation.x - currentX) * pixelsPerMove;
+				newY += signature(endLocation.y - currentY) * pixelsPerMove;
 				newPoint = new Point(newX, newY);
-
 			}
 		}
 		this.setLocation(newPoint);
@@ -257,40 +297,4 @@ public abstract class Bug implements Thing {
 	}
 
 	public abstract void attack(Thing thingBeingAttacked);
-
-	public void setSpeed(int newSpeed) {
-		speed = newSpeed;
-	}
-
-	public int getSpeed() {
-		return speed;
-	}
-
-	public void setName(String newName) {
-		name = newName;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public void setMaxHP(int newMaxHP) {
-		maxHP = newMaxHP;
-	}
-
-	@Override
-	public int getMaxHP() {
-		return maxHP;
-	}
-
-	@Override
-	public void updateMaxHP(int valueToAdjustHPBy) {
-		maxHP += valueToAdjustHPBy;
-	}
-
-	@Override
-	public String getType() {
-		return getClass().getSimpleName();
-	}
 }
