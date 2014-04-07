@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public abstract class Bug implements Thing, UpgradeAttack, UpgradeSpeed, UpgradeTotalHP {
+public abstract class Bug implements Thing{
 	private Point location;
 	private int hp;
 	private Image image;

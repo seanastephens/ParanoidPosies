@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Bee extends Bug {
+public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTotalHP{
 
 	private int nector;
 	private List<String> beeNames;
@@ -37,8 +37,7 @@ public class Bee extends Bug {
 		nector = 0;
 		seeds = 0;
 		nectarToGet = maxNectar;
-		buildBeeNamesList();
-		name = getBeeName();
+		name = getNewBeeName();
 
 		ImageReg i = ImageReg.getInstance();
 		images[0][0][0] = i.getImageFromStr("Bee00");
@@ -115,17 +114,14 @@ public class Bee extends Bug {
 		beeNames.add("To Bee or Not to");
 	}
 
-	private String getBeeName() {
+	public String getNewBeeName() {
+		buildBeeNamesList();
 		Collections.shuffle(beeNames);
 		return beeNames.get(0);
 	}
 
-	public void setSpeed(int newSpeed) {
-		speed = newSpeed;
-	}
-
-	public int getSpeed() {
-		return speed;
+	public void setName(String newName) {
+		name = newName;
 	}
 
 	public String getName() {
@@ -137,10 +133,6 @@ public class Bee extends Bug {
 		String result = super.getAction();
 		result += "Nectar=" + nector + "<br>Seeds=" + seeds;
 		return result;
-	}
-
-	public void setName(String newName) {
-		name = newName;
 	}
 
 	@Override
@@ -249,6 +241,14 @@ public class Bee extends Bug {
 
 	}
 
+	public void setSpeed(int newSpeed) {
+		speed = newSpeed;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+	
 	@Override
 	public void upgradeSpeed(int newSpeed) {
 		speed = newSpeed;

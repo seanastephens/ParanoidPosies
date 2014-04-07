@@ -8,7 +8,7 @@ import java.util.Random;
 
 import GUI.PPGUI;
 
-public class Caterpillar extends Bug {
+public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTotalHP{
 	public static  int CATERPILLAR_HP = 3;
 	public static  int CATERPILLAR_ATTACK_DAMAGE = 1;
 	public int timer;
