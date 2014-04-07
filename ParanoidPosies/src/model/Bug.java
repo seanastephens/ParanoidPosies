@@ -7,8 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public abstract class Bug implements Thing{
-	private Point location;
+public abstract class Bug implements Thing {
+	private Point location = new Point(0, 0);
 	private int hp;
 	private Image image;
 	private final int layer = 1;
@@ -73,10 +73,6 @@ public abstract class Bug implements Thing{
 
 	public GameBoard getGameBoard() {
 		return gameboard;
-	}
-
-	public void setGameBoard(GameBoard board) {
-		gameboard = board;
 	}
 
 	@Override
@@ -161,27 +157,24 @@ public abstract class Bug implements Thing{
 			int randX = rand.nextInt(moveConstant) + 1;
 			int randY = rand.nextInt(moveConstant) + 1;
 
-			//boolean subY = rand.nextBoolean();
+			// boolean subY = rand.nextBoolean();
 			if (rand.nextBoolean()) {
 				randX = randX * -1;
 			}
 			if (rand.nextBoolean()) {
 				randY = randY * -1;
 			}
-			if(endLocation.x > this.location.x && randX < this.location.x){
-				//Do nothing
-			}
-			else if(endLocation.x < this.location.x && randX > this.location.x){
-				//Do nothing
-			}
-			else if(endLocation.y > this.location.y && randY < this.location.y){
-				//Do nothing			
-			}
-			else if(endLocation.y < this.location.y && randY > this.location.y){
-				//Do nothing
-			}
-			else{
-				this.setLocation(new Point(this.getLocation().x + randX, this.getLocation().y + randY));
+			if (endLocation.x > this.location.x && randX < this.location.x) {
+				// Do nothing
+			} else if (endLocation.x < this.location.x && randX > this.location.x) {
+				// Do nothing
+			} else if (endLocation.y > this.location.y && randY < this.location.y) {
+				// Do nothing
+			} else if (endLocation.y < this.location.y && randY > this.location.y) {
+				// Do nothing
+			} else {
+				this.setLocation(new Point(this.getLocation().x + randX, this.getLocation().y
+						+ randY));
 			}
 
 		}

@@ -1,4 +1,6 @@
-package songplayer;
+package tests;
+
+import songplayer.SongPlayer;
 
 public class SongTest {
 	private static  String testSongName = "BootySong.mp3";
