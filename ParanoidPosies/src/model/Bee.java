@@ -192,6 +192,10 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 	public int getNectarBeingHeld() {
 		return nectar;
 	}
+	
+	public void setNectarBeingHeldForTesting(int nectarValue){
+		nectar = nectarValue;
+	}
 
 	// Use this method to ask the bee how much nectar it's holding.
 	public void calculateNectarToGet() {

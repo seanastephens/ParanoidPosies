@@ -230,7 +230,7 @@ public class BeeTests {
 	 * unloadNectarAndSeedsToHive, getSeeds, updateSeeds, setSeeds
 	 */
 	
-	@Test
+	@Test (expected = IllegalStateException.class)
 	public void nectarAndSeedsTest(){
 		bee.setHP(4);
 		bee.setStrategy(new GatherStrategy(bee, bee.getGameBoard()), posie);
@@ -269,6 +269,18 @@ public class BeeTests {
 		assertEquals(0, bee.getSeeds());;
 		bee.setSeeds(4);
 		assertEquals(4, bee.getSeeds());
+		bee.setObjectiveThing(hive);
+		bee.askFlowerForNectarOrSeeds();
+	}
+	
+	@Test
+	public void testGetCriticalInfo(){
+		bee.setHP(2);
+		bee.setNectarBeingHeldForTesting(3);
+		bee.setSeeds(4);
+		System.out.println(bee.getCriticalInfo());
+		assertTrue(bee.getCriticalInfo().equals("HP=2 Nectar=3<br>Seeds=4"));
+		
 	}
 	
 }
