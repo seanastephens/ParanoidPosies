@@ -16,9 +16,6 @@ public abstract class Bug implements Thing {
 	private static final int DEFAULT_pixelsPerMove = 1;
 	private static final String DEFAULT_NAME = "ABSTRACT CLASS BUG DEFAULT NAME";
 
-	private static final int RAND_RANGE = 100;
-	private static final int PERCENT_CHANCE_RANDOM_MOVE = 30;
-
 	private int hp;
 	private int maxHP;
 	private Point location;
@@ -185,7 +182,67 @@ public abstract class Bug implements Thing {
 		return getClass().getSimpleName();
 	}
 
-	public void move(Point endLocation) {
+	/*
+	 * Since things don't teleport, this is where decisions are made on which pixel to move to next.
+	 * Because Random(int) goes from zero inclusive to some int exclusive.
+	 * Before we had Random(int)+1 which would always return 1 defeating the purpose.
+	 * The effect now is that for every 1 speed a Bug has the potential to move between 0 to 2 pixels without spazzing.
+	 * When you set speed now think of it as an average speed for the bug.
+	 */
+	public void move(Point endLocation) {	
+		int moveConstant = 1;
+ 		int randomConstant = 2; 
+  		Random rand = new Random();
+ 		for(int i = 0; i < 2; i++){
+ 			Point place = new Point(this.getLocation().x, this.getLocation().y);
+  			if (!this.getLocation().equals(endLocation)) {
+  				if (this.getLocation().x < endLocation.x) {
+  					place.x += moveConstant;
+  				}
+  				if (this.getLocation().x > endLocation.x) {
+  					place.x -= moveConstant;
+  				}
+  				if (this.getLocation().y < endLocation.y) {
+  					place.y += moveConstant;
+  				}
+  				if (this.getLocation().y > endLocation.y) {
+  					place.y -= moveConstant;
+  				}
+ 				int randNum = rand.nextInt(randomConstant);
+ 				if(randNum == 0){
+ 					place = this.getLocation();
+ 				}
+ 				this.setLocation(place);
+  			}
+ 		}
+	}
+	
+//	public void move(Point endLocation) {
+//		Random rand = new Random();
+//
+//		Point currentPoint = this.getLocation();
+//		int currentX = currentPoint.x;
+//		int currentY = currentPoint.y;
+//		Point newPoint = currentPoint;
+//
+//		if (rand.nextInt(RAND_RANGE) < PERCENT_CHANCE_RANDOM_MOVE) {
+//			int randX = rand.nextInt(2 * pixelsPerMove + 1) - pixelsPerMove;
+//			int randY = rand.nextInt(2 * pixelsPerMove + 1) - pixelsPerMove;
+//			newPoint = new Point(currentX + randX, currentY + randY);
+//		} else {
+//			if (!currentPoint.equals(endLocation)) {
+//				int newX = currentX;
+//				int newY = currentY;
+//				newX += signature(endLocation.x - currentX) * pixelsPerMove;
+//				newY += signature(endLocation.y - currentY) * pixelsPerMove;
+//				newPoint = new Point(newX, newY);
+//			}
+//		}
+//		this.setLocation(newPoint);
+//	}
+	
+	/*
+	 * public void move(Point endLocation) {
 		Random rand = new Random();
 
 		Point currentPoint = this.getLocation();
@@ -208,16 +265,18 @@ public abstract class Bug implements Thing {
 		}
 		this.setLocation(newPoint);
 	}
+	 * 
+	 */
 
-	private int signature(int x) {
-		if (x > 0) {
-			return 1;
-		}
-		if (x < 0) {
-			return -1;
-		}
-		return 0;
-	}
+//	private int signature(int x) {
+//		if (x > 0) {
+//			return 1;
+//		}
+//		if (x < 0) {
+//			return -1;
+//		}
+//		return 0;
+//	}
 
 	public Thing getClosestPosie() {
 		List<Thing> things;
