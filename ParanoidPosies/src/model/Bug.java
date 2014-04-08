@@ -216,67 +216,6 @@ public abstract class Bug implements Thing {
   			}
  		}
 	}
-	
-//	public void move(Point endLocation) {
-//		Random rand = new Random();
-//
-//		Point currentPoint = this.getLocation();
-//		int currentX = currentPoint.x;
-//		int currentY = currentPoint.y;
-//		Point newPoint = currentPoint;
-//
-//		if (rand.nextInt(RAND_RANGE) < PERCENT_CHANCE_RANDOM_MOVE) {
-//			int randX = rand.nextInt(2 * pixelsPerMove + 1) - pixelsPerMove;
-//			int randY = rand.nextInt(2 * pixelsPerMove + 1) - pixelsPerMove;
-//			newPoint = new Point(currentX + randX, currentY + randY);
-//		} else {
-//			if (!currentPoint.equals(endLocation)) {
-//				int newX = currentX;
-//				int newY = currentY;
-//				newX += signature(endLocation.x - currentX) * pixelsPerMove;
-//				newY += signature(endLocation.y - currentY) * pixelsPerMove;
-//				newPoint = new Point(newX, newY);
-//			}
-//		}
-//		this.setLocation(newPoint);
-//	}
-	
-	/*
-	 * public void move(Point endLocation) {
-		Random rand = new Random();
-
-		Point currentPoint = this.getLocation();
-		int currentX = currentPoint.x;
-		int currentY = currentPoint.y;
-		Point newPoint = currentPoint;
-
-		if (rand.nextInt(RAND_RANGE) < PERCENT_CHANCE_RANDOM_MOVE) {
-			int randX = rand.nextInt(2 * pixelsPerMove + 1) - pixelsPerMove;
-			int randY = rand.nextInt(2 * pixelsPerMove + 1) - pixelsPerMove;
-			newPoint = new Point(currentX + randX, currentY + randY);
-		} else {
-			if (!currentPoint.equals(endLocation)) {
-				int newX = currentX;
-				int newY = currentY;
-				newX += signature(endLocation.x - currentX) * pixelsPerMove;
-				newY += signature(endLocation.y - currentY) * pixelsPerMove;
-				newPoint = new Point(newX, newY);
-			}
-		}
-		this.setLocation(newPoint);
-	}
-	 * 
-	 */
-
-//	private int signature(int x) {
-//		if (x > 0) {
-//			return 1;
-//		}
-//		if (x < 0) {
-//			return -1;
-//		}
-//		return 0;
-//	}
 
 	public Thing getClosestPosie() {
 		List<Thing> things;
