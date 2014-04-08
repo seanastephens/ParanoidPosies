@@ -83,8 +83,6 @@ public class TileManagerTest {
 		List<BackgroundTile> tiles = tileManager.getTiles(view);
 		Point upperLeft = lowestImagePoint(tiles);
 
-		System.out.println(upperLeft);
-		System.out.println(view.x - PPGUI.WINDOW_WIDTH / 2);
 		assertTrue(upperLeft.x <= view.x - PPGUI.WINDOW_WIDTH / 2);
 		assertTrue(upperLeft.y <= view.y - PPGUI.WINDOW_HEIGHT / 2);
 	}
@@ -99,8 +97,6 @@ public class TileManagerTest {
 		List<BackgroundTile> tiles = tileManager.getTiles(view);
 		Point bottomRight = highestImagePoint(tiles);
 
-		System.out.println(bottomRight);
-		System.out.println(view.x + PPGUI.WINDOW_WIDTH / 2);
 		assertTrue(bottomRight.x <= view.x + PPGUI.WINDOW_WIDTH / 2);
 		assertTrue(bottomRight.y <= view.y + PPGUI.WINDOW_HEIGHT / 2);
 	}
