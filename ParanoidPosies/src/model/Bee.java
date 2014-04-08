@@ -157,7 +157,7 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		Point next = getLocation();
 		int diffx = next.x - prev.x;
 		int diffy = next.y - prev.y;
-		System.out.println(next.toString() + " - " + prev.toString());
+		//System.out.println(next.toString() + " - " + prev.toString());
 		if (diffx > 0 && diffy == 0) {
 			imageNumber = 2;
 		} else if (diffx > 0 && diffy > 0) {
