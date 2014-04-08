@@ -193,7 +193,7 @@ public abstract class Bug implements Thing {
 		int moveConstant = 1;
  		int randomConstant = 2; 
   		Random rand = new Random();
- 		for(int i = 0; i < 2; i++){
+ 		for(int i = 0; i < 3; i++){
  			Point place = new Point(this.getLocation().x, this.getLocation().y);
   			if (!this.getLocation().equals(endLocation)) {
   				if (this.getLocation().x < endLocation.x) {

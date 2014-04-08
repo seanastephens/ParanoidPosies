@@ -13,7 +13,7 @@ public class MoveStrategy implements BugStrategy{
 	@Override
 	public void doNextAction() {
 		if (!bug.getLocation().equals(bug.getObjectivePoint())) {
-			bug.move(bug.getObjectiveThing().getLocation());
+			bug.move(bug.getObjectivePoint());
 		}
 	}
 

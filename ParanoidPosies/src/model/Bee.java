@@ -20,7 +20,7 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 	/*
 	 * Image GUI related variables
 	 */
-	public boolean selected = false;
+	private boolean selected = false;
 	private Image[][][] images = new Image[2][8][3];
 	private int imageNumber = 0;
 	private int state = 0;
@@ -105,9 +105,13 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 	public Image getImage() {
 		return images[selected ? 1 : 0][imageNumber][state];
 	}
-
+	
 	public void setSelected(boolean change) {
 		selected = change;
+	}
+	
+	public boolean getSelected(){
+		return selected;
 	}
 
 	public void giveNewRandomName() {
@@ -132,6 +136,10 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		return result;
 	}
 
+	public int getImageNumberForTesting(){
+		return imageNumber;
+	}
+	
 	@Override
 	public void update() {
 		Point prev = getLocation();
@@ -149,7 +157,7 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		Point next = getLocation();
 		int diffx = next.x - prev.x;
 		int diffy = next.y - prev.y;
-
+		System.out.println(next.toString() + " - " + prev.toString());
 		if (diffx > 0 && diffy == 0) {
 			imageNumber = 2;
 		} else if (diffx > 0 && diffy > 0) {

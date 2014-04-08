@@ -81,7 +81,7 @@ public class BeeWarrior extends Bee {
 
 	@Override
 	public Image getImage() {
-		return images[selected ? 1 : 0][imageNumber][state];
+		return images[getSelected() ? 1 : 0][imageNumber][state];
 	}
 
 	@Override

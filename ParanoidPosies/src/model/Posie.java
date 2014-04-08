@@ -35,7 +35,7 @@ public class Posie extends Plant {
 			"forRealThoughItsAPosie");
 	public static final Image DEAD_FLOWER_IMAGE = ImageReg.getInstance().getImageFromStr(
 			"ISwearToGodThisOneIsAnHonestToGodLegitimatePosie");
-
+	
 	public static final String SEED_ACTION = "Beginning life.";
 	public static final String SEEDLING_ACTION = "Growing up big and strong.";
 	public static final String FLOWER_ACTION = "Enjoying sunshine, brother.";
