@@ -7,15 +7,21 @@ import static org.junit.Assert.assertTrue;
 import java.awt.Point;
 
 import model.Bee;
+import model.Caterpillar;
 import model.GameBoard;
+import model.GatherStrategy;
+import model.GrowthState;
 import model.ImageReg;
 import model.MoveStrategy;
+import model.Posie;
 
 import org.junit.Test;
 
 public class BeeTests {
 
 	Bee bee = new Bee(new Point(1, 1), new GameBoard(false));
+	Caterpillar cage = new Caterpillar(new Point(0,0), bee.getGameBoard());
+	Posie posie = new Posie(new Point(0,0));
 
 	/*
 	 * Tests getBeeName, getName, setName, and uses buildBeeNamesList
@@ -188,5 +194,51 @@ public class BeeTests {
 		assertEquals(2, bee.getImageNumberForTesting());
 		// System.out.println("Passed movement right and up test");
 		System.out.println(System.currentTimeMillis());
+		
+		bee.setLocation(new Point(0, 0));
+		bee.setObjectivePoint(new Point(200, -200));
+		for (int i = 0; i < 50; i++) {
+			bee.update();
+		}// System.out.println("\n" + bee.getLocation().toString() +
+			// bee.getObjectivePoint().toString());
+		assertEquals(1, bee.getImageNumberForTesting());
+		// System.out.println("Passed movement right and up test");
+		System.out.println(System.currentTimeMillis());
 	}
+	
+	/*
+	 * Tests getAttack, setAttack, upgradeAttack and attack
+	 */
+	
+	@Test
+	public void attackTest(){
+		bee.setLocation(new Point(0,0));
+		 assertEquals(1, bee.getAttack());
+		 bee.setAttack(2);
+		 assertEquals(2, bee.getAttack());
+		 bee.attack(cage);
+		 assertTrue(bee.isDead());
+		 assertEquals(1, cage.getHP());
+		 bee.upgradeAttack(-1);
+		 assertEquals(1, bee.getAttack());
+	}
+	
+	//TODO Finish this test
+	@Test
+	public void nectarTest(){
+		bee.setHP(4);
+		bee.setStrategy(new GatherStrategy(bee, bee.getGameBoard()), posie);
+		bee.setLocation(new Point(0,0));
+		posie.setLocation(new Point(0,0));
+		posie.setCurrentState(GrowthState.Flower);
+		posie.setNectarForTesting(5);
+		assertEquals(0, bee.getNectarBeingHeld());
+		bee.calculateNectarToGet();
+		assertEquals(10, bee.getNectarToGetForTesting());
+		bee.askFlowerForNectarOrSeeds();
+		assertEquals(5, bee.getNectarBeingHeld());
+		bee.calculateNectarToGet();
+		assertEquals(5, bee.getNectarToGetForTesting());
+	}
+	
 }

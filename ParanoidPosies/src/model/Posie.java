@@ -21,12 +21,12 @@ import GUI.PPGUI;
 
 public class Posie extends Plant {
 
-	public static final int posie_max_seeds_to_drop = 5;
+	private static final int posie_max_seeds_to_drop = 5;
 	public static final int posie_lifespan = 60 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_time_to_seedling = 3 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_time_to_flower = 7 * PPGUI.UPDATES_PER_SEC;
 	public static final int posie_hitPoints = 10;
-	public static final int posie_max_nectar = 5;
+	private static final int posie_max_nectar = 5;
 
 	public static final Image SEED_IMAGE = ImageReg.getInstance().getImageFromStr("thisIsAPosie");
 	public static final Image SEEDLING_IMAGE = ImageReg.getInstance().getImageFromStr(
@@ -36,10 +36,10 @@ public class Posie extends Plant {
 	public static final Image DEAD_FLOWER_IMAGE = ImageReg.getInstance().getImageFromStr(
 			"ISwearToGodThisOneIsAnHonestToGodLegitimatePosie");
 	
-	public static final String SEED_ACTION = "Beginning life.";
-	public static final String SEEDLING_ACTION = "Growing up big and strong.";
-	public static final String FLOWER_ACTION = "Enjoying sunshine, brother.";
-	public static final String DEAD_FLOWER_ACTION = "Flower is kill.";
+	private static final String SEED_ACTION = "Beginning life.";
+	private static final String SEEDLING_ACTION = "Growing up big and strong.";
+	private static final String FLOWER_ACTION = "Enjoying sunshine, brother.";
+	private static final String DEAD_FLOWER_ACTION = "Flower is kill.";
 
 	private int currentNectar = 0;
 	private int timer = 0;// Start life at 0, will be incremented by one each time update is called
@@ -171,6 +171,10 @@ public class Posie extends Plant {
 		}
 	}
 
+	public void setNectarForTesting(int newNectar){
+		currentNectar = newNectar;
+	}
+	
 	// return how much nectar this plant has
 	public int getNectar() {
 		return currentNectar;

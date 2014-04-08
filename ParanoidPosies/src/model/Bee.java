@@ -9,6 +9,7 @@ import java.util.List;
 /*
  * TODO add more unit tests
  * TODO add minimum and maximum bee speeds?
+ * TODO add maximum attack rating that can be upgraded (maybe do attack ranges where attack value chosen randomly each time)
  * TODO change SquareStrategy to be about size of hive, set to a random location within hive to give effect of bees flying around hive
  * TODO by setting larger shape strategies where the shapes may have variable sizes we can build dances for the bees
  */
@@ -201,9 +202,13 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		}
 	}
 
+	public int getNectarToGetForTesting(){
+		return nectarToGet;
+	}
+	
 	public void askFlowerForNectarOrSeeds() {
 		if (!(getObjectiveThing() instanceof Plant)) {
-			throw new IllegalStateException("Can't get nectoar from :"
+			throw new IllegalStateException("Can't get nectar from :"
 					+ getObjectiveThing().toString());
 		}
 		if (getObjectiveThing().isDead() == true) {
