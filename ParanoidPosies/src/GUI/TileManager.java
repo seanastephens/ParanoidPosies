@@ -10,39 +10,50 @@ import model.ImageReg;
 public class TileManager {
 
 	private Image tileImage;
-	private int width;
-	private int height;
+	private int tileWidth;
+	private int tileHeight;
 
 	public TileManager() {
 		tileImage = ImageReg.getInstance().getImageFromStr("GrassTile");
-		width = tileImage.getWidth(null);
-		height = tileImage.getHeight(null);
+		tileWidth = tileImage.getWidth(null);
+		tileHeight = tileImage.getHeight(null);
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param viewCenter
-	 * @return
-	 */
 	public List<BackgroundTile> getTiles(Point viewCenter) {
 		List<BackgroundTile> tiles = new ArrayList<BackgroundTile>();
 
-		int startx = 0;
-		int starty = 0;
-		while (startx < viewCenter.x - PPGUI.WINDOW_WIDTH / 2 - width) {
-			startx += width;
-		}
-		while (starty < viewCenter.y - PPGUI.WINDOW_HEIGHT / 2 - height) {
-			starty += height;
-		}
+		int bufferedLeftBound = computeLeftMostImageBoundary(viewCenter);
+		int bufferedTopBound = computeTopImageBoundary(viewCenter);
+		int bufferedRightBound = PPGUI.WINDOW_WIDTH + bufferedLeftBound;
+		int bufferedBottomBound = PPGUI.WINDOW_HEIGHT + bufferedTopBound;
 
-		for (int i = startx; i <= PPGUI.WINDOW_WIDTH + startx + width; i += width) {
-			for (int j = starty; j <= PPGUI.WINDOW_HEIGHT + starty + height; j += height) {
+		for (int i = bufferedLeftBound; i <= bufferedRightBound; i += tileWidth) {
+			for (int j = bufferedTopBound; j <= bufferedBottomBound; j += tileHeight) {
 				tiles.add(new BackgroundTile(tileImage, new Point(i, j)));
 			}
 		}
-
 		return tiles;
+	}
+
+	private int computeLeftMostImageBoundary(Point viewCenter) {
+		int boundary = 0;
+		while (boundary < viewCenter.x - PPGUI.WINDOW_WIDTH / 2 - tileWidth) {
+			boundary += tileWidth;
+		}
+		while (boundary > viewCenter.x - PPGUI.WINDOW_WIDTH / 2 - tileWidth) {
+			boundary -= tileWidth;
+		}
+		return boundary;
+	}
+
+	private int computeTopImageBoundary(Point viewCenter) {
+		int boundary = 0;
+		while (boundary < viewCenter.y - PPGUI.WINDOW_HEIGHT / 2 - tileHeight) {
+			boundary += tileHeight;
+		}
+		while (boundary > viewCenter.y - PPGUI.WINDOW_HEIGHT / 2 - tileHeight) {
+			boundary -= tileHeight;
+		}
+		return boundary;
 	}
 }
