@@ -24,8 +24,8 @@ public class TileManager {
 
 		int bufferedLeftBound = computeLeftMostImageBoundary(viewCenter);
 		int bufferedTopBound = computeTopImageBoundary(viewCenter);
-		int bufferedRightBound = PPGUI.WINDOW_WIDTH + bufferedLeftBound;
-		int bufferedBottomBound = PPGUI.WINDOW_HEIGHT + bufferedTopBound;
+		int bufferedRightBound = PPGUI.WINDOW_WIDTH + bufferedLeftBound + tileWidth;
+		int bufferedBottomBound = PPGUI.WINDOW_HEIGHT + bufferedTopBound + tileHeight;
 
 		for (int i = bufferedLeftBound; i <= bufferedRightBound; i += tileWidth) {
 			for (int j = bufferedTopBound; j <= bufferedBottomBound; j += tileHeight) {
@@ -36,24 +36,23 @@ public class TileManager {
 	}
 
 	private int computeLeftMostImageBoundary(Point viewCenter) {
-		int boundary = 0;
+		// Hacky, but shouldn't be a problem
+		// for now. This fixes a bug with positive direction scrolling.
+		int boundary = -100 * tileWidth;
 		while (boundary < viewCenter.x - PPGUI.WINDOW_WIDTH / 2 - tileWidth) {
 			boundary += tileWidth;
-		}
-		while (boundary > viewCenter.x - PPGUI.WINDOW_WIDTH / 2 - tileWidth) {
-			boundary -= tileWidth;
 		}
 		return boundary;
 	}
 
 	private int computeTopImageBoundary(Point viewCenter) {
-		int boundary = 0;
+		// Hacky, but shouldn't be a problem
+		// for now. This fixes a bug with positive direction scrolling.
+		int boundary = -100 * tileHeight;
 		while (boundary < viewCenter.y - PPGUI.WINDOW_HEIGHT / 2 - tileHeight) {
 			boundary += tileHeight;
 		}
-		while (boundary > viewCenter.y - PPGUI.WINDOW_HEIGHT / 2 - tileHeight) {
-			boundary -= tileHeight;
-		}
+
 		return boundary;
 	}
 }

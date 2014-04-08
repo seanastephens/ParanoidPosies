@@ -27,6 +27,11 @@ public class TileManagerTest {
 		int screenHeightInTiles = Math.max(PPGUI.WINDOW_HEIGHT / tileHeight, 1);
 		int screenWidthInTiles = Math.max(PPGUI.WINDOW_WIDTH / tileWidth, 1);
 
+		// There is an extra "safety tile added by the TileManager - I am not
+		// sure how to explain that it must be added except that if we don't we
+		// miss tiles on the bottom right.
+		screenHeightInTiles++;
+		screenWidthInTiles++;
 		return screenHeightInTiles * screenWidthInTiles;
 	}
 
