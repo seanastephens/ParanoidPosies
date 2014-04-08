@@ -66,8 +66,21 @@ public class GameBoard implements GameInterface {
 
 	public SoundManager sound;
 
+	/**
+	 * The default constructor: works the same as always, but out-sources to the
+	 * other one.
+	 */
 	public GameBoard() {
-		sound = new SoundManager();
+		this(true);
+	}
+
+	/**
+	 * This constructor allows us turn off music, for testing.
+	 */
+	public GameBoard(boolean shouldStartSong) {
+		if (shouldStartSong) {
+			sound = new SoundManager();
+		}
 		timer = 0;
 		waveSize = INITIAL_WAVE_SIZE;
 		hive = new Hive(this);
@@ -97,7 +110,17 @@ public class GameBoard implements GameInterface {
 
 	public void spawnWave() {
 		Random rando = new Random();
-		Point segP = new Point(centerX /*+ rando.nextInt(1000)-500*/, centerY /*+ rando.nextInt(1000)-500*/);
+		Point segP = new Point(centerX /* + rando.nextInt(1000)-500 */, centerY /*
+																				 * +
+																				 * rando
+																				 * .
+																				 * nextInt
+																				 * (
+																				 * 1000
+																				 * )
+																				 * -
+																				 * 500
+																				 */);
 		Caterpillar d = new SegmentedCaterpillarHead(segP, this);
 		for (int i = 0; i < waveSize; i++) {
 			Point toSpawnAt = null;
