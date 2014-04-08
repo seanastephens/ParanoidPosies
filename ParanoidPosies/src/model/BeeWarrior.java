@@ -23,7 +23,6 @@ public class BeeWarrior extends Bee {
 		Point ranPoint = new Point(board.getHive().getLocation().x + random.nextInt(randomConstant)
 				+ 100, board.getHive().getLocation().x + random.nextInt(randomConstant) + 100);
 
-		this.setObjectiveToNull();
 		this.setStrategy(new GuardStrategy(this, board), ranPoint);
 
 		ImageReg i = ImageReg.getInstance();
@@ -95,16 +94,20 @@ public class BeeWarrior extends Bee {
 	@Override
 	public String getCriticalInfo() {
 		String result = super.getCriticalInfo();
-		result += "\nAttack: " + getAttack() * 2;
+		result += "\nAttack: " + getAttack();
 		return result;
 	}
 
+	public int getImageNumberForTesting(){
+		return imageNumber;
+	}
+	
 	@Override
 	public void update() {
 		Point prev = getLocation();
 		if (this.getStrategy() instanceof GatherStrategy) {
 			this.setStrategy(new MoveStrategy(this, getGameBoard()), getGameBoard()
-					.getHive());
+					.getHive().getLocation());
 		}
 		if (this.getStrategy() != null) {
 			Point temp;
