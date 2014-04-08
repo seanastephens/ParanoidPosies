@@ -11,6 +11,7 @@ import model.Caterpillar;
 import model.GameBoard;
 import model.GatherStrategy;
 import model.GrowthState;
+import model.Hive;
 import model.ImageReg;
 import model.MoveStrategy;
 import model.Posie;
@@ -22,6 +23,7 @@ public class BeeTests {
 	Bee bee = new Bee(new Point(1, 1), new GameBoard(false));
 	Caterpillar cage = new Caterpillar(new Point(0,0), bee.getGameBoard());
 	Posie posie = new Posie(new Point(0,0));
+	Hive hive = new Hive(bee.getGameBoard());
 
 	/*
 	 * Tests getBeeName, getName, setName, and uses buildBeeNamesList
@@ -223,15 +225,20 @@ public class BeeTests {
 		 assertEquals(1, bee.getAttack());
 	}
 	
-	//TODO Finish this test
+	/*
+	 * Tests getNectarBeingHeld, calculateNectarToGet, getNectarToGetForTesting, askFlowerForNectarOrSeeds
+	 * unloadNectarAndSeedsToHive, getSeeds, updateSeeds, setSeeds
+	 */
+	
 	@Test
-	public void nectarTest(){
+	public void nectarAndSeedsTest(){
 		bee.setHP(4);
 		bee.setStrategy(new GatherStrategy(bee, bee.getGameBoard()), posie);
 		bee.setLocation(new Point(0,0));
 		posie.setLocation(new Point(0,0));
 		posie.setCurrentState(GrowthState.Flower);
 		posie.setNectarForTesting(5);
+		assertEquals(5, posie.getNectar());
 		assertEquals(0, bee.getNectarBeingHeld());
 		bee.calculateNectarToGet();
 		assertEquals(10, bee.getNectarToGetForTesting());
@@ -239,6 +246,29 @@ public class BeeTests {
 		assertEquals(5, bee.getNectarBeingHeld());
 		bee.calculateNectarToGet();
 		assertEquals(5, bee.getNectarToGetForTesting());
+		assertEquals(0, posie.getNectar());
+		posie.setNectarForTesting(5);
+		bee.askFlowerForNectarOrSeeds();
+		bee.calculateNectarToGet();
+		assertEquals(10, bee.getNectarBeingHeld());
+		assertEquals(0, bee.getNectarToGetForTesting());
+		posie.setHP(0);
+		hive.setLocation(new Point(1,1));
+		bee.setLocation(new Point(1,1));
+		bee.unloadNectarAndSeedsToHive();
+		assertEquals(0, bee.getNectarBeingHeld());
+		bee.setLocation(new Point(0,0));
+		posie.setSeedsForTesting(3);
+		bee.askFlowerForNectarOrSeeds();
+		assertEquals(3, bee.getSeeds());
+		assertEquals(0, posie.getSeeds());
+		bee.updateSeeds(2);
+		assertEquals(5, bee.getSeeds());
+		bee.setLocation(new Point(1,1));
+		bee.unloadNectarAndSeedsToHive();
+		assertEquals(0, bee.getSeeds());;
+		bee.setSeeds(4);
+		assertEquals(4, bee.getSeeds());
 	}
 	
 }

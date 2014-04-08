@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTotalHP {
 
-	private int nector, nectarToGet, maxNectar, beeAttackDamage, seeds;
+	private int nectar, nectarToGet, maxNectar, beeAttackDamage, seeds;
 
 	/*
 	 * Image GUI related variables
@@ -42,7 +42,7 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		 * Set initial values specific to Bee
 		 */
 
-		nector = 0;
+		nectar = 0;
 		seeds = 0;
 		maxNectar = 10;
 		beeAttackDamage = 1;
@@ -133,7 +133,7 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 	@Override
 	public String getCriticalInfo() {
 		String result = super.getCriticalInfo();
-		result += "Nectar=" + nector + "<br>Seeds=" + seeds;
+		result += "Nectar=" + nectar + "<br>Seeds=" + seeds;
 		return result;
 	}
 
@@ -190,13 +190,13 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 
 	// Query to get amount of nector the bee is holding.
 	public int getNectarBeingHeld() {
-		return nector;
+		return nectar;
 	}
 
 	// Use this method to ask the bee how much nectar it's holding.
 	public void calculateNectarToGet() {
-		if (nector < maxNectar) {
-			nectarToGet = maxNectar - nector;
+		if (nectar < maxNectar) {
+			nectarToGet = maxNectar - nectar;
 		} else {
 			nectarToGet = 0;
 		}
@@ -216,14 +216,14 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		} else {
 
 			calculateNectarToGet();
-			nector += ((Posie) getObjectiveThing()).takeNectar(nectarToGet);
+			nectar += ((Posie) getObjectiveThing()).takeNectar(nectarToGet);
 		}
 	}
 
 	public void unloadNectarAndSeedsToHive() {
-		this.getGameBoard().getHive().updateNector(nector);
-		this.getGameBoard().getHive().updateSeeds(seeds);
-		unloadNectar();
+		getGameBoard().getHive().updateNector(nectar);
+		getGameBoard().getHive().updateSeeds(seeds);
+		nectar = 0;
 		setSeeds(0);
 	}
 
@@ -237,12 +237,6 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 
 	public void updateSeeds(int value) {
 		seeds += value;
-	}
-
-	// Use this method to have the bee "drop" its nectar. Resets the amount of
-	// nector being held.
-	public void unloadNectar() {
-		nector = 0;
 	}
 
 	@Override

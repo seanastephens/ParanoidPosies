@@ -160,6 +160,10 @@ public class Posie extends Plant {
 		return temp;
 	}
 	
+	public void setSeedsForTesting(int seeds){
+		seedsDropped = seeds;
+	}
+	
 	// If the flower has bloomed, and the nectar is not yet at capacity,
 	// increase
 	// the nectar at a rate of 1 per second
