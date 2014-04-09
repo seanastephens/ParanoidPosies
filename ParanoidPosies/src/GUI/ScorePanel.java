@@ -43,7 +43,7 @@ public class ScorePanel extends JPanel {
 		levelLabel = new JLabel();
 		scoreLabel = new JLabel();
 
-		warriorButton = new JButton("WARRIOR! (" + game.hive.honeyCostToBuildAWarriorBee + ")");
+		warriorButton = new JButton("WARRIOR! (" + game.hive.getHoneyCostToBuildABeeWarrior() + ")");
 		warriorButton.addActionListener(new WarriorListener());
 
 		add(timeLabel);

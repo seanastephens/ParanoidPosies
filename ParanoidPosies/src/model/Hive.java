@@ -17,11 +17,11 @@ public class Hive implements Thing {
 	private int timer;
 
 	private final int timeToBuildABee = 5 * PPGUI.UPDATES_PER_SEC;
-	public final int honeyCostToBuildABee = 10;
-	public final int honeyCostToBuildAWarriorBee = 20;
+	private final int honeyCostToBuildABee = 10;
+	private final int honeyCostToBuildAWarriorBee = 20;
 	private boolean beeProduction;
 	private int beesToMake;
-	public static String HIVE_NAME = "Hive";
+	private static String HIVE_NAME = "Hive";
 	private int seeds;
 	private GameBoard game;
 
@@ -85,6 +85,10 @@ public class Hive implements Thing {
 			game.spawnAWarrior();
 			honey -= honeyCostToBuildAWarriorBee;
 		}
+	}
+	
+	public int getHoneyCostToBuildABeeWarrior(){
+		return honeyCostToBuildAWarriorBee;
 	}
 
 	public int getBeesToMake() {
