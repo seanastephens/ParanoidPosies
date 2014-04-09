@@ -382,4 +382,31 @@ public class GameBoard implements GameInterface {
 	public int getScore() {
 		return totalScore + timer / PPGUI.UPDATES_PER_SEC;
 	}
+
+	public Thing getClosest(Class<? extends Thing> type, Point from) {
+		double minDistance = Double.MAX_VALUE;
+		Thing closest = null;
+		for (Thing aThing : things) {
+			if (aThing.getClass().equals(type)) {
+				if (from.distanceSq(aThing.getLocation()) < minDistance) {
+					minDistance = from.distanceSq(aThing.getLocation());
+					closest = aThing;
+				}
+			}
+		}
+		return closest;
+	}
+
+	public Thing getRandom(Class<? extends Thing> type) {
+		List<Thing> classMatches = new ArrayList<Thing>();
+		for (Thing aThing : things) {
+			if (aThing.getClass().equals(type)) {
+				classMatches.add(aThing);
+			}
+		}
+		if (classMatches.size() == 0) {
+			return null;
+		}
+		return classMatches.get(new Random().nextInt(classMatches.size()));
+	}
 }
