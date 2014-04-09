@@ -9,8 +9,6 @@ public class BeeWarrior extends Bee {
 	private int imageNumber = 0;
 	private int state = 0;
 	private Image[][][] images = new Image[2][8][3];
-	
-	
 
 	public BeeWarrior(Point location, GameBoard board) {
 		super(location, board);
@@ -92,22 +90,20 @@ public class BeeWarrior extends Bee {
 	}
 
 	@Override
-	public String getCriticalInfo() {
-		String result = super.getCriticalInfo();
-		result += "\nAttack: " + getAttack();
-		return result;
+	public String getHTMLDescription() {
+		return super.getHTMLDescription() + "<br>Has " + getAttack() + " attack.";
 	}
 
-	public int getImageNumberForTesting(){
+	public int getImageNumberForTesting() {
 		return imageNumber;
 	}
-	
+
 	@Override
 	public void update() {
 		Point prev = getLocation();
 		if (this.getStrategy() instanceof GatherStrategy) {
-			this.setStrategy(new MoveStrategy(this, getGameBoard()), getGameBoard()
-					.getHive().getLocation());
+			this.setStrategy(new MoveStrategy(this, getGameBoard()), getGameBoard().getHive()
+					.getLocation());
 		}
 		if (this.getStrategy() != null) {
 			Point temp;

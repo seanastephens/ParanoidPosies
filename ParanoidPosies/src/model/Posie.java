@@ -35,17 +35,18 @@ public class Posie extends Plant {
 			"forRealThoughItsAPosie");
 	public static final Image DEAD_FLOWER_IMAGE = ImageReg.getInstance().getImageFromStr(
 			"ISwearToGodThisOneIsAnHonestToGodLegitimatePosie");
-	
+
 	private static final String SEED_ACTION = "Beginning life.";
 	private static final String SEEDLING_ACTION = "Growing up big and strong.";
 	private static final String FLOWER_ACTION = "Enjoying sunshine, brother.";
-	private static final String DEAD_FLOWER_ACTION = "Flower is kill.";
+	private static final String DEAD_FLOWER_ACTION = "Flower is dead.";
 
 	private int currentNectar = 0;
-	private int timer = 0;// Start life at 0, will be incremented by one each time update is called
+	private int timer = 0;// Start life at 0, will be incremented by one each
+							// time update is called
 	private int seedsDropped = 0;
 	private boolean hasBloomed = false;
-	
+
 	private List<String> nameList;
 	private Image justPlantedImage;
 	private Image seedlingImage;
@@ -89,8 +90,9 @@ public class Posie extends Plant {
 		}
 	}
 
-	public String getCriticalInfo() {
-		String temp = "";
+	@Override
+	public String getHTMLDescription() {
+		String temp = super.getHTMLDescription() + "<br>";
 		switch (getCurrentState()) {
 		case JustPlanted:
 			temp += SEED_ACTION;
@@ -105,7 +107,7 @@ public class Posie extends Plant {
 			temp += DEAD_FLOWER_ACTION;
 			break;
 		}
-		temp += " (" + seedsDropped + " seeds and " + currentNectar + " nectar).";
+		temp += "<br>(" + seedsDropped + " seeds and " + currentNectar + " nectar).";
 		return temp;
 	}
 
@@ -123,7 +125,7 @@ public class Posie extends Plant {
 		Collections.shuffle(nameList);
 		return nameList.get(0);
 	}
-	
+
 	@Override
 	public void grow() {
 
@@ -159,31 +161,32 @@ public class Posie extends Plant {
 		setShouldBeCleanedUp(true);
 		return temp;
 	}
-	
-	public void setSeedsForTesting(int seeds){
+
+	public void setSeedsForTesting(int seeds) {
 		seedsDropped = seeds;
 	}
-	
+
 	// If the flower has bloomed, and the nectar is not yet at capacity,
 	// increase
 	// the nectar at a rate of 1 per second
 	@Override
 	public void replenishNectar() {
-		if (hasBloomed && getCurrentState() == GrowthState.Flower && timer % PPGUI.UPDATES_PER_SEC == 0
-				&& currentNectar < posie_max_nectar && !isDead()) {
+		if (hasBloomed && getCurrentState() == GrowthState.Flower
+				&& timer % PPGUI.UPDATES_PER_SEC == 0 && currentNectar < posie_max_nectar
+				&& !isDead()) {
 			currentNectar++;
 		}
 	}
 
-	public void setNectarForTesting(int newNectar){
+	public void setNectarForTesting(int newNectar) {
 		currentNectar = newNectar;
 	}
-	
+
 	// return how much nectar this plant has
 	public int getNectar() {
 		return currentNectar;
 	}
-	
+
 	public int takeNectar(int reduceBy) {
 		if (currentNectar >= reduceBy) {
 			currentNectar -= reduceBy;
@@ -194,16 +197,16 @@ public class Posie extends Plant {
 			return temp;
 		}
 	}
-	
+
 	@Override
-	public boolean isDead(){
+	public boolean isDead() {
 		boolean deathStatus = super.isDead();
-		if(deathStatus == true){
+		if (deathStatus == true) {
 			currentNectar = 0;
 		}
 		return deathStatus;
 	}
-	
+
 	@Override
 	public void update() {
 		timer++;

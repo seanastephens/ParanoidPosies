@@ -131,10 +131,9 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 	}
 
 	@Override
-	public String getCriticalInfo() {
-		String result = super.getCriticalInfo();
-		result += "Nectar=" + nectar + "<br>Seeds=" + seeds;
-		return result;
+	public String getHTMLDescription() {
+		return super.getHTMLDescription() + "<br>" + "Carrying " + getNectarBeingHeld()
+				+ " nectar and " + getSeeds() + " seeds.<br>Has " + getHP() + " HP.";
 	}
 
 	public int getImageNumberForTesting() {
@@ -192,8 +191,8 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 	public int getNectarBeingHeld() {
 		return nectar;
 	}
-	
-	public void setNectarBeingHeldForTesting(int nectarValue){
+
+	public void setNectarBeingHeldForTesting(int nectarValue) {
 		nectar = nectarValue;
 	}
 
@@ -206,10 +205,10 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		}
 	}
 
-	public int getNectarToGetForTesting(){
+	public int getNectarToGetForTesting() {
 		return nectarToGet;
 	}
-	
+
 	public void askFlowerForNectarOrSeeds() {
 		if (!(getObjectiveThing() instanceof Plant)) {
 			throw new IllegalStateException("Can't get nectar from :"

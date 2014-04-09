@@ -52,12 +52,9 @@ public class Hive implements Thing {
 		return isDead();
 	}
 
-	public String getCriticalInfo() {
-		return "Has " + getNector() + " nectar and " + getSeeds() + " seeds";
-	}
-
-	public String getType() {
-		return this.getClass().getSimpleName();
+	public String getHTMLDescription() {
+		return "Its the Hive!<br>It has " + getNector() + " nectar, " + getHoney() + " honey, and "
+				+ getSeeds() + " seeds";
 	}
 
 	public String getName() {

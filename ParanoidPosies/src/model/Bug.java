@@ -166,55 +166,50 @@ public abstract class Bug implements Thing {
 		}
 	}
 
-	public String getCriticalInfo() {
-		String result = "";
-		result += "HP=" + this.getHP() + " ";
-		return result;
-	}
-
 	@Override
 	public int getLayer() {
 		return layer;
 	}
 
 	@Override
-	public String getType() {
-		return getClass().getSimpleName();
+	public String getHTMLDescription() {
+		return getName() + ", a " + getClass().getSimpleName();
 	}
 
 	/*
-	 * Since things don't teleport, this is where decisions are made on which pixel to move to next.
-	 * Because Random(int) goes from zero inclusive to some int exclusive.
-	 * Before we had Random(int)+1 which would always return 1 defeating the purpose.
-	 * The effect now is that for every 1 speed a Bug has the potential to move between 0 to 2 pixels without spazzing.
-	 * When you set speed now think of it as an average speed for the bug.
+	 * Since things don't teleport, this is where decisions are made on which
+	 * pixel to move to next. Because Random(int) goes from zero inclusive to
+	 * some int exclusive. Before we had Random(int)+1 which would always return
+	 * 1 defeating the purpose. The effect now is that for every 1 speed a Bug
+	 * has the potential to move between 0 to 2 pixels without spazzing. When
+	 * you set speed now think of it as an average speed for the bug.
 	 */
-	public void move(Point endLocation) {	
+	public void move(Point endLocation) {
 		int moveConstant = 1;
- 		int randomConstant = 2; 
-  		Random rand = new Random();
- 		for(int i = 0; i < 3; i++){
- 			Point place = new Point(this.getLocation().x, this.getLocation().y);
-  			if (!this.getLocation().equals(endLocation)) {
-  				if (this.getLocation().x < endLocation.x) {
-  					place.x += moveConstant;
-  				}
-  				if (this.getLocation().x > endLocation.x) {
-  					place.x -= moveConstant;
-  				}
-  				if (this.getLocation().y < endLocation.y) {
-  					place.y += moveConstant;
-  				}
-  				if (this.getLocation().y > endLocation.y) {
-  					place.y -= moveConstant;
-  				}
- 				int randNum = rand.nextInt(randomConstant);
- 				if(randNum == 0){
- 					place = this.getLocation();
- 				}
- 				this.setLocation(place);
-  			}
- 		}
+		int randomConstant = 2;
+		Random rand = new Random();
+		for (int i = 0; i < 3; i++) {
+			Point place = new Point(this.getLocation().x, this.getLocation().y);
+			if (!this.getLocation().equals(endLocation)) {
+				if (this.getLocation().x < endLocation.x) {
+					place.x += moveConstant;
+				}
+				if (this.getLocation().x > endLocation.x) {
+					place.x -= moveConstant;
+				}
+				if (this.getLocation().y < endLocation.y) {
+					place.y += moveConstant;
+				}
+				if (this.getLocation().y > endLocation.y) {
+					place.y -= moveConstant;
+				}
+				int randNum = rand.nextInt(randomConstant);
+				if (randNum == 0) {
+					place = this.getLocation();
+				}
+				this.setLocation(place);
+			}
+		}
 	}
 
 	public Thing getClosestPosie() {

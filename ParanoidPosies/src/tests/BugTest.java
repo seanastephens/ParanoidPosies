@@ -34,13 +34,12 @@ public class BugTest {
 		assertTrue(bug.shouldBeCleanedUp());
 		assertEquals(null, bug.getGameBoard());
 		assertEquals(0, bug.getMaxHP());
+		assertTrue(bug.getHTMLDescription().length() > 0);
 
 		// These tests *could* change if we make significant changes to the
 		// layout of the game. In other words, failing these tests might
 		// indicate breakage *or* it could just indicate a big game change.
 		assertEquals(1, bug.getLayer());
-		assertEquals("MockBug", bug.getType());
-		assertEquals("HP=0 ", bug.getCriticalInfo());
 		assertEquals("ABSTRACT CLASS BUG DEFAULT NAME", bug.getName());
 		assertEquals(1, bug.getSpeed());
 	}

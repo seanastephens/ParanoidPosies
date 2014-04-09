@@ -21,22 +21,20 @@ public abstract class Plant implements Thing {
 		shouldBeCleanedUp = false;
 	}
 
-	public abstract String getCriticalInfo();
-
-	public String getType() {
-		return this.getClass().getSimpleName();
+	public String getHTMLDescription() {
+		return getName() + ", a " + getClass().getSimpleName();
 	}
 
-	public GrowthState getCurrentState(){
+	public GrowthState getCurrentState() {
 		return currentState;
 	}
-	
-	public void setCurrentState(GrowthState newState){
+
+	public void setCurrentState(GrowthState newState) {
 		currentState = newState;
 	}
-	
+
 	@Override
-	public void updateHP(int valueToAdjustBy){
+	public void updateHP(int valueToAdjustBy) {
 		hp += valueToAdjustBy;
 	}
 
@@ -88,10 +86,10 @@ public abstract class Plant implements Thing {
 
 	public abstract void grow();
 
-	public void setShouldBeCleanedUp(boolean value){
+	public void setShouldBeCleanedUp(boolean value) {
 		shouldBeCleanedUp = value;
 	}
-	
+
 	public boolean shouldBeCleanedUp() {
 		return shouldBeCleanedUp;
 	}
@@ -117,15 +115,15 @@ public abstract class Plant implements Thing {
 	public void setName(String newName) {
 		name = newName;
 	}
-	
+
 	@Override
-	public String getName(){
+	public String getName() {
 		return name;
 	}
-	
+
 	@Override
-	public void setLayer(int newLayer){
+	public void setLayer(int newLayer) {
 		layer = newLayer;
 	}
-	
+
 }

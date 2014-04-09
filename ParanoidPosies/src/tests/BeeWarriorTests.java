@@ -18,13 +18,12 @@ import model.Posie;
 import org.junit.Test;
 
 public class BeeWarriorTests {
-	
-	
-	BeeWarrior bee = new BeeWarrior(new Point(0,0), new GameBoard());
-	Caterpillar cage = new Caterpillar(new Point(0,0), bee.getGameBoard());
-	Posie posie = new Posie(new Point(0,0));
+
+	BeeWarrior bee = new BeeWarrior(new Point(0, 0), new GameBoard());
+	Caterpillar cage = new Caterpillar(new Point(0, 0), bee.getGameBoard());
+	Posie posie = new Posie(new Point(0, 0));
 	Hive hive = new Hive(bee.getGameBoard());
-	
+
 	@Test
 	public void testGetImage() {
 		ImageReg i = ImageReg.getInstance();
@@ -33,16 +32,16 @@ public class BeeWarriorTests {
 		bee.setSelected(true);
 		assertTrue(bee.getImage().equals(i.getImageFromStr("BeeWarriorS00")));
 	}
-	
-    // Starting point 1,1
-    @Test
-    public void testUpdate() {
+
+	// Starting point 1,1
+	@Test
+	public void testUpdate() {
 		// Use the following commented out lines to help debug when this test
 		// fails.
 		// System.out.println(bee.getLocation().toString() +
 		// bee.getObjectivePoint().toString());
-		//System.out.println("\n\ntestBeeUpdate():\n\n");
-		//System.out.println(System.currentTimeMillis());
+		// System.out.println("\n\ntestBeeUpdate():\n\n");
+		// System.out.println(System.currentTimeMillis());
 		bee.setLocation(new Point(10, 10));
 		bee.setStrategy(new MoveStrategy(bee, bee.getGameBoard()), new Point(200, 10));
 		for (int i = 0; i < 50; i++) {
@@ -125,8 +124,8 @@ public class BeeWarriorTests {
 			// bee.getObjectivePoint().toString());
 		assertEquals(2, bee.getImageNumberForTesting());
 		// System.out.println("Passed movement right and up test");
-		//System.out.println(System.currentTimeMillis());
-		
+		// System.out.println(System.currentTimeMillis());
+
 		bee.setLocation(new Point(0, 0));
 		bee.setObjectivePoint(new Point(200, -200));
 		for (int i = 0; i < 50; i++) {
@@ -135,44 +134,38 @@ public class BeeWarriorTests {
 			// bee.getObjectivePoint().toString());
 		assertEquals(1, bee.getImageNumberForTesting());
 		// System.out.println("Passed movement right and up test");
-		//System.out.println(System.currentTimeMillis());
-		
-		
+		// System.out.println(System.currentTimeMillis());
+
 		bee.setStrategy(new GatherStrategy(bee, bee.getGameBoard()), posie);
 		assertTrue(bee.getStrategy() instanceof GatherStrategy);
 		bee.update();
 		assertFalse(bee.getStrategy() instanceof GatherStrategy);
 		assertTrue(bee.getStrategy() instanceof MoveStrategy);
 	}
-    
+
 	/*
 	 * Tests getAttack, setAttack, upgradeAttack and attack
 	 */
-	
+
 	@Test
-	public void attackTest(){
-		bee.setLocation(new Point(0,0));
-		 assertEquals(2, bee.getAttack());
-		 bee.setAttack(4);
-		 assertEquals(4, bee.getAttack());
-		 bee.attack(cage);
-		 //assertTrue(bee.isDead());
-		 assertEquals(-1, cage.getHP());
-		 bee.upgradeAttack(-1);
-		 assertEquals(3, bee.getAttack());
-		 cage.setHP(10);
-		 bee.attack(cage);
-		 assertEquals(7, cage.getHP());
-		 assertTrue(bee.isDead());
+	public void attackTest() {
+		bee.setLocation(new Point(0, 0));
+		assertEquals(2, bee.getAttack());
+		bee.setAttack(4);
+		assertEquals(4, bee.getAttack());
+		bee.attack(cage);
+		// assertTrue(bee.isDead());
+		assertEquals(-1, cage.getHP());
+		bee.upgradeAttack(-1);
+		assertEquals(3, bee.getAttack());
+		cage.setHP(10);
+		bee.attack(cage);
+		assertEquals(7, cage.getHP());
+		assertTrue(bee.isDead());
 	}
-	
+
 	@Test
-	public void testGetCriticalInfo(){
-		bee.setHP(2);
-		bee.setNectarBeingHeldForTesting(3);
-		bee.setSeeds(4);
-		bee.setAttack(5);
-		//System.out.println(bee.getCriticalInfo());
-		assertTrue(bee.getCriticalInfo().equals("HP=2 Nectar=3<br>Seeds=4\nAttack: 5"));
+	public void testGetHTMLDescription() {
+		assertTrue(bee.getHTMLDescription().length() > 0);
 	}
 }

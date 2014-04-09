@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
 
@@ -48,6 +49,12 @@ public class PosieTests {
 		assertEquals(GrowthState.DeadFlower, p.getCurrentState());
 		assertEquals(0, p.getNectar());
 
+	}
+
+	@Test
+	public void testGetHTMLDescription() {
+		Posie p = new Posie(new Point(1, 1));
+		assertTrue(p.getHTMLDescription().length() > 0);
 	}
 
 }
