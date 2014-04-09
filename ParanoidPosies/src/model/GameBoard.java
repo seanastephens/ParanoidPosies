@@ -52,8 +52,6 @@ public class GameBoard implements GameInterface {
 	public static final int WAVE_INTERVAL = 120 * PPGUI.UPDATES_PER_SEC;
 	public static final int SPAWN_INTERVAL = 10;
 
-	private static final int HITLER_TIME = 120 * PPGUI.UPDATES_PER_SEC;
-
 	private static final int HITLER_PROB_RANGE = 50;
 	private static final int HITLER_PROB = 2;
 	private static final String HITLER_MESSAGE = "ULTRA HYPER GIGA MECHA HITLER has just appeared! Are you a bad enough dude to stop him?";
@@ -109,19 +107,6 @@ public class GameBoard implements GameInterface {
 	}
 
 	public void spawnWave() {
-		Random rando = new Random();
-		Point segP = new Point(centerX /* + rando.nextInt(1000)-500 */, centerY /*
-																				 * +
-																				 * rando
-																				 * .
-																				 * nextInt
-																				 * (
-																				 * 1000
-																				 * )
-																				 * -
-																				 * 500
-																				 */);
-		Caterpillar d = new SegmentedCaterpillarHead(segP, this);
 		for (int i = 0; i < waveSize; i++) {
 			Point toSpawnAt = null;
 			Random rand = new Random();
