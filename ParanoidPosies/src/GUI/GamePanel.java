@@ -300,7 +300,7 @@ public class GamePanel extends JPanel {
 		for (Thing actor : selected) {
 			if (actor instanceof Bee) {
 				Bee bee = ((Bee) actor);
-				bee.setStrategy(new FightStrategy(bee, (GameBoard) game), target);
+				bee.setStrategy(new FightStrategy(bee), target);
 			}
 		}
 	}
@@ -309,7 +309,7 @@ public class GamePanel extends JPanel {
 		for (Thing actor : selected) {
 			if (actor instanceof Bee) {
 				Bee bee = ((Bee) actor);
-				bee.setStrategy(new GatherStrategy(bee, (GameBoard) game), target);
+				bee.setStrategy(new GatherStrategy(bee), target);
 			}
 		}
 	}
@@ -318,7 +318,7 @@ public class GamePanel extends JPanel {
 		for (Thing actor : selected) {
 			if (actor instanceof Bee) {
 				Bee bee = ((Bee) actor);
-				bee.setStrategy(new GuardStrategy(bee, (GameBoard) game), point);
+				bee.setStrategy(new GuardStrategy(bee), point);
 			}
 		}
 	}

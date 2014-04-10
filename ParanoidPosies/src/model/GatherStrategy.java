@@ -7,9 +7,9 @@ public class GatherStrategy implements BugStrategy {
 	private Bug bug;
 	private GameBoard board;
 
-	public GatherStrategy(Bug bug, GameBoard board) {
+	public GatherStrategy(Bug bug) {
 		this.bug = bug;
-		this.board = board;
+		this.board = GameBoard.getBoard();
 	}
 
 	@Override

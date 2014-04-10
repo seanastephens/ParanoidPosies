@@ -5,9 +5,9 @@ public class FightStrategy implements BugStrategy {
 	private Bug bug;
 	private GameBoard board;
 
-	public FightStrategy(Bug bug, GameBoard board) {
+	public FightStrategy(Bug bug) {
 		this.bug = bug;
-		this.board = board;
+		this.board = GameBoard.getBoard();
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class FightStrategy implements BugStrategy {
 				&& bug.getLocation().equals(bug.getObjectiveThing().getLocation())) {
 			bug.attack(bug.getObjectiveThing());
 		} else if (bug.getObjectiveThing().isDead() && bug instanceof Bee) {
-			bug.setStrategy(new MoveStrategy(bug, board), board.getHive());
+			bug.setStrategy(new MoveStrategy(bug), board.getHive());
 		}
 
 	}

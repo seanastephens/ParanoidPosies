@@ -116,7 +116,7 @@ public class BeeTests {
 		System.out.println("\n\ntestBeeUpdate():\n\n");
 		System.out.println(System.currentTimeMillis());
 		bee.setLocation(new Point(10, 10));
-		bee.setStrategy(new MoveStrategy(bee, bee.getGameBoard()), new Point(200, 10));
+		bee.setStrategy(new MoveStrategy(bee), new Point(200, 10));
 		for (int i = 0; i < 50; i++) {
 			bee.update();
 		}
@@ -237,7 +237,7 @@ public class BeeTests {
 	@Test(expected = IllegalStateException.class)
 	public void nectarAndSeedsTest() {
 		bee.setHP(4);
-		bee.setStrategy(new GatherStrategy(bee, bee.getGameBoard()), posie);
+		bee.setStrategy(new GatherStrategy(bee), posie);
 		bee.setLocation(new Point(0, 0));
 		posie.setLocation(new Point(0, 0));
 		posie.setCurrentState(GrowthState.Flower);

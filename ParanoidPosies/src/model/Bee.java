@@ -36,7 +36,7 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		setSpeed(2);
 		setLocation(location);
 		giveNewRandomName();
-		setStrategy(new GatherStrategy(this, board), board.getClosest(Posie.class, getLocation()));
+		setStrategy(new GatherStrategy(this), board.getClosest(Posie.class, getLocation()));
 
 		/*
 		 * Set initial values specific to Bee

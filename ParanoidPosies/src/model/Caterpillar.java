@@ -31,8 +31,7 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 		this.setUpNameList();
 		giveNewRandomName();
 
-		this.setStrategy(new FightStrategy(this, gameboard),
-				gameboard.getClosest(Posie.class, getLocation()));
+		this.setStrategy(new FightStrategy(this), gameboard.getClosest(Posie.class, getLocation()));
 	}
 
 	public void makeHitler() {

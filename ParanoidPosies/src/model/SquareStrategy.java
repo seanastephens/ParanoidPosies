@@ -9,9 +9,9 @@ public class SquareStrategy implements BugStrategy {
 	private GameBoard board;
 	private Bug bug;
 
-	public SquareStrategy(Bug bug, GameBoard board) {
+	public SquareStrategy(Bug bug) {
 		this.bug = bug;
-		this.board = board;
+		this.board = GameBoard.getBoard();
 		if (bug.getLocation().equals(bug.getObjectivePoint())) {
 			bug.setObjectivePoint(new Point(bug.getLocation().x + SQUARE_CONST, bug.getLocation().y
 					+ SQUARE_CONST));

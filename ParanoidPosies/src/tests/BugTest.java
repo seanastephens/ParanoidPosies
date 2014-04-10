@@ -70,7 +70,7 @@ public class BugTest {
 	public void testStrategyObjGetSet() {
 		Bug bug = new MockBug();
 		Thing testThing = new MockBug();
-		BugStrategy testStrat = new SquareStrategy(bug, null);
+		BugStrategy testStrat = new SquareStrategy(bug);
 
 		assertEquals(null, bug.getStrategy());
 		bug.setStrategy(testStrat, testThing);
@@ -81,7 +81,7 @@ public class BugTest {
 	public void testStrategyPointGetSet() {
 		Bug bug = new MockBug();
 		Point testPoint = new Point(1, 2);
-		BugStrategy testStrat = new SquareStrategy(bug, null);
+		BugStrategy testStrat = new SquareStrategy(bug);
 
 		assertEquals(null, bug.getStrategy());
 		bug.setStrategy(testStrat, testPoint);

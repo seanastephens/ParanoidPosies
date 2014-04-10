@@ -9,9 +9,9 @@ public class GuardStrategy implements BugStrategy {
 	private GameBoard board;
 	private Point rally;
 
-	public GuardStrategy(Bug bug, GameBoard board) {
+	public GuardStrategy(Bug bug) {
 		this.bug = bug;
-		this.board = board;
+		this.board = GameBoard.getBoard();
 	}
 
 	@Override

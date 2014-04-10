@@ -1,15 +1,15 @@
 package model;
 
-public class IdleStrategy implements BugStrategy{
+public class IdleStrategy implements BugStrategy {
 
 	private Bug bug;
 	private GameBoard board;
 
-	public IdleStrategy(Bug bug, GameBoard board) {
+	public IdleStrategy(Bug bug) {
 		this.bug = bug;
-		this.board = board;
+		this.board = GameBoard.getBoard();
 	}
-	
+
 	@Override
 	public void doNextAction() {
 		bug.setObjectivePoint(board.getHive().getLocation());
@@ -17,5 +17,5 @@ public class IdleStrategy implements BugStrategy{
 			bug.move(bug.getObjectiveThing().getLocation());
 		}
 	}
-	
+
 }

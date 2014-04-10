@@ -43,7 +43,7 @@ public class BeeWarriorTests {
 		// System.out.println("\n\ntestBeeUpdate():\n\n");
 		// System.out.println(System.currentTimeMillis());
 		bee.setLocation(new Point(10, 10));
-		bee.setStrategy(new MoveStrategy(bee, bee.getGameBoard()), new Point(200, 10));
+		bee.setStrategy(new MoveStrategy(bee), new Point(200, 10));
 		for (int i = 0; i < 50; i++) {
 			bee.update();
 		}
@@ -136,7 +136,7 @@ public class BeeWarriorTests {
 		// System.out.println("Passed movement right and up test");
 		// System.out.println(System.currentTimeMillis());
 
-		bee.setStrategy(new GatherStrategy(bee, bee.getGameBoard()), posie);
+		bee.setStrategy(new GatherStrategy(bee), posie);
 		assertTrue(bee.getStrategy() instanceof GatherStrategy);
 		bee.update();
 		assertFalse(bee.getStrategy() instanceof GatherStrategy);
