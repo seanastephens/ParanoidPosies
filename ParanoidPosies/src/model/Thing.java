@@ -40,4 +40,6 @@ public interface Thing {
 	public String getHTMLDescription();
 
 	public boolean shouldBeCleanedUp();
+
+	public boolean contains(Point point);
 }

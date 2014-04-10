@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,12 +20,7 @@ import model.FightStrategy;
 import model.GameBoard;
 import model.GatherStrategy;
 import model.GuardStrategy;
-import model.Hive;
-import model.ImageReg;
 import model.Plant;
-import model.Posie;
-import model.SegmentedCaterpillarBody;
-import model.SegmentedCaterpillarHead;
 import model.Thing;
 
 public class GamePanel extends JPanel {
@@ -37,7 +33,7 @@ public class GamePanel extends JPanel {
 	public static int SCROLL_SPEED = 10;
 
 	private GameInterface game;
-	private Point view = new Point(2500, 2500);
+	private Point view = new Point(0, 0);
 	protected JPanel popup;
 	private TileManager tileManager = new TileManager();
 
@@ -86,8 +82,7 @@ public class GamePanel extends JPanel {
 		}
 
 		for (BackgroundTile b : tileManager.getTiles(view)) {
-			Point p = new Point(b.getLocation().x - view.x + PPGUI.WINDOW_WIDTH / 2,
-					b.getLocation().y - view.y + PPGUI.WINDOW_HEIGHT / 2);
+			Point p = translateFromRealToScreen(b.getLocation());
 			g2.drawImage(b.getImage(), p.x, p.y, null);
 		}
 
@@ -107,11 +102,9 @@ public class GamePanel extends JPanel {
 	}
 
 	private void drawThing(Graphics g, Thing t) {
-		int x = t.getLocation().x - view.x + PPGUI.WINDOW_WIDTH / 2 - t.getImage().getWidth(null)
-				/ 2;
-		int y = t.getLocation().y - view.y + PPGUI.WINDOW_HEIGHT / 2 - t.getImage().getHeight(null)
-				/ 2;
-
+		Point point = translateFromRealToScreen(t.getLocation());
+		int x = point.x - t.getImage().getWidth(null) / 2;
+		int y = point.y - t.getImage().getHeight(null) / 2;
 		g.drawImage(t.getImage(), x, y, null);
 	}
 
@@ -162,13 +155,9 @@ public class GamePanel extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 
-			int x = e.getPoint().x - PPGUI.WINDOW_WIDTH / 2 + view.x;
-			int y = e.getPoint().y - PPGUI.WINDOW_HEIGHT / 2 + view.y;
-			Point clickedPoint = new Point(x, y);
-			List<Thing> allAtPoint = game.getThingsBetween(x - SELECT_MARGIN, y - SELECT_MARGIN, x
-					+ SELECT_MARGIN, y + SELECT_MARGIN);
-
-			List<Thing> atPoint = pruneListForPoint(allAtPoint, clickedPoint);
+			Point realSpacePoint = translateFromScreenToReal(e.getPoint());
+			List<Thing> allAtPoint = game.getAllThingsOnBoard();
+			List<Thing> atPoint = pruneListForPoint(allAtPoint, realSpacePoint);
 
 			if (selected.size() == 0) {
 
@@ -185,7 +174,7 @@ public class GamePanel extends JPanel {
 					add(popup);
 				} else if (popup == null) {
 					if (game.getHive().getSeeds() >= 0) {
-						popup = new PlantMenu((GameBoard) game, new Point(x, y));
+						popup = new PlantMenu((GameBoard) game, realSpacePoint);
 						popup.setLocation(e.getPoint());
 						lastSelection++;
 						add(popup);
@@ -207,10 +196,7 @@ public class GamePanel extends JPanel {
 				}
 				selected.clear();
 			} else { // selected.size == 0
-				Point point = e.getPoint();
-				point = new Point(point.x + view.x - PPGUI.WINDOW_WIDTH / 2, point.y + view.y
-						- PPGUI.WINDOW_HEIGHT / 2);
-				tellAllSelectedToGaurd(point);
+				tellAllSelectedToGaurd(realSpacePoint);
 				for (Thing t : selected) {
 					if (t instanceof Bee) {
 						((Bee) t).setSelected(false);
@@ -222,75 +208,14 @@ public class GamePanel extends JPanel {
 
 		private List<Thing> pruneListForPoint(List<Thing> allAtPoint, Point clickedPoint) {
 
-			int BEE_MARGIN_W = ImageReg.getInstance().getImageFromStr("Bee").getWidth(null) / 2;
-			int BEE_MARGIN_H = ImageReg.getInstance().getImageFromStr("Bee").getHeight(null) / 2;
-			int BEE_MARGIN = Math.max(BEE_MARGIN_H, BEE_MARGIN_W);
-			int POSIE_MARGIN_W = ImageReg.getInstance().getImageFromStr("TotallyAPosie")
-					.getWidth(null) / 2;
-			int POSIE_MARGIN_H = ImageReg.getInstance().getImageFromStr("TotallyAPosie")
-					.getHeight(null) / 2;
-			int POSIE_MARGIN = Math.max(POSIE_MARGIN_H, POSIE_MARGIN_W);
-			int HIVE_MARGIN_W = ImageReg.getInstance().getImageFromStr("Hive").getWidth(null) / 2;
-			int HIVE_MARGIN_H = ImageReg.getInstance().getImageFromStr("Hive").getHeight(null) / 2;
-			int HIVE_MARGIN = Math.max(HIVE_MARGIN_H, HIVE_MARGIN_W);
-			int CAT_MARGIN_W = ImageReg.getInstance().getImageFromStr("Caterpillar").getWidth(null) / 2;
-			int CAT_MARGIN_H = ImageReg.getInstance().getImageFromStr("Caterpillar")
-					.getHeight(null) / 2;
-			int CAT_MARGIN = Math.max(CAT_MARGIN_H, CAT_MARGIN_W);
-			int KUBA_MARGIN_W = ImageReg.getInstance().getImageFromStr("SegmentedCaterpillarHead0")
-					.getWidth(null) / 2;
-			int KUBA_MARGIN_H = ImageReg.getInstance().getImageFromStr("SegmentedCaterpillarHead0")
-					.getHeight(null) / 2;
-			int KUBA_MARGIN = Math.max(KUBA_MARGIN_H, KUBA_MARGIN_W);
-
 			List<Thing> atPoint = new ArrayList<Thing>();
 
 			for (Thing t : allAtPoint) {
-				if (t instanceof Bee) {
-					if (t.getLocation().distance(clickedPoint) < BEE_MARGIN) {
-						atPoint.add(t);
-					}
+				if (t.contains(clickedPoint)) {
+					atPoint.add(t);
 				}
 			}
-			if (atPoint.size() > 0) {
-				return atPoint;
-			}
-			for (Thing t : allAtPoint) {
-				if (t instanceof Posie) {
-					if (t.getLocation().distance(clickedPoint) < POSIE_MARGIN) {
-						atPoint.add(t);
-					}
-				}
-			}
-			if (atPoint.size() > 0) {
-				return atPoint;
-			}
-			for (Thing t : allAtPoint) {
-				if (t instanceof SegmentedCaterpillarHead
-						&& !(t instanceof SegmentedCaterpillarBody)) {
-					if (t.getLocation().distance(clickedPoint) < KUBA_MARGIN) {
-						atPoint.add(t);
-					}
-				}
-				if (t instanceof Caterpillar && !(t instanceof SegmentedCaterpillarHead)) {
-					if (t.getLocation().distance(clickedPoint) < CAT_MARGIN) {
-						atPoint.add(t);
-					}
-				}
-			}
-			if (atPoint.size() > 0) {
-				return atPoint;
-			}
-			for (Thing t : allAtPoint) {
-				if (t instanceof Hive) {
-					if (t.getLocation().distance(clickedPoint) < HIVE_MARGIN) {
-						atPoint.add(t);
-					}
-				}
-			}
-			if (atPoint.size() > 0) {
-				return atPoint;
-			}
+			Collections.sort(atPoint, new ThingPriorityComparator());
 
 			return atPoint;
 		}
@@ -306,6 +231,7 @@ public class GamePanel extends JPanel {
 	}
 
 	private void tellAllSelectedToGatherFrom(Thing target) {
+		System.out.println("tell all to gather");
 		for (Thing actor : selected) {
 			if (actor instanceof Bee) {
 				Bee bee = ((Bee) actor);

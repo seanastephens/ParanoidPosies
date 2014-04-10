@@ -25,6 +25,8 @@ public abstract class Bug implements Thing {
 	private GameBoard gameboard;
 	private String name;
 
+	private int halfMaxImageDimension;
+
 	public Bug() {
 		this.hp = DEFAULT_HP;
 		this.maxHP = DEFAULT_MAX_HP;
@@ -131,6 +133,9 @@ public abstract class Bug implements Thing {
 	@Override
 	public void setImage(Image image) {
 		this.image = image;
+		int imageHalfWidth = image.getWidth(null) / 2;
+		int imageHalfHeight = image.getHeight(null) / 2;
+		halfMaxImageDimension = Math.max(imageHalfWidth, imageHalfHeight);
 	}
 
 	@Override
@@ -210,4 +215,10 @@ public abstract class Bug implements Thing {
 	}
 
 	public abstract void attack(Thing thingBeingAttacked);
+
+	public boolean contains(Point point) {
+		int xdiff = Math.abs(getLocation().x - point.x);
+		int ydiff = Math.abs(getLocation().y - point.y);
+		return Math.max(xdiff, ydiff) < halfMaxImageDimension;
+	}
 }

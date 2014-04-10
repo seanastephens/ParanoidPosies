@@ -10,6 +10,7 @@ public abstract class Plant implements Thing {
 	private GrowthState currentState;
 	private String name;
 	private int maxHP;
+	private int halfMaxImageDimension;
 
 	private boolean shouldBeCleanedUp;
 	private int layer;
@@ -51,6 +52,9 @@ public abstract class Plant implements Thing {
 	@Override
 	public void setImage(Image image) {
 		this.image = image;
+		int imageHalfWidth = image.getWidth(null) / 2;
+		int imageHalfHeight = image.getHeight(null) / 2;
+		halfMaxImageDimension = Math.max(imageHalfWidth, imageHalfHeight);
 	}
 
 	@Override
@@ -124,6 +128,12 @@ public abstract class Plant implements Thing {
 	@Override
 	public void setLayer(int newLayer) {
 		layer = newLayer;
+	}
+
+	public boolean contains(Point point) {
+		int xdiff = Math.abs(getLocation().x - point.x);
+		int ydiff = Math.abs(getLocation().y - point.y);
+		return Math.max(xdiff, ydiff) < halfMaxImageDimension;
 	}
 
 }

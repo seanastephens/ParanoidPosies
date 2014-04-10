@@ -13,8 +13,8 @@ import GUI.PPGUI;
 public class GameBoard implements GameInterface {
 	public List<Thing> things;
 	public Hive hive;
-	public static final int centerX = 2500;
-	public static final int centerY = 2500;
+	public static final int centerX = 0;
+	public static final int centerY = 0;
 
 	public static final int DIFFICULTY_INTERVAL = 45 * PPGUI.UPDATES_PER_SEC;
 	public static final int INITIAL_ENEMY_THRESHOLD = 5;
