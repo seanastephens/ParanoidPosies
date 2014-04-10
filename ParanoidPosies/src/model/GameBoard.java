@@ -64,12 +64,32 @@ public class GameBoard implements GameInterface {
 
 	public SoundManager sound;
 
+	private static GameBoard board;
+
 	/**
-	 * The default constructor: works the same as always, but out-sources to the
-	 * other one.
+	 * Returns a reference to the board. If this is the first call to either
+	 * getBoard or getBoardWithNoSounds, then a new Board will be created but no
+	 * sound will be started. If this is not the first call, then no change is
+	 * made to the sound.
 	 */
-	public GameBoard() {
-		this(true);
+	public static GameBoard getBoardWithNoSound() {
+		if (board == null) {
+			board = new GameBoard(false);
+		}
+		return board;
+	}
+
+	/**
+	 * Returns a reference to the board. If this is the first call to either
+	 * getBoard or getBoardWithNoSounds, then a new Board will be created with
+	 * sound. If this is not the first call, then no change is made to the
+	 * sound.
+	 */
+	public static GameBoard getBoard() {
+		if (board == null) {
+			board = new GameBoard(true);
+		}
+		return board;
 	}
 
 	/**

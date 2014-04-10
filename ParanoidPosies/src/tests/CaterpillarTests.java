@@ -13,7 +13,7 @@ import org.junit.Test;
 
 public class CaterpillarTests {
 
-	private static GameBoard gb = new GameBoard();
+	private static GameBoard gb = GameBoard.getBoardWithNoSound();
 
 	@Test
 	public void testCaterpillarAttack() {

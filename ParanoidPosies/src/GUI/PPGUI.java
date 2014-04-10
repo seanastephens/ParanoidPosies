@@ -44,7 +44,7 @@ public class PPGUI extends JFrame implements Runnable {
 
 		setSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
-		game = new GameBoard();
+		game = GameBoard.getBoard();
 
 		setLayout(null);
 
