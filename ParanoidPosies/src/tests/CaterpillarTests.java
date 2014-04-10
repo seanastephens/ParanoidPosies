@@ -30,4 +30,23 @@ public class CaterpillarTests {
 		Caterpillar c = new Caterpillar(new Point(1, 1), gb);
 		assertTrue(c.getHTMLDescription().length() > 0);
 	}
+
+	@Test
+	public void testHitlerAttack() {
+		Posie p = new Posie(new Point(1, 1));
+		Caterpillar c = new Caterpillar(new Point(2, 2), gb);
+		c.makeHitler();
+		c.attack(p);
+		int posieHealthShouldBe = Posie.posie_hitPoints
+				- Caterpillar.ULTRA_HYPER_GIGA_MECHA_HITLER_ATTACK_DAMAGE;
+		assertEquals(posieHealthShouldBe, p.getHP());
+		System.out.println("Failed loading posie.");
+	}
+
+	@Test
+	public void testGetHTMLDescriptionHitler() {
+		Caterpillar c = new Caterpillar(new Point(1, 1), gb);
+		c.makeHitler();
+		assertTrue(c.getHTMLDescription().length() > 0);
+	}
 }
