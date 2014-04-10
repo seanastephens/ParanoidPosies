@@ -22,7 +22,7 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 	public int speed = 1;
 
 	public Caterpillar(Point location, GameBoard gameboard) {
-		super(gameboard);
+		super();
 		timer = 0;
 		this.setLocation(location);
 		this.setHP(CATERPILLAR_HP);

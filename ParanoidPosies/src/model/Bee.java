@@ -27,7 +27,7 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 	private int state = 0;
 
 	public Bee(Point location, GameBoard board) {
-		super(board);
+		super();
 
 		/*
 		 * Set initial values for inherited values from Bug

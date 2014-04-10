@@ -20,7 +20,7 @@ import org.junit.Test;
 
 public class BeeTests {
 
-	Bee bee = new Bee(new Point(1, 1), new GameBoard(false));
+	Bee bee = new Bee(new Point(1, 1), GameBoard.getBoardWithNoSound());
 	Caterpillar cage = new Caterpillar(new Point(0, 0), bee.getGameBoard());
 	Posie posie = new Posie(new Point(0, 0));
 	Hive hive = new Hive(bee.getGameBoard());

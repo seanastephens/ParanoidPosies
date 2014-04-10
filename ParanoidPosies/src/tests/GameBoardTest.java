@@ -19,7 +19,7 @@ public class GameBoardTest {
 
 	@Test
 	public void getClosestTest() {
-		GameBoard g = new GameBoard(false);
+		GameBoard g = GameBoard.getBoardWithNoSound();
 
 		Thing t = g.getClosest(Posie.class, origin);
 		assertTrue(t instanceof Posie);
@@ -38,7 +38,7 @@ public class GameBoardTest {
 
 	@Test
 	public void getClosestReturnsClosest() {
-		GameBoard g = new GameBoard(false);
+		GameBoard g = GameBoard.getBoardWithNoSound();
 
 		Thing closest = g.getClosest(Posie.class, origin);
 		assertTrue(closest instanceof Posie);
@@ -54,7 +54,7 @@ public class GameBoardTest {
 
 	@Test
 	public void getRandomTest() {
-		GameBoard g = new GameBoard(false);
+		GameBoard g = GameBoard.getBoardWithNoSound();
 
 		Thing t = g.getRandom(Posie.class);
 		assertTrue(t instanceof Posie);

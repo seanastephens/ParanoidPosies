@@ -75,6 +75,7 @@ public class GameBoard implements GameInterface {
 	public static GameBoard getBoardWithNoSound() {
 		if (board == null) {
 			board = new GameBoard(false);
+			board.startGame();
 		}
 		return board;
 	}
@@ -88,6 +89,7 @@ public class GameBoard implements GameInterface {
 	public static GameBoard getBoard() {
 		if (board == null) {
 			board = new GameBoard(true);
+			board.startGame();
 		}
 		return board;
 	}
@@ -95,12 +97,15 @@ public class GameBoard implements GameInterface {
 	/**
 	 * This constructor allows us turn off music, for testing.
 	 */
-	public GameBoard(boolean shouldStartSong) {
+	private GameBoard(boolean shouldStartSong) {
 		if (shouldStartSong) {
 			sound = new SoundManager();
 		}
 		timer = 0;
 		waveSize = INITIAL_WAVE_SIZE;
+	}
+
+	private void startGame() {
 		hive = new Hive(this);
 		hive.setLocation(new Point(centerX, centerY));
 		things = new ArrayList<Thing>();
@@ -123,7 +128,6 @@ public class GameBoard implements GameInterface {
 			things.add(b);
 			friendlyList.add(b);
 		}
-
 	}
 
 	public void spawnWave() {

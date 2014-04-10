@@ -25,7 +25,7 @@ public abstract class Bug implements Thing {
 	private GameBoard gameboard;
 	private String name;
 
-	public Bug(GameBoard gameboard) {
+	public Bug() {
 		this.hp = DEFAULT_HP;
 		this.maxHP = DEFAULT_MAX_HP;
 		this.location = DEFAULT_LOCATION;
@@ -35,7 +35,7 @@ public abstract class Bug implements Thing {
 		this.objectivePoint = null;
 		this.objectiveThing = null;
 		this.image = null;
-		this.gameboard = gameboard;
+		this.gameboard = GameBoard.getBoard();
 		this.name = DEFAULT_NAME;
 	}
 

@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 
 import model.Bug;
 import model.BugStrategy;
-import model.GameBoard;
 import model.SquareStrategy;
 import model.Thing;
 
@@ -20,7 +19,7 @@ public class BugTest {
 
 	@Test
 	public void testConstructorAndDefaultGetters() {
-		Bug bug = new MockBug(null);
+		Bug bug = new MockBug();
 
 		// These tests should probably not ever change -- everything in here
 		// should be explicitly dealt with by the concrete classes anyways.
@@ -32,7 +31,6 @@ public class BugTest {
 		assertEquals(null, bug.getObjectivePoint());
 		assertTrue(bug.isDead());
 		assertTrue(bug.shouldBeCleanedUp());
-		assertEquals(null, bug.getGameBoard());
 		assertEquals(0, bug.getMaxHP());
 		assertTrue(bug.getHTMLDescription().length() > 0);
 
@@ -46,7 +44,7 @@ public class BugTest {
 
 	@Test
 	public void testObjectivePointSetGetNull() {
-		Bug bug = new MockBug(null);
+		Bug bug = new MockBug();
 		Point testPoint = new Point(1, 2);
 
 		assertEquals(null, bug.getObjectivePoint());
@@ -58,8 +56,8 @@ public class BugTest {
 
 	@Test
 	public void testObjectiveThingSetGetNull() {
-		Bug bug = new MockBug(null);
-		Thing testThing = new MockBug(null);
+		Bug bug = new MockBug();
+		Thing testThing = new MockBug();
 
 		assertEquals(null, bug.getObjectivePoint());
 		bug.setObjectiveThing(testThing);
@@ -70,8 +68,8 @@ public class BugTest {
 
 	@Test
 	public void testStrategyObjGetSet() {
-		Bug bug = new MockBug(null);
-		Thing testThing = new MockBug(null);
+		Bug bug = new MockBug();
+		Thing testThing = new MockBug();
 		BugStrategy testStrat = new SquareStrategy(bug, null);
 
 		assertEquals(null, bug.getStrategy());
@@ -81,7 +79,7 @@ public class BugTest {
 
 	@Test
 	public void testStrategyPointGetSet() {
-		Bug bug = new MockBug(null);
+		Bug bug = new MockBug();
 		Point testPoint = new Point(1, 2);
 		BugStrategy testStrat = new SquareStrategy(bug, null);
 
@@ -92,7 +90,7 @@ public class BugTest {
 
 	@Test
 	public void testLocationGetSet() {
-		Bug bug = new MockBug(null);
+		Bug bug = new MockBug();
 		Point testPoint = new Point(1, 2);
 		bug.setLocation(testPoint);
 
@@ -101,7 +99,7 @@ public class BugTest {
 
 	@Test
 	public void testImageGetSet() {
-		Bug bug = new MockBug(null);
+		Bug bug = new MockBug();
 		Image testImage = new BufferedImage(1, 1, 1);
 		bug.setImage(testImage);
 
@@ -110,7 +108,7 @@ public class BugTest {
 
 	@Test
 	public void testHPSetGetUpdate() {
-		Bug bug = new MockBug(null);
+		Bug bug = new MockBug();
 
 		bug.setHP(10);
 		assertEquals(10, bug.getHP());
@@ -122,7 +120,7 @@ public class BugTest {
 
 	@Test
 	public void testMaxHPSetGetUpdate() {
-		Bug bug = new MockBug(null);
+		Bug bug = new MockBug();
 
 		bug.setMaxHP(10);
 		assertEquals(10, bug.getMaxHP());
@@ -134,7 +132,7 @@ public class BugTest {
 
 	@Test
 	public void testSpeedSetGetUpdate() {
-		Bug bug = new MockBug(null);
+		Bug bug = new MockBug();
 
 		bug.setSpeed(10);
 		assertEquals(10, bug.getSpeed());
@@ -144,7 +142,7 @@ public class BugTest {
 
 	@Test
 	public void testNameSetGet() {
-		Bug bug = new MockBug(null);
+		Bug bug = new MockBug();
 
 		bug.setName("TEST");
 		assertEquals("TEST", bug.getName());
@@ -152,7 +150,7 @@ public class BugTest {
 
 	@Test
 	public void testLayerSetGet() {
-		Bug bug = new MockBug(null);
+		Bug bug = new MockBug();
 
 		bug.setLayer(-999);
 		assertEquals(-999, bug.getLayer());
@@ -160,7 +158,7 @@ public class BugTest {
 
 	@Test
 	public void testIsDead() {
-		Bug bug = new MockBug(null);
+		Bug bug = new MockBug();
 
 		bug.setHP(10);
 		assertFalse(bug.isDead());
@@ -172,7 +170,7 @@ public class BugTest {
 
 	@Test
 	public void testMove() {
-		Bug bug = new MockBug(null);
+		Bug bug = new MockBug();
 		Point goal = new Point(100, 100);
 
 		for (int i = 0; i < 500; i++) {
@@ -195,9 +193,6 @@ public class BugTest {
 	 * 
 	 */
 	private class MockBug extends Bug {
-		public MockBug(GameBoard g) {
-			super(g);
-		}
 
 		@Override
 		public void update() {
