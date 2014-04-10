@@ -1,6 +1,6 @@
 package model;
 
-public class FightStrategy implements BugStrategy{
+public class FightStrategy implements BugStrategy {
 
 	private Bug bug;
 	private GameBoard board;
@@ -9,25 +9,23 @@ public class FightStrategy implements BugStrategy{
 		this.bug = bug;
 		this.board = board;
 	}
-	
+
 	@Override
 	public void doNextAction() {
-		if(bug.getObjectiveThing().isDead() && bug instanceof Caterpillar){
+		if (bug.getObjectiveThing().isDead() && bug instanceof Caterpillar) {
 			bug.setObjectiveToNull();
-			bug.setObjectiveThing(bug.getClosestPosie());
-			if(bug.getObjectiveThing() == null){
+			bug.setObjectiveThing(board.getClosest(Posie.class, bug.getLocation()));
+			if (bug.getObjectiveThing() == null) {
 				bug.setObjectiveThing(board.getHive());
 			}
-		}
-		else if (!bug.getLocation().equals(bug.getObjectiveThing().getLocation())) {
+		} else if (!bug.getLocation().equals(bug.getObjectiveThing().getLocation())) {
 			bug.move(bug.getObjectiveThing().getLocation());
-		} else if (!bug.getObjectiveThing().isDead() && 
-				bug.getLocation().equals(bug.getObjectiveThing().getLocation())){
+		} else if (!bug.getObjectiveThing().isDead()
+				&& bug.getLocation().equals(bug.getObjectiveThing().getLocation())) {
 			bug.attack(bug.getObjectiveThing());
-		}
-		else if(bug.getObjectiveThing().isDead() && bug instanceof Bee){
+		} else if (bug.getObjectiveThing().isDead() && bug instanceof Bee) {
 			bug.setStrategy(new MoveStrategy(bug, board), board.getHive());
 		}
-		
+
 	}
 }

@@ -2,9 +2,6 @@ package model;
 
 import java.awt.Image;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public abstract class Bug implements Thing {
@@ -210,83 +207,6 @@ public abstract class Bug implements Thing {
 				this.setLocation(place);
 			}
 		}
-	}
-
-	public Thing getClosestPosie() {
-		List<Thing> things;
-		int multipleOf100 = 1;
-		int maxMultipleOf100 = 20;
-		int hundred = 100;
-		while (multipleOf100 < maxMultipleOf100) {
-			things = this.getGameBoard().getThingsBetween(
-					this.getLocation().x - hundred * multipleOf100,
-					this.getLocation().y - hundred * multipleOf100,
-					this.getLocation().x + hundred * multipleOf100,
-					this.getLocation().y + hundred * multipleOf100);
-			for (Thing aThing : things) {
-				if (aThing instanceof Posie && this instanceof Bee) {
-					return (Posie) aThing;
-				}
-				if (aThing instanceof Posie && this instanceof Caterpillar) {
-					if (!aThing.isDead()) {
-						return aThing;
-					}
-				}
-			}
-			multipleOf100++;
-		}
-		return gameboard.getHive();
-	}
-
-	public Thing getRandomPosie() {
-		List<Thing> things;
-		int distance = 1000;
-		things = this.getGameBoard().getThingsBetween(this.getLocation().x - distance,
-				this.getLocation().y - distance, this.getLocation().x + distance,
-				this.getLocation().y + distance);
-		List<Thing> posies = new ArrayList<Thing>();
-		for (Thing aThing : things) {
-			if (aThing instanceof Posie) {
-				posies.add((Posie) aThing);
-			}
-		}
-		if (posies == null || posies.size() == 0) {
-			return gameboard.getHive();
-		}
-		Collections.shuffle(posies);
-		Posie aPosie = (Posie) posies.get(0);
-		if (this instanceof Bee) {
-			return posies.get(0);
-		}
-		if (this instanceof Caterpillar) {
-			for (Thing posie : posies) {
-				if (!posie.isDead()) {
-					return posies.get(0);
-				}
-			}
-		}
-		return gameboard.getHive();
-	}
-
-	public Thing getClosestCaterpillar() {
-		List<Thing> things;
-		int multipleOf100 = 1;
-		int maxMultipleOf100 = 10;
-		int hundred = 100;
-		while (multipleOf100 < maxMultipleOf100) {
-			things = this.getGameBoard().getThingsBetween(
-					this.getLocation().x - hundred * multipleOf100,
-					this.getLocation().y - hundred * multipleOf100,
-					this.getLocation().x + hundred * multipleOf100,
-					this.getLocation().y + hundred * multipleOf100);
-			for (Thing aThing : things) {
-				if (aThing instanceof Caterpillar && !(aThing instanceof SegmentedCaterpillarBody)) {
-					return (Caterpillar) aThing;
-				}
-			}
-			multipleOf100++;
-		}
-		return gameboard.getHive();
 	}
 
 	public abstract void attack(Thing thingBeingAttacked);

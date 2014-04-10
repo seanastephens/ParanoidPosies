@@ -379,6 +379,9 @@ public class GameBoard implements GameInterface {
 				}
 			}
 		}
+		if (closest == null) {
+			return hive;
+		}
 		return closest;
 	}
 
@@ -390,7 +393,7 @@ public class GameBoard implements GameInterface {
 			}
 		}
 		if (classMatches.size() == 0) {
-			return null;
+			return hive;
 		}
 		return classMatches.get(new Random().nextInt(classMatches.size()));
 	}

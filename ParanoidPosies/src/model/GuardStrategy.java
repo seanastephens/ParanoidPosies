@@ -21,22 +21,20 @@ public class GuardStrategy implements BugStrategy {
 			if (bug instanceof Bee && bug.getObjectiveThing() instanceof Hive) {
 				bug.setObjectiveToNull();
 				bug.setObjectivePoint(rally);
-			} 
-			else if (!bug.getLocation().equals(bug.getObjectiveThing().getLocation())) {
+			} else if (!bug.getLocation().equals(bug.getObjectiveThing().getLocation())) {
 				bug.move(bug.getObjectiveThing().getLocation());
-			} 
-			else if (bug.getLocation().equals(bug.getObjectiveThing().getLocation())
+			} else if (bug.getLocation().equals(bug.getObjectiveThing().getLocation())
 					&& bug.getObjectiveThing() instanceof Caterpillar
 					&& !bug.getObjectiveThing().isDead()) {
 				if (bug instanceof Bee) {
 					bug.attack(bug.getObjectiveThing());
 				}
-			} 
-			
+			}
+
 			else if (bug.getLocation().equals(bug.getObjectiveThing().getLocation())
 					&& bug.getObjectiveThing().isDead()) {
 				bug.setObjectiveToNull();
-				bug.setObjectiveThing(bug.getClosestCaterpillar());
+				bug.setObjectiveThing(board.getClosest(Caterpillar.class, bug.getLocation()));
 				if (bug.getObjectiveThing() == null) {
 					bug.setObjectivePoint(rally);
 				} else if (bug.getObjectiveThing() instanceof Hive) {
@@ -44,18 +42,16 @@ public class GuardStrategy implements BugStrategy {
 					bug.setObjectivePoint(rally);
 				}
 			}
-		} 
-		else if (bug.getObjectiveThing() == null && bug.getObjectivePoint() != null) {
+		} else if (bug.getObjectiveThing() == null && bug.getObjectivePoint() != null) {
 			Random r = new Random();
 			int x = bug.getObjectivePoint().x + r.nextInt(RANDOM_CONST) - RANDOM_CONST / 2;
 			int y = bug.getObjectivePoint().y + r.nextInt(RANDOM_CONST) - RANDOM_CONST / 2;
 			rally = new Point(x, y);
 			if (!bug.getLocation().equals(bug.getObjectivePoint())) {
 				bug.move(bug.getObjectivePoint());
-			} 
-			else if (bug.getLocation().equals(bug.getObjectivePoint()) && bug instanceof Bee) {
+			} else if (bug.getLocation().equals(bug.getObjectivePoint()) && bug instanceof Bee) {
 				bug.setObjectiveToNull();
-				bug.setObjectiveThing(bug.getClosestCaterpillar());
+				bug.setObjectiveThing(board.getClosest(Caterpillar.class, bug.getLocation()));
 				if (bug.getObjectiveThing() == null) {
 					bug.setObjectivePoint(rally);
 				} else if (bug.getObjectiveThing() instanceof Hive) {
