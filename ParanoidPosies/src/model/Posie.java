@@ -36,10 +36,10 @@ public class Posie extends Plant {
 	public static final Image DEAD_FLOWER_IMAGE = ImageReg.getInstance().getImageFromStr(
 			"ISwearToGodThisOneIsAnHonestToGodLegitimatePosie");
 
-	private static final String SEED_ACTION = "Beginning life.";
-	private static final String SEEDLING_ACTION = "Growing up big and strong.";
-	private static final String FLOWER_ACTION = "Enjoying sunshine, brother.";
-	private static final String DEAD_FLOWER_ACTION = "Flower is dead.";
+	public static final String SEED_ACTION = "Beginning life.";
+	public static final String SEEDLING_ACTION = "Growing up big and strong.";
+	public static final String FLOWER_ACTION = "Enjoying sunshine, brother.";
+	public static final String DEAD_FLOWER_ACTION = "Flower is dead.";
 
 	private int currentNectar = 0;
 	private int timer = 0;// Start life at 0, will be incremented by one each
