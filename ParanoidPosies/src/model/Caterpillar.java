@@ -26,6 +26,7 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 		timer = 0;
 		setLocation(location);
 		this.setHP(CATERPILLAR_HP);
+		this.setMaxHP(CATERPILLAR_HP);
 		this.setImage(ImageReg.getInstance().getImageFromStr(CATERPILLAR_IMAGE));
 		CaterpillarNameList = new ArrayList<String>();
 		this.setUpNameList();

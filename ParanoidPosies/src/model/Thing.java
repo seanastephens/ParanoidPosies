@@ -10,6 +10,7 @@ public abstract class Thing {
 	private Image image;
 	private int halfMaxImageDimension;
 	private int hp;
+	private int maxHP;
 
 	public void setLocation(Point loc) {
 		location = loc;
@@ -42,11 +43,18 @@ public abstract class Thing {
 		return hp;
 	}
 
-	public abstract void setMaxHP(int newMaxHP);
+	public void setMaxHP(int newMaxHP) {
+		maxHP = newMaxHP;
+		setHP(maxHP);
+	}
 
-	public abstract int getMaxHP();
+	public int getMaxHP() {
+		return maxHP;
+	}
 
-	public abstract void updateMaxHP(int valueToAdjustHPBy);
+	public void updateMaxHP(int valueToAdjustHPBy) {
+		setMaxHP(maxHP + valueToAdjustHPBy);
+	}
 
 	public boolean isDead() {
 		return hp <= 0;

@@ -12,7 +12,6 @@ public abstract class Bug extends Thing {
 	private static final int DEFAULT_pixelsPerMove = 1;
 	private static final String DEFAULT_NAME = "ABSTRACT CLASS BUG DEFAULT NAME";
 
-	private int maxHP;
 	private int layer;
 	private int pixelsPerMove;
 	private BugStrategy currentStrategy;
@@ -22,7 +21,7 @@ public abstract class Bug extends Thing {
 
 	public Bug() {
 		setHP(DEFAULT_HP);
-		this.maxHP = DEFAULT_MAX_HP;
+		setMaxHP(DEFAULT_MAX_HP);
 		setLocation(DEFAULT_LOCATION);
 		this.layer = DEFAULT_LAYER;
 		this.pixelsPerMove = DEFAULT_pixelsPerMove;
@@ -30,21 +29,6 @@ public abstract class Bug extends Thing {
 		this.objectivePoint = null;
 		this.objectiveThing = null;
 		this.name = DEFAULT_NAME;
-	}
-
-	@Override
-	public void setMaxHP(int newMaxHP) {
-		maxHP = newMaxHP;
-	}
-
-	@Override
-	public int getMaxHP() {
-		return maxHP;
-	}
-
-	@Override
-	public void updateMaxHP(int valueToAdjustHPBy) {
-		maxHP += valueToAdjustHPBy;
 	}
 
 	public void setSpeed(int newSpeed) {

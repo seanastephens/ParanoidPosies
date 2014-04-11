@@ -4,7 +4,6 @@ import GUI.PPGUI;
 
 public class Hive extends Thing {
 
-	private int HIVE_HP = 50;
 	private int layer = 3;
 	private int nector;
 	private int honey;
@@ -26,7 +25,8 @@ public class Hive extends Thing {
 		timer = 0;
 		beeProduction = true;
 		beesToMake = 0;
-		this.setHP(HIVE_HP);
+		this.setHP(50);
+		this.setMaxHP(50);
 		setImage(ImageReg.getInstance().getImageFromStr("Hive"));
 	}
 
@@ -151,23 +151,6 @@ public class Hive extends Thing {
 	@Override
 	public int getLayer() {
 		return layer;
-	}
-
-	@Override
-	public void setMaxHP(int newMaxHP) {
-		HIVE_HP = newMaxHP;
-		setHP(HIVE_HP);
-	}
-
-	@Override
-	public int getMaxHP() {
-		return HIVE_HP;
-	}
-
-	@Override
-	public void updateMaxHP(int valueToAdjustHPBy) {
-		HIVE_HP += valueToAdjustHPBy;
-		setHP(HIVE_HP);
 	}
 
 	@Override
