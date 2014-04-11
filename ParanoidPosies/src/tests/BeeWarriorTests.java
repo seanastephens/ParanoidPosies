@@ -64,9 +64,7 @@ public class BeeWarriorTests {
 
 		bee.setLocation(new Point(0, 0));
 		bee.setObjectivePoint(new Point(0, 0));
-//		for (int i = 0; i < 50; i++) {
-//			bee.update();
-//		}// System.out.println("\n" + bee.getLocation().toString() +
+		// System.out.println("\n" + bee.getLocation().toString() +
 			// bee.getObjectivePoint().toString());
 		assertEquals(6, bee.getImageNumberForTesting());
 		// System.out.println("Passed break out of for loop test so image stayed the same");
