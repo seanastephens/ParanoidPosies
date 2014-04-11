@@ -149,7 +149,7 @@ public class GameBoard implements GameInterface {
 				toSpawnAt = getWestSpawn();
 				break;
 			}
-			Caterpillar c = new Caterpillar(toSpawnAt, this);
+			Caterpillar c = new Caterpillar(toSpawnAt);
 			int hitlerRand = rand.nextInt(HITLER_PROB_RANGE);
 			System.out.println(hitlerRand);
 			if (hitlerRand < HITLER_PROB && timer >= 2 * WAVE_INTERVAL) {
@@ -270,7 +270,7 @@ public class GameBoard implements GameInterface {
 			int spawnProb = rand.nextInt(100);
 
 			if (spawnProb < SPAWN_PROBABILITY) {
-				Caterpillar c = new Caterpillar(toSpawnAt, this);
+				Caterpillar c = new Caterpillar(toSpawnAt);
 				int hitlerRand = rand.nextInt(HITLER_PROB_RANGE);
 
 				System.out.println(hitlerRand);
@@ -288,7 +288,7 @@ public class GameBoard implements GameInterface {
 		}
 		// Spawn Hitler after third wave
 		if (timer == 3 * WAVE_INTERVAL) {
-			Caterpillar hitler = new Caterpillar(getNorthSpawn(), this);
+			Caterpillar hitler = new Caterpillar(getNorthSpawn());
 			hitler.makeHitler();
 			SoundManager.playSiren();
 			JOptionPane.showMessageDialog(null, HITLER_MESSAGE);

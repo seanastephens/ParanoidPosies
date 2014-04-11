@@ -21,7 +21,7 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 	public static final String ULTRA_HYPER_GIGA_MECHA_HITLER_IMAGE_NAME = "HITLER";
 	public int speed = 1;
 
-	public Caterpillar(Point location, GameBoard gameboard) {
+	public Caterpillar(Point location) {
 		super();
 		timer = 0;
 		this.setLocation(location);
@@ -31,7 +31,8 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 		this.setUpNameList();
 		giveNewRandomName();
 
-		this.setStrategy(new FightStrategy(this), gameboard.getClosest(Posie.class, getLocation()));
+		this.setStrategy(new FightStrategy(this),
+				GameBoard.getBoard().getClosest(Posie.class, getLocation()));
 	}
 
 	public void makeHitler() {

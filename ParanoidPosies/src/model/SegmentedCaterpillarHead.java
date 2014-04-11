@@ -1,9 +1,6 @@
 package model;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class SegmentedCaterpillarHead extends Caterpillar {
@@ -19,24 +16,26 @@ public class SegmentedCaterpillarHead extends Caterpillar {
 	SegmentedCaterpillarBody next;
 
 	public SegmentedCaterpillarHead(Point location, GameBoard gameboard) {
-		super(location, gameboard);
-		maxSegments = 2*gameboard.getNumberOfEnemiesToSpawn();
-		System.out.println("I am alive!"+maxSegments);
+		super(location);
+		maxSegments = 2 * gameboard.getNumberOfEnemiesToSpawn();
+		System.out.println("I am alive!" + maxSegments);
 		Random rand = new Random();
-		int segmentsNumber = rand.nextInt(maxSegments+1);
+		int segmentsNumber = rand.nextInt(maxSegments + 1);
 		this.setImage(ImageReg.getInstance().getImageFromStr(C4));
-		next = new SegmentedCaterpillarBody(location, gameboard, segmentsNumber,this);
-		setHP(segmentsNumber+1);
+		next = new SegmentedCaterpillarBody(location, gameboard, segmentsNumber, this);
+		setHP(segmentsNumber + 1);
 	}
-	public SegmentedCaterpillarHead(Point location, GameBoard gameboard, boolean a){
-		super(location, gameboard);
+
+	public SegmentedCaterpillarHead(Point location, GameBoard gameboard, boolean a) {
+		super(location);
 	}
-	public void update(){
+
+	public void update() {
 		Point before = this.getLocation();
 		super.update();
 		Point after = this.getLocation();
-		int diffx = after.x-before.x;
-		int diffy = after.y-before.y;
+		int diffx = after.x - before.x;
+		int diffy = after.y - before.y;
 		if (diffx > 0 && diffy == 0) {
 			this.setImage(ImageReg.getInstance().getImageFromStr(C2));
 		} else if (diffx > 0 && diffy > 0) {
@@ -55,11 +54,12 @@ public class SegmentedCaterpillarHead extends Caterpillar {
 			this.setImage(ImageReg.getInstance().getImageFromStr(C7));
 		}
 	}
+
 	@Override
 	public void updateHP(int hp) {
-		System.out.println("updated!"+getHP());
-		this.setHP(this.getHP()+hp);
-		if (next!=null){
+		System.out.println("updated!" + getHP());
+		this.setHP(this.getHP() + hp);
+		if (next != null) {
 			next.propogateHP(hp);
 		}
 	}
