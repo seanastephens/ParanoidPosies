@@ -210,6 +210,7 @@ public class Hive implements Thing {
 	@Override
 	public void setMaxHP(int newMaxHP) {
 		HIVE_HP = newMaxHP;
+		hp = HIVE_HP;
 	}
 
 	@Override
@@ -220,6 +221,7 @@ public class Hive implements Thing {
 	@Override
 	public void updateMaxHP(int valueToAdjustHPBy) {
 		HIVE_HP += valueToAdjustHPBy;
+		hp = HIVE_HP;
 	}
 
 	@Override

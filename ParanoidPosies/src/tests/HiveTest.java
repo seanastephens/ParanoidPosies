@@ -8,6 +8,7 @@ import java.awt.Point;
 
 import model.GameBoard;
 import model.Hive;
+import model.ImageReg;
 
 import org.junit.Test;
 
@@ -98,6 +99,8 @@ public class HiveTest {
 		assertEquals("Its the Hive!<br>It has " + h.getNector() + " nectar, " + h.getHoney()
 				+ " honey, and " + h.getSeeds() + " seeds", h.getHTMLDescription());
 		assertEquals("Hive", h.getName());
+		h.setName("NotAHive");
+		assertEquals("NotAHive", h.getName());
 	}
 
 	@Test
@@ -121,5 +124,97 @@ public class HiveTest {
 		h.buildWarriorBee();
 		assertEquals(5, h.getHoney());
 		assertEquals(bees + 1, GameBoard.getBoard().getNumberOfBees());
+	}
+
+	@Test
+	public void testCosts() {
+		Hive h = new Hive();
+		assertEquals(20, h.getHoneyCostToBuildABeeWarrior());
+	}
+
+	@Test
+	public void testBeeProductionState() {
+		Hive h = new Hive();
+
+		assertTrue(h.getStateOfBeeProduction());
+		h.setStateOfBeeProduction(false);
+		assertFalse(h.getStateOfBeeProduction());
+	}
+
+	@Test
+	public void setGetMaxHP() {
+		Hive h = new Hive();
+
+		assertEquals(50, h.getMaxHP());
+		h.setMaxHP(100);
+		assertEquals(100, h.getMaxHP());
+		assertEquals(100, h.getHP());
+		h.updateMaxHP(-50);
+		assertEquals(50, h.getMaxHP());
+		assertEquals(50, h.getHP());
+	}
+
+	@Test
+	public void testContains() {
+		Hive h = new Hive();
+
+		h.setLocation(origin);
+		h.setImage(ImageReg.getInstance().getImageFromStr("Hive"));
+		assertEquals(ImageReg.getInstance().getImageFromStr("Hive"), h.getImage());
+		assertTrue(h.contains(origin));
+		assertFalse(h.contains(new Point(-1000, -1000)));
+	}
+
+	@Test
+	public void testUpdate() {
+		Hive h = new Hive();
+
+		assertEquals(0, h.getBeesToMake());
+		h.setHoney(5);
+		for (int i = 0; i < 150; i++, h.update())
+			;
+		assertEquals(0, h.getBeesToMake());
+		assertEquals(5, h.getHoney());
+		h.setHoney(10);
+		for (int i = 0; i < 150; i++, h.update())
+			;
+		assertEquals(1, h.getBeesToMake());
+		assertEquals(0, h.getHoney());
+		h.setBeesToMake(10);
+		assertEquals(10, h.getBeesToMake());
+	}
+
+	@Test
+	public void testUpdateWithBeeProdOff() {
+		Hive h = new Hive();
+		h.setStateOfBeeProduction(false);
+
+		assertEquals(0, h.getBeesToMake());
+		h.setHoney(100);
+		for (int i = 0; i < 150; i++, h.update())
+			;
+		assertEquals(0, h.getBeesToMake());
+		assertEquals(100, h.getHoney());
+	}
+
+	@Test
+	public void testBeesToMake() {
+		Hive h = new Hive();
+
+		h.updateBeesToMake(2);
+		assertEquals(2, h.getBeesToMake());
+	}
+
+	@Test
+	public void testUpdateWithNectar() {
+		Hive h = new Hive();
+		h.setNector(200);
+
+		for (int i = 0; i < 200; i++, h.update())
+			;
+
+		assertEquals(20, h.getHoney());
+		assertEquals(160, h.getNector());
+		assertEquals(2, h.getBeesToMake());
 	}
 }
