@@ -72,7 +72,7 @@ public class GameBoard implements GameInterface {
 	 * sound will be started. If this is not the first call, then no change is
 	 * made to the sound.
 	 */
-	public static GameBoard getBoardWithNoSound() {
+	public synchronized static GameBoard getBoardWithNoSound() {
 		if (board == null) {
 			board = new GameBoard(false);
 			board.startGame();
@@ -86,7 +86,7 @@ public class GameBoard implements GameInterface {
 	 * sound. If this is not the first call, then no change is made to the
 	 * sound.
 	 */
-	public static GameBoard getBoard() {
+	public synchronized static GameBoard getBoard() {
 		if (board == null) {
 			board = new GameBoard(true);
 			board.startGame();

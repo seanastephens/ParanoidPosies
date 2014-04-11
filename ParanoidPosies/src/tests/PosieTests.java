@@ -16,7 +16,7 @@ import GUI.PPGUI;
 
 public class PosieTests {
 
-	private static Posie p;
+	private Posie p;
 
 	@Test
 	public void testGrow() {
@@ -56,65 +56,68 @@ public class PosieTests {
 	@Test
 	public void testGetHTMLDescription() {
 		Posie p = new Posie(new Point(1, 1));
-		
+
 		String baseString = p.getName() + ", a " + p.getClass().getSimpleName() + "<br>";
-		String seedString = baseString + Posie.SEED_ACTION + "<br>(" + p.getSeeds() + " seeds and " + p.getNectar() + " nectar).";
-		
+		String seedString = baseString + Posie.SEED_ACTION + "<br>(" + p.getSeeds() + " seeds and "
+				+ p.getNectar() + " nectar).";
+
 		assertEquals(p.getHTMLDescription().compareTo(seedString), 0);
-		
-		for(int i = 0; i < Posie.posie_time_to_seedling; i++){
+
+		for (int i = 0; i < Posie.posie_time_to_seedling; i++) {
 			p.update();
 		}
-		
+
 		assertEquals(GrowthState.Seedling, p.getCurrentState());
-		
-		String seedlingString = baseString + Posie.SEEDLING_ACTION + "<br>(" + p.getSeeds() + " seeds and " + p.getNectar() + " nectar).";
+
+		String seedlingString = baseString + Posie.SEEDLING_ACTION + "<br>(" + p.getSeeds()
+				+ " seeds and " + p.getNectar() + " nectar).";
 		assertEquals(p.getHTMLDescription().compareTo(seedlingString), 0);
 
-		for(int i = 0; i < Posie.posie_time_to_flower - Posie.posie_time_to_seedling; i++){
+		for (int i = 0; i < Posie.posie_time_to_flower - Posie.posie_time_to_seedling; i++) {
 			p.update();
 		}
 		assertEquals(GrowthState.Flower, p.getCurrentState());
-		
-		String flowerString = baseString + Posie.FLOWER_ACTION + "<br>(" + p.getSeeds() + " seeds and " + p.getNectar() + " nectar).";
-				
+
+		String flowerString = baseString + Posie.FLOWER_ACTION + "<br>(" + p.getSeeds()
+				+ " seeds and " + p.getNectar() + " nectar).";
+
 		assertEquals(p.getHTMLDescription().compareTo(flowerString), 0);
 
-		for(int i = 0; i < Posie.posie_lifespan - Posie.posie_time_to_flower; i++){
+		for (int i = 0; i < Posie.posie_lifespan - Posie.posie_time_to_flower; i++) {
 			p.update();
 		}
 		assertEquals(GrowthState.DeadFlower, p.getCurrentState());
-		
-		String deadFlowerString = baseString + Posie.DEAD_FLOWER_ACTION + "<br>(" + p.getSeeds() + " seeds and " + p.getNectar() + " nectar).";
+
+		String deadFlowerString = baseString + Posie.DEAD_FLOWER_ACTION + "<br>(" + p.getSeeds()
+				+ " seeds and " + p.getNectar() + " nectar).";
 		assertEquals(p.getHTMLDescription().compareTo(deadFlowerString), 0);
 
-		
 	}
-	
+
 	@Test
-	public void testKillingPosie(){
+	public void testKillingPosie() {
 		Posie p = new Posie(new Point(1, 1));
-		
-		for(int i = 0; i < Posie.posie_time_to_flower; i++){
+
+		for (int i = 0; i < Posie.posie_time_to_flower; i++) {
 			p.update();
 		}
 		assertEquals(GrowthState.Flower, p.getCurrentState());
-		
+
 		p.updateHP(-1 * Posie.posie_hitPoints);
-		
+
 		assertEquals(GrowthState.DeadFlower, p.getCurrentState());
-		
+
 		assertEquals(0, p.getHP());
-		
+
 		assertEquals(0, p.getNectar());
-		
+
 		assertEquals(0, p.getSeeds());
-		
+
 		assertTrue(p.shouldBeCleanedUp());
 	}
-	
+
 	@Test
-	public void testGettingImages(){
+	public void testGettingImages() {
 		ImageReg i = ImageReg.getInstance();
 		Image justPlantedImage = i.getImageFromStr("JustPlanted");
 		Image seedlingImage = i.getImageFromStr("Seedling");
@@ -127,35 +130,34 @@ public class PosieTests {
 		adultImage[3] = i.getImageFromStr("Flower3");
 		adultImage[4] = i.getImageFromStr("Flower4");
 		adultImage[5] = i.getImageFromStr("Flower5");
-		
+
 		Posie p = new Posie(new Point(1, 1));
 		assertEquals(justPlantedImage, p.getImage());
-		
-		for(int k = 0; k < Posie.posie_time_to_seedling; k++){
+
+		for (int k = 0; k < Posie.posie_time_to_seedling; k++) {
 			p.update();
 		}
 		assertEquals(GrowthState.Seedling, p.getCurrentState());
 		assertEquals(seedlingImage, p.getImage());
-		
-		for(int k = 0; k < Posie.posie_time_to_flower - Posie.posie_time_to_seedling; k++){
+
+		for (int k = 0; k < Posie.posie_time_to_flower - Posie.posie_time_to_seedling; k++) {
 			p.update();
 		}
 		assertEquals(GrowthState.Flower, p.getCurrentState());
 		boolean isFlowerImage = false;
-		for(int k = 0; k < adultImage.length; k++){
-			if(adultImage[k] == p.getImage()){
+		for (int k = 0; k < adultImage.length; k++) {
+			if (adultImage[k] == p.getImage()) {
 				isFlowerImage = true;
 			}
 		}
 		assertTrue(isFlowerImage);
 
-		for(int k = 0; k < Posie.posie_lifespan - Posie.posie_time_to_flower; k++){
+		for (int k = 0; k < Posie.posie_lifespan - Posie.posie_time_to_flower; k++) {
 			p.update();
 		}
 		assertEquals(GrowthState.DeadFlower, p.getCurrentState());
 		assertEquals(deadImage, p.getImage());
 
-		
 	}
 
 }
