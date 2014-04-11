@@ -7,7 +7,6 @@ import GUI.PPGUI;
 
 public class Hive extends Thing {
 
-	private Point location;
 	private int HIVE_HP = 50;
 	private int hp;
 	private Image image;
@@ -153,16 +152,6 @@ public class Hive extends Thing {
 			updateNector(-1);
 			updateHoney(1);
 		}
-	}
-
-	@Override
-	public void setLocation(Point loc) {
-		location = loc;
-	}
-
-	@Override
-	public Point getLocation() {
-		return location;
 	}
 
 	@Override

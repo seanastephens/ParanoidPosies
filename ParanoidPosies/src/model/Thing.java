@@ -5,9 +5,16 @@ import java.awt.Point;
 
 //Everything is a thing
 public abstract class Thing {
-	public abstract void setLocation(Point loc);
 
-	public abstract Point getLocation();
+	private Point location;
+
+	public void setLocation(Point loc) {
+		location = loc;
+	}
+
+	public Point getLocation() {
+		return location;
+	}
 
 	public abstract void setImage(Image image);
 

@@ -5,7 +5,6 @@ import java.awt.Point;
 
 public abstract class Plant extends Thing {
 	private int hp;
-	private Point location;
 	private Image image;
 	private GrowthState currentState;
 	private String name;
@@ -37,16 +36,6 @@ public abstract class Plant extends Thing {
 	@Override
 	public void updateHP(int valueToAdjustBy) {
 		hp += valueToAdjustBy;
-	}
-
-	@Override
-	public void setLocation(Point loc) {
-		location = loc;
-	}
-
-	@Override
-	public Point getLocation() {
-		return location;
 	}
 
 	@Override

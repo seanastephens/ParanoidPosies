@@ -15,7 +15,6 @@ public abstract class Bug extends Thing {
 
 	private int hp;
 	private int maxHP;
-	private Point location;
 	private int layer;
 	private int pixelsPerMove;
 	private BugStrategy currentStrategy;
@@ -30,7 +29,7 @@ public abstract class Bug extends Thing {
 	public Bug() {
 		this.hp = DEFAULT_HP;
 		this.maxHP = DEFAULT_MAX_HP;
-		this.location = DEFAULT_LOCATION;
+		setLocation(DEFAULT_LOCATION);
 		this.layer = DEFAULT_LAYER;
 		this.pixelsPerMove = DEFAULT_pixelsPerMove;
 		this.currentStrategy = null;
@@ -69,16 +68,6 @@ public abstract class Bug extends Thing {
 	@Override
 	public void updateMaxHP(int valueToAdjustHPBy) {
 		maxHP += valueToAdjustHPBy;
-	}
-
-	@Override
-	public void setLocation(Point loc) {
-		location = loc;
-	}
-
-	@Override
-	public Point getLocation() {
-		return location;
 	}
 
 	public void setSpeed(int newSpeed) {
