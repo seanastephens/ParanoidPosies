@@ -67,6 +67,7 @@ public class Posie extends Plant {
 		justPlantedImage = i.getImageFromStr("JustPlanted");
 		seedlingImage = i.getImageFromStr("Seedling");
 		deadImage = i.getImageFromStr("DeadFlower");
+		setImage(seedlingImage); // for Thing.contains
 
 		adultImage = new Image[6];
 		adultImage[0] = i.getImageFromStr("Flower0");

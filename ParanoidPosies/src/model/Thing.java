@@ -7,6 +7,8 @@ import java.awt.Point;
 public abstract class Thing {
 
 	private Point location;
+	private Image image;
+	private int halfMaxImageDimension;
 
 	public void setLocation(Point loc) {
 		location = loc;
@@ -16,9 +18,16 @@ public abstract class Thing {
 		return location;
 	}
 
-	public abstract void setImage(Image image);
+	public void setImage(Image im) {
+		image = im;
+		int imageHalfWidth = image.getWidth(null) / 2;
+		int imageHalfHeight = image.getHeight(null) / 2;
+		halfMaxImageDimension = Math.max(imageHalfWidth, imageHalfHeight);
+	}
 
-	public abstract Image getImage();
+	public Image getImage() {
+		return image;
+	}
 
 	public abstract void setHP(int hp);
 
@@ -48,5 +57,9 @@ public abstract class Thing {
 
 	public abstract boolean shouldBeCleanedUp();
 
-	public abstract boolean contains(Point point);
+	public boolean contains(Point point) {
+		int xdiff = Math.abs(getLocation().x - point.x);
+		int ydiff = Math.abs(getLocation().y - point.y);
+		return Math.max(xdiff, ydiff) < halfMaxImageDimension;
+	};
 }

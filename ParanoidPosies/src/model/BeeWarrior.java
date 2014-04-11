@@ -73,7 +73,6 @@ public class BeeWarrior extends Bee {
 		images[1][7][0] = i.getImageFromStr("BeeWarriorS70");
 		images[1][7][1] = i.getImageFromStr("BeeWarriorS71");
 		images[1][7][2] = i.getImageFromStr("BeeWarriorS72");
-
 	}
 
 	@Override

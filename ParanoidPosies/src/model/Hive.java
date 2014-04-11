@@ -1,20 +1,15 @@
 package model;
 
-import java.awt.Image;
-import java.awt.Point;
-
 import GUI.PPGUI;
 
 public class Hive extends Thing {
 
 	private int HIVE_HP = 50;
 	private int hp;
-	private Image image;
 	private int layer = 3;
 	private int nector;
 	private int honey;
 	private int timer;
-	private int halfMaxImageDimension;
 
 	private final int timeToBuildABee = 5 * PPGUI.UPDATES_PER_SEC;
 	private final int honeyCostToBuildABee = 10;
@@ -155,19 +150,6 @@ public class Hive extends Thing {
 	}
 
 	@Override
-	public void setImage(Image image) {
-		this.image = image;
-		int imageHalfWidth = image.getWidth(null) / 2;
-		int imageHalfHeight = image.getHeight(null) / 2;
-		halfMaxImageDimension = Math.max(imageHalfWidth, imageHalfHeight);
-	}
-
-	@Override
-	public Image getImage() {
-		return image;
-	}
-
-	@Override
 	public void setHP(int hp) {
 		this.hp = hp;
 	}
@@ -221,12 +203,6 @@ public class Hive extends Thing {
 	@Override
 	public void setLayer(int newLayer) {
 		layer = newLayer;
-	}
-
-	public boolean contains(Point point) {
-		int xdiff = Math.abs(getLocation().x - point.x);
-		int ydiff = Math.abs(getLocation().y - point.y);
-		return Math.max(xdiff, ydiff) < halfMaxImageDimension;
 	}
 
 }

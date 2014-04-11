@@ -1,16 +1,12 @@
 package model;
 
-import java.awt.Image;
 import java.awt.Point;
 
 public abstract class Plant extends Thing {
 	private int hp;
-	private Image image;
 	private GrowthState currentState;
 	private String name;
 	private int maxHP;
-	private int halfMaxImageDimension;
-
 	private boolean shouldBeCleanedUp;
 	private int layer;
 
@@ -36,19 +32,6 @@ public abstract class Plant extends Thing {
 	@Override
 	public void updateHP(int valueToAdjustBy) {
 		hp += valueToAdjustBy;
-	}
-
-	@Override
-	public void setImage(Image image) {
-		this.image = image;
-		int imageHalfWidth = image.getWidth(null) / 2;
-		int imageHalfHeight = image.getHeight(null) / 2;
-		halfMaxImageDimension = Math.max(imageHalfWidth, imageHalfHeight);
-	}
-
-	@Override
-	public Image getImage() {
-		return image;
 	}
 
 	@Override
@@ -113,12 +96,6 @@ public abstract class Plant extends Thing {
 	@Override
 	public void setLayer(int newLayer) {
 		layer = newLayer;
-	}
-
-	public boolean contains(Point point) {
-		int xdiff = Math.abs(getLocation().x - point.x);
-		int ydiff = Math.abs(getLocation().y - point.y);
-		return Math.max(xdiff, ydiff) < halfMaxImageDimension;
 	}
 
 }

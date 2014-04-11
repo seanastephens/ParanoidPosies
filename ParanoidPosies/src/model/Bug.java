@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.Image;
 import java.awt.Point;
 import java.util.Random;
 
@@ -20,11 +19,7 @@ public abstract class Bug extends Thing {
 	private BugStrategy currentStrategy;
 	private Thing objectiveThing;
 	private Point objectivePoint;
-	private Image image;
-	private GameBoard gameboard;
 	private String name;
-
-	private int halfMaxImageDimension;
 
 	public Bug() {
 		this.hp = DEFAULT_HP;
@@ -35,8 +30,6 @@ public abstract class Bug extends Thing {
 		this.currentStrategy = null;
 		this.objectivePoint = null;
 		this.objectiveThing = null;
-		this.image = null;
-		this.gameboard = GameBoard.getBoard();
 		this.name = DEFAULT_NAME;
 	}
 
@@ -115,19 +108,6 @@ public abstract class Bug extends Thing {
 		objectiveThing = null;
 	}
 
-	@Override
-	public void setImage(Image image) {
-		this.image = image;
-		int imageHalfWidth = image.getWidth(null) / 2;
-		int imageHalfHeight = image.getHeight(null) / 2;
-		halfMaxImageDimension = Math.max(imageHalfWidth, imageHalfHeight);
-	}
-
-	@Override
-	public Image getImage() {
-		return image;
-	}
-
 	public void setLayer(int newLayer) {
 		layer = newLayer;
 	}
@@ -200,10 +180,4 @@ public abstract class Bug extends Thing {
 	}
 
 	public abstract void attack(Thing thingBeingAttacked);
-
-	public boolean contains(Point point) {
-		int xdiff = Math.abs(getLocation().x - point.x);
-		int ydiff = Math.abs(getLocation().y - point.y);
-		return Math.max(xdiff, ydiff) < halfMaxImageDimension;
-	}
 }

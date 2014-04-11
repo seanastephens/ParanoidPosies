@@ -100,7 +100,7 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 		images[1][7][1] = i.getImageFromStr("BeeS71");
 		images[1][7][2] = i.getImageFromStr("BeeS72");
 
-		/* Bug.contains doesn't work if no image is set. ugly, but for now... */
+		/* Thing.contains doesn't work if no image is set. ugly, but for now... */
 		setImage(images[0][0][0]);
 	}
 
