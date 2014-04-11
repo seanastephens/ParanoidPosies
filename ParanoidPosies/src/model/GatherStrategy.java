@@ -6,9 +6,11 @@ import java.util.Random;
 public class GatherStrategy implements BugStrategy {
 
 	private Bug bug;
+	private GameBoard board;
 
 	public GatherStrategy(Bug aBug) {
 		this.bug = aBug;
+		this.board = GameBoard.getBoard();
 	}
 
 	@Override
@@ -19,8 +21,8 @@ public class GatherStrategy implements BugStrategy {
 			} else if (bug.getLocation().equals(bug.getObjectiveThing().getLocation())
 					&& bug.getObjectiveThing() instanceof Posie) {
 				((Bee) bug).askFlowerForNectarOrSeeds();
-				Point temp = new Point(GameBoard.getBoard().getHive().getLocation().x, GameBoard
-						.getBoard().getHive().getLocation().y + 85);
+				Point temp = new Point(board.getHive().getLocation().x, board.getHive()
+						.getLocation().y + 85);
 				bug.setObjectiveToNull();
 				bug.setObjectivePoint(temp);
 			} else if (bug.getLocation().equals(bug.getObjectiveThing().getLocation())
@@ -32,8 +34,8 @@ public class GatherStrategy implements BugStrategy {
 																// random box
 																// closer to bee
 																// hive door
-				Point temp = new Point(GameBoard.getBoard().getHive().getLocation().x + rLeftRight,
-						GameBoard.getBoard().getHive().getLocation().y + rUpDown);
+				Point temp = new Point(board.getHive().getLocation().x + rLeftRight, board
+						.getHive().getLocation().y + rUpDown);
 				bug.setStrategy(new SquareStrategy(bug), temp);
 			}
 		} else if (bug.getObjectivePoint() != null) {
@@ -41,23 +43,18 @@ public class GatherStrategy implements BugStrategy {
 				bug.move(bug.getObjectivePoint());
 			} else if (bug.getLocation().equals(bug.getObjectivePoint())) {
 				((Bee) bug).unloadNectarAndSeedsToHive();
-				bug.setObjectiveThing(GameBoard.getBoard().getRandom(Posie.class));
+				bug.setObjectiveThing(board.getRandom(Posie.class));
 				if (bug.getObjectiveThing() instanceof Hive) {
 					// Random numbers used to create a random points within a
 					// box around the Hive location
 					// for bees to start their random square strategies.
 					Random random = new Random();
 					int rLeftRight = random.nextInt(180) - 90;
-					int rUpDown = random.nextInt(240) - 120 + 60; // +60 is to
-																	// move
-																	// center of
-																	// random
-																	// box
-																	// closer to
-																	// bee hive
-																	// door
-					Point temp = new Point(GameBoard.getBoard().getHive().getLocation().x
-							+ rLeftRight, GameBoard.getBoard().getHive().getLocation().y + rUpDown);
+					int rUpDown = random.nextInt(240) - 120 + 60;
+					// +60 is to move center of random box closer to bee hive
+					// door
+					Point temp = new Point(board.getHive().getLocation().x + rLeftRight, board
+							.getHive().getLocation().y + rUpDown);
 					bug.setStrategy(new SquareStrategy(bug), temp);
 				}
 			}
