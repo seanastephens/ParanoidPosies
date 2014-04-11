@@ -33,11 +33,13 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 
 		this.setStrategy(new FightStrategy(this),
 				GameBoard.getBoard().getClosest(Posie.class, getLocation()));
+		setSpeed(1);
 	}
 
 	public void makeHitler() {
 		setName(ULTRA_HYPER_GIGA_MECHA_HITLER_NAME);
 		this.setHP(ULTRA_HYPER_GIGA_MECHA_HITLER_HP);
+		this.setMaxHP(ULTRA_HYPER_GIGA_MECHA_HITLER_HP);
 		IS_LITERALLY_HITLER = true;
 		this.setImage(ImageReg.getInstance().getImageFromStr(
 				ULTRA_HYPER_GIGA_MECHA_HITLER_IMAGE_NAME));
@@ -97,14 +99,14 @@ public class Caterpillar extends Bug implements UpgradeAttack, UpgradeSpeed, Upg
 
 	@Override
 	public void upgradeSpeed(int newSpeed) {
-		speed = newSpeed;
+		setSpeed(newSpeed);
 	}
 
 	@Override
 	public void upgradeTotalHP(int hp) {
 		if (!IS_LITERALLY_HITLER) {
-			CATERPILLAR_HP = hp;
+			setMaxHP(hp);
+			setHP(hp);
 		}
 	}
-
 }

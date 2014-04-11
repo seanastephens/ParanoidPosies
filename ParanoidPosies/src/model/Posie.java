@@ -158,7 +158,7 @@ public class Posie extends Plant {
 	public int takeSeeds() {
 		int temp = seedsDropped;
 		seedsDropped = 0;
-		setShouldBeCleanedUp(true);
+		setHP(-1);
 		return temp;
 	}
 
@@ -222,7 +222,6 @@ public class Posie extends Plant {
 			currentNectar = 0;
 			// only reached if plant is killed by enemy
 			seedsDropped = 0;
-			setShouldBeCleanedUp(true);
 		}
 	}
 }

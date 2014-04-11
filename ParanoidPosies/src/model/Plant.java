@@ -90,12 +90,8 @@ public abstract class Plant implements Thing {
 
 	public abstract void grow();
 
-	public void setShouldBeCleanedUp(boolean value) {
-		shouldBeCleanedUp = value;
-	}
-
 	public boolean shouldBeCleanedUp() {
-		return shouldBeCleanedUp;
+		return hp <= 0;
 	}
 
 	public abstract void replenishNectar();
