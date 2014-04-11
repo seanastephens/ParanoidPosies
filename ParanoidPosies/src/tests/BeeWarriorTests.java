@@ -43,7 +43,7 @@ public class BeeWarriorTests {
 		// System.out.println("\n\ntestBeeUpdate():\n\n");
 		// System.out.println(System.currentTimeMillis());
 		bee.setLocation(new Point(10, 10));
-		bee.setStrategy(new MoveStrategy(bee), new Point(200, 10));
+		bee.setStrategy(new MoveStrategy(bee), new Point(400, 10));
 		for (int i = 0; i < 50; i++) {
 			bee.update();
 		}
@@ -53,7 +53,7 @@ public class BeeWarriorTests {
 		// System.out.println("Passed movement to right test");
 
 		bee.setLocation(new Point(10, 10));
-		bee.setObjectivePoint(new Point(-100, 10));
+		bee.setObjectivePoint(new Point(-400, 10));
 		for (int i = 0; i < 50; i++) {
 			bee.update();
 		}
@@ -64,15 +64,15 @@ public class BeeWarriorTests {
 
 		bee.setLocation(new Point(0, 0));
 		bee.setObjectivePoint(new Point(0, 0));
-		for (int i = 0; i < 50; i++) {
-			bee.update();
-		}// System.out.println("\n" + bee.getLocation().toString() +
+//		for (int i = 0; i < 50; i++) {
+//			bee.update();
+//		}// System.out.println("\n" + bee.getLocation().toString() +
 			// bee.getObjectivePoint().toString());
 		assertEquals(6, bee.getImageNumberForTesting());
 		// System.out.println("Passed break out of for loop test so image stayed the same");
 
 		bee.setLocation(new Point(10, 10));
-		bee.setObjectivePoint(new Point(10, 200));
+		bee.setObjectivePoint(new Point(10, 400));
 		for (int i = 0; i < 50; i++) {
 			bee.update();
 		}// System.out.println("\n" + bee.getLocation().toString() +
@@ -81,7 +81,7 @@ public class BeeWarriorTests {
 		// System.out.println("Passed movement down test");
 
 		bee.setLocation(new Point(10, 10));
-		bee.setObjectivePoint(new Point(10, -100));
+		bee.setObjectivePoint(new Point(10, -400));
 		for (int i = 0; i < 50; i++) {
 			bee.update();
 		}// System.out.println("\n" + bee.getLocation().toString() +
@@ -90,7 +90,7 @@ public class BeeWarriorTests {
 		// System.out.println("Passed movement up test");
 
 		bee.setLocation(new Point(10, 10));
-		bee.setObjectivePoint(new Point(200, 200));
+		bee.setObjectivePoint(new Point(400, 400));
 		for (int i = 0; i < 50; i++) {
 			bee.update();
 		}// System.out.println("\n" + bee.getLocation().toString() +
@@ -99,7 +99,7 @@ public class BeeWarriorTests {
 		// System.out.println("Passed movement down and to the right test");
 
 		bee.setLocation(new Point(10, 10));
-		bee.setObjectivePoint(new Point(-100, -100));
+		bee.setObjectivePoint(new Point(-400, -400));
 		for (int i = 0; i < 50; i++) {
 			bee.update();
 		}// System.out.println("\n" + bee.getLocation().toString() +
@@ -108,7 +108,7 @@ public class BeeWarriorTests {
 		// System.out.println("Passed movement left and up test");
 
 		bee.setLocation(new Point(0, 0));
-		bee.setObjectivePoint(new Point(-100, 100));
+		bee.setObjectivePoint(new Point(-400, 400));
 		for (int i = 0; i < 50; i++) {
 			bee.update();
 		}// System.out.println("\n" + bee.getLocation().toString() +
@@ -117,7 +117,7 @@ public class BeeWarriorTests {
 		// System.out.println("Passed movement left and down test");
 
 		bee.setLocation(new Point(0, 0));
-		bee.setObjectivePoint(new Point(200, 0));
+		bee.setObjectivePoint(new Point(400, 0));
 		for (int i = 0; i < 50; i++) {
 			bee.update();
 		}// System.out.println("\n" + bee.getLocation().toString() +
@@ -127,7 +127,7 @@ public class BeeWarriorTests {
 		// System.out.println(System.currentTimeMillis());
 
 		bee.setLocation(new Point(0, 0));
-		bee.setObjectivePoint(new Point(200, -200));
+		bee.setObjectivePoint(new Point(400, -400));
 		for (int i = 0; i < 50; i++) {
 			bee.update();
 		}// System.out.println("\n" + bee.getLocation().toString() +
