@@ -106,7 +106,7 @@ public class GameBoard implements GameInterface {
 	}
 
 	private void startGame() {
-		hive = new Hive(this);
+		hive = new Hive();
 		hive.setLocation(new Point(centerX, centerY));
 		things = new ArrayList<Thing>();
 		friendlyList = new ArrayList<Bug>();

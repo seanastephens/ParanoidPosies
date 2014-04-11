@@ -26,8 +26,8 @@ public class Hive implements Thing {
 	private int seeds;
 	private GameBoard game;
 
-	public Hive(GameBoard game) {
-		this.game = game;
+	public Hive() {
+		this.game = GameBoard.getBoard();
 		nector = 0;
 		honey = 0;
 		timer = 0;

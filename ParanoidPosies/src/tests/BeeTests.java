@@ -23,7 +23,7 @@ public class BeeTests {
 	Bee bee = new Bee(new Point(1, 1), GameBoard.getBoardWithNoSound());
 	Caterpillar cage = new Caterpillar(new Point(0, 0), bee.getGameBoard());
 	Posie posie = new Posie(new Point(0, 0));
-	Hive hive = new Hive(bee.getGameBoard());
+	Hive hive = new Hive();
 
 	/*
 	 * Tests getBeeName, getName, setName, and uses buildBeeNamesList
@@ -138,7 +138,7 @@ public class BeeTests {
 		bee.setLocation(new Point(0, 0));
 		bee.setObjectivePoint(new Point(0, 0));
 		// System.out.println("\n" + bee.getLocation().toString() +
-			// bee.getObjectivePoint().toString());
+		// bee.getObjectivePoint().toString());
 		assertEquals(6, bee.getImageNumberForTesting());
 		// System.out.println("Passed break out of for loop test so image stayed the same");
 
