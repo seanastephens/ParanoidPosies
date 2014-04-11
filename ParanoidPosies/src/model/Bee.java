@@ -226,8 +226,8 @@ public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTota
 	}
 
 	public void unloadNectarAndSeedsToHive() {
-		getGameBoard().getHive().updateNector(nectar);
-		getGameBoard().getHive().updateSeeds(seeds);
+		GameBoard.getBoard().getHive().updateNector(nectar);
+		GameBoard.getBoard().getHive().updateSeeds(seeds);
 		nectar = 0;
 		setSeeds(0);
 	}

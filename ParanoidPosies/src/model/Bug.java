@@ -126,10 +126,6 @@ public abstract class Bug implements Thing {
 		objectiveThing = null;
 	}
 
-	public GameBoard getGameBoard() {
-		return gameboard;
-	}
-
 	@Override
 	public void setImage(Image image) {
 		this.image = image;

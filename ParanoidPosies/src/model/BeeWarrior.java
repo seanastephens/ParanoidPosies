@@ -102,7 +102,7 @@ public class BeeWarrior extends Bee {
 	public void update() {
 		Point prev = getLocation();
 		if (this.getStrategy() instanceof GatherStrategy) {
-			this.setStrategy(new MoveStrategy(this), getGameBoard().getHive().getLocation());
+			this.setStrategy(new MoveStrategy(this), GameBoard.getBoard().getHive().getLocation());
 		}
 		if (this.getStrategy() != null) {
 			Point temp;

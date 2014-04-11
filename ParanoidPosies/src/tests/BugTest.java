@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 
 import model.Bug;
 import model.BugStrategy;
+import model.ImageReg;
 import model.SquareStrategy;
 import model.Thing;
 
@@ -182,6 +183,19 @@ public class BugTest {
 
 		assertTrue(Math.abs(current.x - goal.x) < 20);
 		assertTrue(Math.abs(current.y - goal.y) < 20);
+	}
+
+	@Test
+	public void testContains() {
+		MockBug h = new MockBug();
+		Point origin = new Point(0, 0);
+
+		h.setLocation(origin);
+		h.setImage(ImageReg.getInstance().getImageFromStr("Hive"));
+		assertEquals(ImageReg.getInstance().getImageFromStr("Hive"), h.getImage());
+		assertTrue(h.contains(origin));
+		assertFalse(h.contains(new Point(-1000, -1000)));
+
 	}
 
 	/**
