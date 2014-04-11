@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.util.Random;
 
-public abstract class Bug implements Thing {
+public abstract class Bug extends Thing {
 
 	private static final Point DEFAULT_LOCATION = new Point(0, 0);
 	private static final int DEFAULT_LAYER = 1;

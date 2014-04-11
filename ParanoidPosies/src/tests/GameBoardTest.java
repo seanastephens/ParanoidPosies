@@ -26,7 +26,7 @@ public class GameBoardTest {
 		t = g.getClosest(Bee.class, origin);
 		assertTrue(t instanceof Bee);
 		t = g.getClosest(Caterpillar.class, origin);
-		assertTrue(t == g.getHive());
+		assertTrue(t.equals(g.getHive()));
 		/*
 		 * Eventually, I think it makes sense to change to returning null from
 		 * the GameBoard method, and each strategy can decide what it wants to

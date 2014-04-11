@@ -3,7 +3,7 @@ package model;
 import java.awt.Image;
 import java.awt.Point;
 
-public abstract class Plant implements Thing {
+public abstract class Plant extends Thing {
 	private int hp;
 	private Point location;
 	private Image image;

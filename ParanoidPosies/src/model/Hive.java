@@ -5,7 +5,7 @@ import java.awt.Point;
 
 import GUI.PPGUI;
 
-public class Hive implements Thing {
+public class Hive extends Thing {
 
 	private Point location;
 	private int HIVE_HP = 50;

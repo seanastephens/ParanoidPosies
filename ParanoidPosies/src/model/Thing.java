@@ -4,42 +4,42 @@ import java.awt.Image;
 import java.awt.Point;
 
 //Everything is a thing
-public interface Thing {
-	public void setLocation(Point loc);
+public abstract class Thing {
+	public abstract void setLocation(Point loc);
 
-	public Point getLocation();
+	public abstract Point getLocation();
 
-	public void setImage(Image image);
+	public abstract void setImage(Image image);
 
-	public Image getImage();
+	public abstract Image getImage();
 
-	public void setHP(int hp);
+	public abstract void setHP(int hp);
 
-	public void updateHP(int hp);
+	public abstract void updateHP(int hp);
 
-	public int getHP();
+	public abstract int getHP();
 
-	public void setMaxHP(int newMaxHP);
+	public abstract void setMaxHP(int newMaxHP);
 
-	public int getMaxHP();
+	public abstract int getMaxHP();
 
-	public void updateMaxHP(int valueToAdjustHPBy);
+	public abstract void updateMaxHP(int valueToAdjustHPBy);
 
-	public boolean isDead();
+	public abstract boolean isDead();
 
-	public void setLayer(int newLayer);
+	public abstract void setLayer(int newLayer);
 
-	public int getLayer();
+	public abstract int getLayer();
 
-	public void update();
+	public abstract void update();
 
-	public String getName();
+	public abstract String getName();
 
-	public void setName(String newName);
+	public abstract void setName(String newName);
 
-	public String getHTMLDescription();
+	public abstract String getHTMLDescription();
 
-	public boolean shouldBeCleanedUp();
+	public abstract boolean shouldBeCleanedUp();
 
-	public boolean contains(Point point);
+	public abstract boolean contains(Point point);
 }
