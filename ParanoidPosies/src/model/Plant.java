@@ -3,7 +3,6 @@ package model;
 import java.awt.Point;
 
 public abstract class Plant extends Thing {
-	private int hp;
 	private GrowthState currentState;
 	private String name;
 	private int maxHP;
@@ -30,29 +29,6 @@ public abstract class Plant extends Thing {
 	}
 
 	@Override
-	public void updateHP(int valueToAdjustBy) {
-		hp += valueToAdjustBy;
-	}
-
-	@Override
-	public void setHP(int newHP) {
-		hp = newHP;
-	}
-
-	@Override
-	public int getHP() {
-		return hp;
-	}
-
-	@Override
-	public boolean isDead() {
-		if (hp <= 0) {
-			return true;
-		} else
-			return false;
-	}
-
-	@Override
 	public int getLayer() {
 		return layer;
 	}
@@ -63,7 +39,7 @@ public abstract class Plant extends Thing {
 	public abstract void grow();
 
 	public boolean shouldBeCleanedUp() {
-		return hp <= 0;
+		return isDead();
 	}
 
 	public abstract void replenishNectar();

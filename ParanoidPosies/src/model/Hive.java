@@ -5,7 +5,6 @@ import GUI.PPGUI;
 public class Hive extends Thing {
 
 	private int HIVE_HP = 50;
-	private int hp;
 	private int layer = 3;
 	private int nector;
 	private int honey;
@@ -150,30 +149,6 @@ public class Hive extends Thing {
 	}
 
 	@Override
-	public void setHP(int hp) {
-		this.hp = hp;
-	}
-
-	@Override
-	public void updateHP(int hp) {
-		this.hp += hp;
-	}
-
-	@Override
-	public int getHP() {
-		return hp;
-	}
-
-	@Override
-	public boolean isDead() {
-		if (hp <= 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
 	public int getLayer() {
 		return layer;
 	}
@@ -181,7 +156,7 @@ public class Hive extends Thing {
 	@Override
 	public void setMaxHP(int newMaxHP) {
 		HIVE_HP = newMaxHP;
-		hp = HIVE_HP;
+		setHP(HIVE_HP);
 	}
 
 	@Override
@@ -192,7 +167,7 @@ public class Hive extends Thing {
 	@Override
 	public void updateMaxHP(int valueToAdjustHPBy) {
 		HIVE_HP += valueToAdjustHPBy;
-		hp = HIVE_HP;
+		setHP(HIVE_HP);
 	}
 
 	@Override
