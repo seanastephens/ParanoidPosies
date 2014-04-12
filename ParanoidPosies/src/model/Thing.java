@@ -12,6 +12,7 @@ public abstract class Thing {
 	private int hp;
 	private int maxHP;
 	private int layer;
+	private String name;
 
 	public void setLocation(Point loc) {
 		location = loc;
@@ -69,14 +70,6 @@ public abstract class Thing {
 		return layer;
 	}
 
-	public abstract void update();
-
-	public abstract String getName();
-
-	public abstract void setName(String newName);
-
-	public abstract String getHTMLDescription();
-
 	public boolean shouldBeCleanedUp() {
 		return isDead();
 	}
@@ -85,5 +78,18 @@ public abstract class Thing {
 		int xdiff = Math.abs(getLocation().x - point.x);
 		int ydiff = Math.abs(getLocation().y - point.y);
 		return Math.max(xdiff, ydiff) < halfMaxImageDimension;
-	};
+	}
+
+	public abstract void update();
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String newName) {
+		name = newName;
+	}
+
+	public abstract String getHTMLDescription();
+
 }

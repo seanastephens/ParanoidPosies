@@ -16,7 +16,6 @@ public abstract class Bug extends Thing {
 	private BugStrategy currentStrategy;
 	private Thing objectiveThing;
 	private Point objectivePoint;
-	private String name;
 
 	public Bug() {
 		setHP(DEFAULT_HP);
@@ -27,7 +26,7 @@ public abstract class Bug extends Thing {
 		this.currentStrategy = null;
 		this.objectivePoint = null;
 		this.objectiveThing = null;
-		this.name = DEFAULT_NAME;
+		setName(DEFAULT_NAME);
 	}
 
 	public void setSpeed(int newSpeed) {
@@ -73,14 +72,6 @@ public abstract class Bug extends Thing {
 	public void setObjectiveToNull() {
 		objectivePoint = null;
 		objectiveThing = null;
-	}
-
-	public void setName(String newName) {
-		name = newName;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	@Override
