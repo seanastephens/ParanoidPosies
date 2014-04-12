@@ -80,8 +80,6 @@ public abstract class Thing {
 		return Math.max(xdiff, ydiff) < halfMaxImageDimension;
 	}
 
-	public abstract void update();
-
 	public String getName() {
 		return name;
 	}
@@ -91,5 +89,7 @@ public abstract class Thing {
 	}
 
 	public abstract String getHTMLDescription();
+
+	public abstract void update();
 
 }

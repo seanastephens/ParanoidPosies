@@ -14,7 +14,7 @@ import java.util.List;
  * TODO by setting larger shape strategies where the shapes may have variable sizes we can build dances for the bees
  */
 
-public class Bee extends Bug implements UpgradeAttack, UpgradeSpeed, UpgradeTotalHP {
+public class Bee extends Bug implements Upgradeable {
 
 	private int nectar, nectarToGet, maxNectar, beeAttackDamage, seeds;
 
