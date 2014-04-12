@@ -12,7 +12,6 @@ public abstract class Bug extends Thing {
 	private static final int DEFAULT_pixelsPerMove = 1;
 	private static final String DEFAULT_NAME = "ABSTRACT CLASS BUG DEFAULT NAME";
 
-	private int layer;
 	private int pixelsPerMove;
 	private BugStrategy currentStrategy;
 	private Thing objectiveThing;
@@ -23,7 +22,7 @@ public abstract class Bug extends Thing {
 		setHP(DEFAULT_HP);
 		setMaxHP(DEFAULT_MAX_HP);
 		setLocation(DEFAULT_LOCATION);
-		this.layer = DEFAULT_LAYER;
+		setLayer(DEFAULT_LAYER);
 		this.pixelsPerMove = DEFAULT_pixelsPerMove;
 		this.currentStrategy = null;
 		this.objectivePoint = null;
@@ -76,25 +75,12 @@ public abstract class Bug extends Thing {
 		objectiveThing = null;
 	}
 
-	public void setLayer(int newLayer) {
-		layer = newLayer;
-	}
-
 	public void setName(String newName) {
 		name = newName;
 	}
 
 	public String getName() {
 		return name;
-	}
-
-	public boolean shouldBeCleanedUp() {
-		return isDead();
-	}
-
-	@Override
-	public int getLayer() {
-		return layer;
 	}
 
 	@Override

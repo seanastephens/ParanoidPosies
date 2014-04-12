@@ -11,6 +11,7 @@ public abstract class Thing {
 	private int halfMaxImageDimension;
 	private int hp;
 	private int maxHP;
+	private int layer;
 
 	public void setLocation(Point loc) {
 		location = loc;
@@ -60,9 +61,13 @@ public abstract class Thing {
 		return hp <= 0;
 	}
 
-	public abstract void setLayer(int newLayer);
+	public void setLayer(int newLayer) {
+		layer = newLayer;
+	}
 
-	public abstract int getLayer();
+	public int getLayer() {
+		return layer;
+	}
 
 	public abstract void update();
 
@@ -72,7 +77,9 @@ public abstract class Thing {
 
 	public abstract String getHTMLDescription();
 
-	public abstract boolean shouldBeCleanedUp();
+	public boolean shouldBeCleanedUp() {
+		return isDead();
+	}
 
 	public boolean contains(Point point) {
 		int xdiff = Math.abs(getLocation().x - point.x);

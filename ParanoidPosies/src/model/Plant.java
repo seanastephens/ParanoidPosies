@@ -7,10 +7,9 @@ public abstract class Plant extends Thing {
 	private String name;
 	private int maxHP;
 	private boolean shouldBeCleanedUp;
-	private int layer;
 
 	public Plant(Point initialLocation) {
-		layer = 2;
+		setLayer(2);
 		setLocation(initialLocation);
 		currentState = GrowthState.JustPlanted;
 		shouldBeCleanedUp = false;
@@ -26,11 +25,6 @@ public abstract class Plant extends Thing {
 
 	public void setCurrentState(GrowthState newState) {
 		currentState = newState;
-	}
-
-	@Override
-	public int getLayer() {
-		return layer;
 	}
 
 	@Override
@@ -68,10 +62,4 @@ public abstract class Plant extends Thing {
 	public String getName() {
 		return name;
 	}
-
-	@Override
-	public void setLayer(int newLayer) {
-		layer = newLayer;
-	}
-
 }

@@ -4,7 +4,6 @@ import GUI.PPGUI;
 
 public class Hive extends Thing {
 
-	private int layer = 3;
 	private int nector;
 	private int honey;
 	private int timer;
@@ -28,6 +27,7 @@ public class Hive extends Thing {
 		this.setHP(50);
 		this.setMaxHP(50);
 		setImage(ImageReg.getInstance().getImageFromStr("Hive"));
+		setLayer(3);
 	}
 
 	public int getSeeds() {
@@ -149,18 +149,8 @@ public class Hive extends Thing {
 	}
 
 	@Override
-	public int getLayer() {
-		return layer;
-	}
-
-	@Override
 	public void setName(String newName) {
 		HIVE_NAME = newName;
-	}
-
-	@Override
-	public void setLayer(int newLayer) {
-		layer = newLayer;
 	}
 
 }
