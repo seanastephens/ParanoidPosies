@@ -154,12 +154,10 @@ public class Bee extends Bug implements Upgradeable {
 					break;
 				}
 			}
-
 		}
 		Point next = getLocation();
 		int diffx = next.x - prev.x;
 		int diffy = next.y - prev.y;
-		// System.out.println(next.toString() + " - " + prev.toString());
 		if (diffx > 0 && diffy == 0) {
 			imageNumber = 2;
 		} else if (diffx > 0 && diffy > 0) {
@@ -189,7 +187,6 @@ public class Bee extends Bug implements Upgradeable {
 		}
 	}
 
-	// Query to get amount of nector the bee is holding.
 	public int getNectarBeingHeld() {
 		return nectar;
 	}
@@ -198,7 +195,6 @@ public class Bee extends Bug implements Upgradeable {
 		nectar = nectarValue;
 	}
 
-	// Use this method to ask the bee how much nectar it's holding.
 	public void calculateNectarToGet() {
 		if (nectar < maxNectar) {
 			nectarToGet = maxNectar - nectar;
@@ -219,7 +215,6 @@ public class Bee extends Bug implements Upgradeable {
 		if (getObjectiveThing().isDead() == true) {
 			seeds = ((Posie) getObjectiveThing()).takeSeeds();
 		} else {
-
 			calculateNectarToGet();
 			nectar += ((Posie) getObjectiveThing()).takeNectar(nectarToGet);
 		}
@@ -265,6 +260,5 @@ public class Bee extends Bug implements Upgradeable {
 	@Override
 	public void upgradeSpeed(int newSpeed) {
 		setSpeed(getSpeed() + newSpeed);
-
 	}
 }

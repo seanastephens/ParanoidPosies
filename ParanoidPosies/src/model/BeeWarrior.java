@@ -112,7 +112,6 @@ public class BeeWarrior extends Bee {
 					break;
 				}
 			}
-
 		}
 		Point next = getLocation();
 		int diffx = next.x - prev.x;

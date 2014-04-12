@@ -1,4 +1,3 @@
-
 package model;
 
 public class MoveStrategy implements BugStrategy {
@@ -13,10 +12,8 @@ public class MoveStrategy implements BugStrategy {
 	public void doNextAction() {
 		if (!bug.getLocation().equals(bug.getObjectivePoint())) {
 			bug.move(bug.getObjectivePoint());
-		}
-		else{
+		} else {
 			bug.setStrategy(new SquareStrategy(bug), bug.getLocation());
 		}
 	}
-
 }

@@ -151,23 +151,17 @@ public class GameBoard implements GameInterface {
 			}
 			Caterpillar c = new Caterpillar(toSpawnAt);
 			int hitlerRand = rand.nextInt(HITLER_PROB_RANGE);
-			System.out.println(hitlerRand);
 			if (hitlerRand < HITLER_PROB && timer >= 2 * WAVE_INTERVAL) {
-				System.out.println("Making Hitler");
-
 				c.makeHitler();
-
 			}
 			if (rand.nextInt(100) <= PERCENT_KUBA_CATERBUGS && !c.IS_LITERALLY_HITLER) {
 				c = new SegmentedCaterpillarHead(toSpawnAt, this);
-
 			}
 			if (c.IS_LITERALLY_HITLER) {
 				SoundManager.playSiren();
 				JOptionPane.showMessageDialog(null, HITLER_MESSAGE);
 			}
 			things.add(c);
-
 		}
 		waveSize += INITIAL_WAVE_SIZE;
 	}
@@ -241,7 +235,6 @@ public class GameBoard implements GameInterface {
 		if (timer % SPAWN_INTERVAL == 0) {
 			spawnEnemies();
 		}
-
 	}
 
 	public void spawnEnemies() {

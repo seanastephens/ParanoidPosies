@@ -76,7 +76,6 @@ public class Posie extends Plant {
 		adultImage[3] = i.getImageFromStr("Flower3");
 		adultImage[4] = i.getImageFromStr("Flower4");
 		adultImage[5] = i.getImageFromStr("Flower5");
-
 	}
 
 	public Image getImage() {

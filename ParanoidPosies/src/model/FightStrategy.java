@@ -26,6 +26,5 @@ public class FightStrategy implements BugStrategy {
 		} else if (bug.getObjectiveThing().isDead() && bug instanceof Bee) {
 			bug.setStrategy(new MoveStrategy(bug), board.getHive());
 		}
-
 	}
 }

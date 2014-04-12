@@ -152,5 +152,4 @@ public class Hive extends Thing {
 	public void setName(String newName) {
 		HIVE_NAME = newName;
 	}
-
 }

@@ -67,8 +67,9 @@ public class Caterpillar extends Bug implements Upgradeable {
 			IS_LITERALLY_HITLER = true;
 			this.setImage(ImageReg.getInstance().getImageFromStr(
 					ULTRA_HYPER_GIGA_MECHA_HITLER_IMAGE_NAME));
-		} else
+		} else {
 			IS_LITERALLY_HITLER = false;
+		}
 		setName(name);
 	}
 
@@ -76,7 +77,6 @@ public class Caterpillar extends Bug implements Upgradeable {
 	public void update() {
 		timer++;
 		this.getStrategy().doNextAction();
-
 	}
 
 	@Override
@@ -88,7 +88,6 @@ public class Caterpillar extends Bug implements Upgradeable {
 				thingBeingAttacked.updateHP(-1 * CATERPILLAR_ATTACK_DAMAGE);
 			SoundManager.playChomp();
 		}
-
 	}
 
 	@Override

@@ -16,6 +16,7 @@ public class ImageReg {
 
 	private static ImageReg instance = null;
 	private static Map<String, Image> images;
+	private static String base = "images/";
 
 	private ImageReg() {
 		images = new HashMap<String, Image>();
@@ -34,15 +35,12 @@ public class ImageReg {
 		images.put("DeadBees", getImage("dead_bees.jpg").getScaledInstance(300, 300, 0));
 		images.put("SegmentedCaterpillarHead4", getImage("segmented_caterpillar_head.png"));
 		images.put("SegmentedCaterpillarHead6", getImage("segmented_caterpillar_head_left.png"));
-		images.put("SegmentedCaterpillarHead5",
-				getImage("segmented_caterpillar_head_leftdown.png"));
+		images.put("SegmentedCaterpillarHead5", getImage("segmented_caterpillar_head_leftdown.png"));
 		images.put("SegmentedCaterpillarHead7", getImage("segmented_caterpillar_head_up.png"));
-		images.put("SegmentedCaterpillarHead2",
-				getImage("segmented_caterpillar_head_right.png"));
+		images.put("SegmentedCaterpillarHead2", getImage("segmented_caterpillar_head_right.png"));
 		images.put("SegmentedCaterpillarHead3",
 				getImage("segmented_caterpillar_head_rightdown.png"));
-		images.put("SegmentedCaterpillarHead1",
-				getImage("segmented_caterpillar_head_rightup.png"));
+		images.put("SegmentedCaterpillarHead1", getImage("segmented_caterpillar_head_rightup.png"));
 		images.put("SegmentedCaterpillarHead0", getImage("segmented_caterpillar_head_up.png"));
 		images.put("SegmentedCaterpillarBody", getImage("segmented_caterpillar_body.png"));
 		images.put(
@@ -127,8 +125,6 @@ public class ImageReg {
 		 * DON'T TOUCH BELOW HERE!
 		 */
 	}
-
-	private static String base = "images/";
 
 	private Image getImage(String path) {
 		Image temp = null;

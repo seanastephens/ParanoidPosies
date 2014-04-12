@@ -20,7 +20,7 @@ public class SquareStrategy implements BugStrategy {
 	@Override
 	public void doNextAction() {
 		bug.move(bug.getObjectivePoint());
-		if (bug.getLocation().equals(bug.getObjectivePoint())){
+		if (bug.getLocation().equals(bug.getObjectivePoint())) {
 			if (flag == 0) {
 				bug.setObjectivePoint(new Point(bug.getLocation().x, bug.getLocation().y
 						+ SQUARE_CONST));

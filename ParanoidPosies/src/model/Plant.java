@@ -30,5 +30,4 @@ public abstract class Plant extends Thing {
 	public abstract void grow();
 
 	public abstract void replenishNectar();
-
 }
