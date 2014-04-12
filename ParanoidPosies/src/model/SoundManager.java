@@ -27,8 +27,6 @@ public class SoundManager {
 	private static String Chomp = baseDir + "chomp.mp3";
 	private static String Siren = baseDir + "Siren.mp3";
 
-	private static SongPlayer mainSong;
-
 	public SoundManager() {
 		songs = new ArrayList<String>();
 		songs.add(Bee);
@@ -40,7 +38,7 @@ public class SoundManager {
 
 	private void go() {
 		Collections.shuffle(songs);
-		mainSong.playFile(new LoopListener(), songs.get(0));
+		SongPlayer.playFile(new LoopListener(), songs.get(0));
 	}
 
 	public static void playSiren() {
@@ -52,7 +50,7 @@ public class SoundManager {
 	}
 
 	public static void GabeOver() {
-		mainSong.playFile(GabeOver);
+		SongPlayer.playFile(GabeOver);
 	}
 
 	private class LoopListener implements EndOfSongListener {

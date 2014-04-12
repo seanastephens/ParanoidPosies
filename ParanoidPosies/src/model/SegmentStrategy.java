@@ -5,12 +5,10 @@ import java.awt.Point;
 public class SegmentStrategy implements BugStrategy {
 
 	private Bug bug;
-	private GameBoard board;
 	private boolean forward;
 
 	public SegmentStrategy(Bug bug, GameBoard board) {
 		this.bug = bug;
-		this.board = board;
 		forward = false;
 	}
 

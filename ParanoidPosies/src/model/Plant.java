@@ -4,13 +4,11 @@ import java.awt.Point;
 
 public abstract class Plant extends Thing {
 	private GrowthState currentState;
-	private boolean shouldBeCleanedUp;
 
 	public Plant(Point initialLocation) {
 		setLayer(2);
 		setLocation(initialLocation);
 		currentState = GrowthState.JustPlanted;
-		shouldBeCleanedUp = false;
 	}
 
 	public String getHTMLDescription() {
